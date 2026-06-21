@@ -10,6 +10,9 @@ format:
     toc-depth: 2
     number-sections: true
     theme: flatly
+  pdf:
+    toc: true
+    number-sections: true
 ---
 
 ```{r setup, include=FALSE}
