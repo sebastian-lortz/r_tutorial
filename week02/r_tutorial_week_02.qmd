@@ -4,15 +4,14 @@ subtitle: "Werkcollege 2"
 author: "Sebastian A. J. Lortz"
 date: today
 date-format: "D MMMM YYYY"
-format:
+  pdf:
+    toc: true
+    number-sections: trueformat:
   html:
     toc: true
     toc-depth: 2
     number-sections: true
     theme: flatly
-  pdf:
-    toc: true
-    number-sections: true
 ---
 
 ```{r setup, include=FALSE}
