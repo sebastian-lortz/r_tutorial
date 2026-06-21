@@ -101,7 +101,7 @@ You now have a home for your course work.
 
 # Opening RStudio
 
-**R** is the engine that does the calculations. **RStudio** is the user interface you use to talk to that engine comfortably. You installed both before class (see the Brightspace instructions). We always open **RStudio** only and **never** open **R** itself.
+**R** is the engine that does the calculations. **RStudio** is the user interface you use to talk to that engine comfortably. You installed both before class (see the Brightspace instructions). We always open **RStudio** only and we **never** open **R** itself.
 
 ::: your-turn
 ### Your turn {.unnumbered}
