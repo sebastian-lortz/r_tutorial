@@ -1,0 +1,542 @@
+---
+title: "r_tutorial_week_02"
+subtitle: "Werkcollege 2"
+author: "Sebastian A. J. Lortz"
+date: today
+date-format: "D MMMM YYYY"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,        
+  collapse = TRUE,  
+  comment = "#>",    
+  prompt = FALSE
+)
+```
+
+<style>
+.your-turn {
+  background-color: #eaf4f1;
+  border-left: 5px solid #18bc9c;
+  padding: 0.6em 1em 0.6em 1em;
+  margin: 1em 0 1em 0;
+  border-radius: 4px;
+}
+.your-turn h3 { margin-top: 0; }
+</style>
+
+# How to use this tutorial {.unnumbered}
+
+Welcome back! Last week you learned the basics: objects, vectors, indexing, and functions. This week we work with a **dataset**: a whole table of data, like the answers from our class questionnaire.
+
+Work through this page carefully, from top to bottom. Every short explanation is followed by a **Your turn** task to do yourself.
+
+General tips:
+
+-   Read each part slowly and in order. Each step builds on the one before it.
+-   Type the code yourself instead of copying and pasting it. You learn faster this way.
+-   Errors are normal. Read the message and try again.
+-   If you are stuck, ask a teacher.
+-   Save your work often.
+
+---
+
+# Before you start
+
+Open **RStudio**. Then get ready exactly as last week.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+1. Set your working directory: click *Session* > *Set Working Directory* >
+   *Choose Directory*, then choose your `research_methods` folder.
+2. Create a new R script: click *File* > *New File* > *R Script*.
+3. On the first line, write a comment with the title, for example:
+   `# R tutorial - Week 2`.
+4. Save the script as `week2.R` in your `research_methods` folder.
+:::
+
+---
+
+# Getting the data ready
+
+Our class answered a short questionnaire. The answers were collected, made
+**anonymous** (no names, only a number per person), and saved as a **CSV file**. A
+CSV file is a simple table where the values are separated by commas. Almost every
+program can open it.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+1. Download the file `class_survey.csv` from **Brightspace**.
+2. Move it into the `data` folder inside your `research_methods` folder (the same
+   `data` folder from the structure we made in Week 1).
+:::
+
+::: {.callout-note title="Why a data folder?"}
+Keeping your data in one `data` folder, separate from your scripts, keeps your
+project tidy and makes the file easy to find later.
+:::
+
+---
+
+# Loading the data
+
+**R** does not know about the file until you load it. We load a CSV with the
+function `read.csv()`. Inside the brackets we put the **path** to the file, in
+quotes. Because our working directory is `research_methods`, and the file is in the
+`data` folder, the path is `"data/class_survey.csv"`.
+
+We store the table in an object so we can use it again. We will call it `survey`.
+
+```{r}
+#| include: false
+# --- TEACHING STAND-IN DATA -------------------------------------------------
+# This hidden block builds a small example dataset and writes it to
+# data/class_survey.csv, so this tutorial renders on its own.
+# Instructors: once the real anonymised class file is on Brightspace and in the
+# data folder, you can delete this block. read.csv() below will then read the
+# real file instead.
+set.seed(2024)
+n <- 40
+survey_sim <- data.frame(
+  id            = 1:n,
+  age           = sample(17:25, n, replace = TRUE),
+  self_efficacy = round(rnorm(n, mean = 32, sd = 6)),
+  study_hours   = pmax(round(rnorm(n, mean = 14, sd = 5)), 2),
+  program       = sample(1:3, n, replace = TRUE)
+)
+dir.create("data", showWarnings = FALSE)
+write.csv(survey_sim, "data/class_survey.csv", row.names = FALSE)
+```
+
+```{r}
+survey <- read.csv("data/class_survey.csv")
+```
+
+Nothing is printed, but the table is now stored. Look at the **Environment** pane
+(top-right): `survey` appears, with the number of rows (people) and columns
+(questions).
+
+::: {.callout-warning title="Watch out"}
+If you see `Error: cannot open file ... No such file or directory`, R cannot find
+the file. Check two things: (1) your working directory is `research_methods`, and
+(2) the file really sits in the `data` folder and is spelled exactly, including
+`.csv`.
+:::
+
+::: {.callout-tip collapse="true" title="Going further (optional): Excel files"}
+Excel files (`.xlsx` or `.xls`) cannot be opened with `read.csv()`. They need an
+extra **package**, for example `readxl` with its function `read_excel()`. The
+easiest path for now is to open the Excel file once and save it as a CSV.
+:::
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Load the data into an object called `survey`, then check that `survey` appears in
+the Environment pane.
+:::
+
+---
+
+# Data frames: how R stores a table
+
+The object `survey` is a **data frame**. A data frame is R's word for a table:
+
+- each **row** is one participant (one person who answered);
+- each **column** is one **variable** (one question or measure).
+
+You can think of a data frame as several vectors (from Week 1) standing side by side,
+one per column.
+
+To use a single column, write the data frame name, then a **dollar sign** `$`, then
+the column name:
+
+```{r}
+survey$age   # all the ages, as a vector
+```
+
+A column is just a vector, so everything you learned last week still works:
+
+```{r}
+mean(survey$age)        # average age
+survey$age[1]           # the first person's age
+survey$age[survey$age > 20]   # ages above 20
+```
+
+You can also pick a value by its row and column, inside square brackets, with a
+**comma** in between: `survey[row, column]`.
+
+```{r}
+survey[1, ]    # the whole first row (a comma, then nothing = all columns)
+survey[1, 2]   # row 1, column 2
+```
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Print the `self_efficacy` column. Then print the `self_efficacy` score of the third
+person, using `$` and square brackets.
+:::
+
+---
+
+# Looking at your data
+
+Before changing anything, always look at your data first. Here are the most useful
+commands.
+
+How big is the table?
+
+```{r}
+dim(survey)    # number of rows and columns
+nrow(survey)   # number of rows (people)
+ncol(survey)   # number of columns (variables)
+```
+
+What are the columns called?
+
+```{r}
+names(survey)
+```
+
+See the first few rows:
+
+```{r}
+head(survey)
+```
+
+See the **type** of each variable with `str()` (short for *structure*):
+
+```{r}
+str(survey)
+```
+
+Notice that `program` is shown as a number (`int`). R does not know yet that it is
+really a **category** (1, 2, or 3 stand for study programmes). We will fix that soon.
+
+Get a quick summary of every variable with `summary()`:
+
+```{r}
+summary(survey)
+```
+
+For numbers, `summary()` shows the smallest value, the average, the largest, and
+more. Because R still thinks `program` is a number, it even shows its "average",
+which makes no sense for a category. Another reason to recode it later.
+
+Finally, you can open the table in a spreadsheet view. Type this in RStudio (the
+capital **V** matters):
+
+```{r}
+#| eval: false
+View(survey)
+```
+
+::: {.callout-warning title="Watch out"}
+It is `View()` with a capital **V**. Remember from Week 1: R is case-sensitive, so
+`view()` with a small v will not work.
+:::
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Use three of these commands on `survey`: `dim()`, `names()`, and `summary()`. How
+many people answered the questionnaire?
+:::
+
+---
+
+# Cleaning and changing your data
+
+Real data almost always needs some tidying before we describe it. We will keep the
+loaded data in `survey` and change it step by step.
+
+## Filtering: choosing rows
+
+**Filtering** means keeping only the rows that match a rule. We use square brackets
+with a condition before the comma: `survey[condition, ]`. The empty part after the
+comma means "keep all columns".
+
+```{r}
+adults <- survey[survey$age >= 18, ]   # keep only people aged 18 or older
+nrow(adults)                           # how many are left?
+```
+
+Read it as: "keep the rows of `survey` where `age` is 18 or higher."
+
+::: {.callout-warning title="Watch out"}
+Do not forget the **comma**. `survey[survey$age >= 18, ]` keeps rows. Without the
+comma, R gets confused, because it cannot tell rows from columns.
+:::
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Create an object called `keen` that keeps only the people who study more than 15
+hours per week (`study_hours > 15`). How many people are in `keen`?
+:::
+
+## Choosing and removing columns
+
+Sometimes a column is not useful for analysis. The `id` number, for example, only
+tells people apart; it is not something we study. We remove a column by setting it
+to `NULL`:
+
+```{r}
+survey$id <- NULL   # remove the id column
+names(survey)       # id is gone
+```
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Look at the column names again with `names(survey)` and check that `id` is no longer
+there.
+:::
+
+## Making a new variable
+
+We can build a new column from the columns we already have. Give the new column a
+name with `$`, and put a calculation on the right of the arrow `<-`.
+
+```{r}
+survey$study_per_day <- survey$study_hours / 7   # weekly hours -> daily hours
+head(survey)
+```
+
+The new column `study_per_day` now appears in the table.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Make a new variable `study_per_day_rounded` that rounds `study_per_day` to whole
+numbers, using the function `round()`. Then look at the first rows.
+:::
+
+## Recoding values
+
+**Recoding** means changing values into clearer ones. Our `program` column holds the
+codes 1, 2, and 3, but those numbers are hard to read. We will make a new column with
+real names. We start it as `NA` (R's word for "empty / no value yet") and then fill
+it in:
+
+```{r}
+survey$program_name <- NA   # a new, empty column
+survey$program_name[survey$program == 1] <- "Pedagogy"
+survey$program_name[survey$program == 2] <- "Psychology"
+survey$program_name[survey$program == 3] <- "Education"
+head(survey)
+```
+
+Read one of those lines as: "for the rows where `program` equals 1, set
+`program_name` to Pedagogy." We kept the original `program` column, which is good
+practice: never throw away the raw values.
+
+::: {.callout-warning title="Watch out"}
+To test "is equal to", use **two** equals signs `==`, just like in Week 1. One
+equals sign `=` will not work here.
+:::
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Check your recoding with `table(survey$program_name)`. You should see the three
+programme names with a count for each.
+:::
+
+## Putting values into categories
+
+**Categorizing** means turning a number into groups. A common tool is `ifelse()`. It
+takes three parts: a test, the value if the test is `TRUE`, and the value if it is
+`FALSE`.
+
+```{r}
+survey$efficacy_level <- ifelse(survey$self_efficacy >= 32, "higher", "lower")
+table(survey$efficacy_level)
+```
+
+Here, everyone with a self-efficacy score of 32 or more gets `"higher"`, and the rest
+get `"lower"`.
+
+::: {.callout-tip collapse="true" title="Going further (optional): more than two groups"}
+For more than two groups, the function `cut()` is handy. For example,
+`cut(survey$age, breaks = c(0, 18, 21, 100))` splits age into three bands. We will
+use it later in the course.
+:::
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Make a variable `studies_a_lot` that is `"yes"` when `study_hours` is 14 or more,
+and `"no"` otherwise. Then count the groups with `table()`.
+:::
+
+## Taking a random subsample
+
+A **subsample** is a smaller, random part of your data. We pick random row numbers
+with `sample()`, then keep those rows.
+
+Because the choice is random, we first use `set.seed()`. This makes the "random"
+choice the same every time you run it, so your work stays **reproducible** (a key
+idea from Week 1).
+
+```{r}
+set.seed(123)                          # makes the random choice repeatable
+sub_rows <- sample(1:nrow(survey), 10) # pick 10 random row numbers
+subsample <- survey[sub_rows, ]        # keep those rows
+nrow(subsample)
+```
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Create your own subsample of **15** people in an object called `my_sample`. First
+write `set.seed(1)`, then use `sample()` and square brackets as above. Check it has
+15 rows with `nrow()`.
+:::
+
+---
+
+# Describing your sample
+
+Now that the data is clean, we describe it. This is the first step of almost every
+study: who is in the sample, and how are the values spread out?
+
+## Counting categories with table()
+
+For categories (text variables), we count how often each value appears with
+`table()`.
+
+```{r}
+table(survey$program_name)
+```
+
+## Numbers in short: mean and sd
+
+For numbers, the average (`mean()`) and the spread (`sd()`, the standard deviation)
+give a quick picture.
+
+```{r}
+mean(survey$self_efficacy)   # average self-efficacy
+sd(survey$self_efficacy)     # how spread out the scores are
+```
+
+## Histograms with hist()
+
+A **histogram** shows how a number variable is spread out. It puts the values into
+bars: tall bars mean many people have those values.
+
+```{r}
+hist(survey$self_efficacy,
+     main = "Self-efficacy scores",   # title
+     xlab = "score")                  # label for the x-axis
+```
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Make a histogram of `age`. Give it a clear title and an x-axis label.
+:::
+
+## Boxplots with boxplot()
+
+A **boxplot** is another way to show the spread of a number variable. The thick line
+is the middle value (the median), the box holds the middle half of the people, and
+the lines reach out to the smallest and largest typical values.
+
+```{r}
+boxplot(survey$study_hours,
+        main = "Study hours per week",
+        ylab = "hours")
+```
+
+Boxplots are most useful when you **compare groups**. We do that with a tilde `~`,
+which you read as "by". The variable before the `~` is the number; the variable
+after it is the group.
+
+```{r}
+boxplot(study_hours ~ program_name,
+        data = survey,
+        main = "Study hours by programme",
+        ylab = "hours per week")
+```
+
+Now you can see, at a glance, whether some programmes study more than others.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Make a boxplot of `self_efficacy` **by** `program_name`. Which programme has the
+highest middle value?
+:::
+
+---
+
+# Saving your cleaned data
+
+You changed the data, so save the clean version under a **new** name. This keeps the
+original file safe. We use `write.csv()` and add `row.names = FALSE` so R does not add
+an extra column of row numbers.
+
+```{r}
+#| eval: false
+write.csv(survey, "data/class_survey_clean.csv", row.names = FALSE)
+```
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Save your cleaned `survey` as `class_survey_clean.csv` in your `data` folder. Then
+check in the **Files** pane (bottom-right) that the new file is there.
+:::
+
+---
+
+# Recap: what you can now do
+
+Last week you handled single numbers and vectors. You can now work with a whole
+dataset. You can:
+
+- load a CSV file with `read.csv()` and store it as a data frame;
+- reach a single column with `$`, and a single cell with `[row, column]`;
+- inspect data with `dim()`, `names()`, `head()`, `str()`, `summary()`, and `View()`;
+- filter rows with a condition;
+- make new variables and remove ones you do not need;
+- recode values into clear labels and put numbers into categories;
+- take a reproducible random subsample with `set.seed()` and `sample()`;
+- describe your sample with `table()`, `mean()`, `sd()`, `hist()`, and `boxplot()`;
+- save a cleaned dataset with `write.csv()`.
+
+A small cheat sheet to keep:
+
+| You want to...                | You write...                                  |
+|-------------------------------|-----------------------------------------------|
+| Load a CSV                    | `read.csv("data/file.csv")`                   |
+| Use one column                | `df$age`                                      |
+| Rows and columns count        | `nrow(df)`, `ncol(df)`                         |
+| First rows / structure        | `head(df)`, `str(df)`                          |
+| Summary of all variables      | `summary(df)`                                  |
+| Keep some rows (filter)       | `df[df$age >= 18, ]`                            |
+| Make a new variable           | `df$new <- df$x / 7`                            |
+| Remove a variable             | `df$old <- NULL`                                |
+| Recode a value                | `df$x[df$x == 1] <- "label"`                    |
+| Category from a rule          | `ifelse(df$x >= 32, "higher", "lower")`         |
+| Random subsample              | `df[sample(1:nrow(df), 10), ]`                  |
+| Count a category              | `table(df$group)`                               |
+| Histogram                     | `hist(df$x)`                                    |
+| Boxplot by group              | `boxplot(y ~ group, data = df)`                 |
+| Save a CSV                    | `write.csv(df, "data/out.csv", row.names = FALSE)` |
+
+Well done. Keep your script and your `research_methods` folder -- we build directly
+on them next week.
+
+---

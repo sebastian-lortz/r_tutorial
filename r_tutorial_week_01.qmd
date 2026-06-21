@@ -37,7 +37,7 @@ knitr::opts_chunk$set(
 
 # How to use this tutorial {.unnumbered}
 
-Welcome to the R tutorial! You do **not** need any prior experience. Work through this page carefully, from top to bottom. Every short explanation is followed by a small piece of code to try and a **Your turn** task to do yourself.
+Welcome to the R tutorial! You do **not** need any prior experience. Work through this page carefully, from top to bottom. Every short explanation is followed by a **Your turn** task to do yourself.
 
 General tips:
 
