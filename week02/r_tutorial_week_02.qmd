@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{=html}
 <style>
 .your-turn {
   background-color: #eaf4f1;
@@ -33,6 +34,7 @@ knitr::opts_chunk$set(
 }
 .your-turn h3 { margin-top: 0; }
 </style>
+```
 
 # How to use this tutorial {.unnumbered}
 
@@ -48,45 +50,44 @@ General tips:
 -   If you are stuck, ask a teacher.
 -   Save your work often.
 
----
+------------------------------------------------------------------------
 
 # Start workflow
 
 Based on last week's tutorial, we **always** start with the following **start workflow**:
 
-1. Open **RStudio**: click on RStudio application.
-2. Set the **working directory**: click *Session* \> *Set Working Directory* \> *Choose Directory*.
-3. Open a **new script**: click *File* \> *New File* \> *R Script*. Or, open an **existing script**: click *File* \> *Open File* \> and navigate to the file.
-4. On the first line, write a comment with the title, for example:
-   `# R tutorial - Week 2`.
-5. Save the script as `week2.R` in your `research_methods` folder.
+1.  Open **RStudio**: click on RStudio application.
+2.  Set the **working directory**: click *Session* \> *Set Working Directory* \> *Choose Directory*.
+3.  Open a **new script**: click *File* \> *New File* \> *R Script*. Or, open an **existing script**: click *File* \> *Open File* \> and navigate to the file.
+4.  On the first line, write a comment with the title, for example: `# R tutorial - Week 2`.
+5.  Save the script as `week2.R` in your `research_methods` folder.
 
-Today we work in a new script. However, often we need to pick-up previous work and open an existing script.
+Today we work in a **new script**. However, often we need to pick-up previous work and open an existing script.
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Complete the **start workflow** for working with a new script.
 :::
 
----
+------------------------------------------------------------------------
 
 # Getting the data ready
 
 Our class answered a short questionnaire. The answers were collected, made **anonymous** (no names, only a number per person), and saved as a **CSV file**. A CSV file is a simple table where the values are separated by commas. Almost every program can open it.
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
-1. Download the file `class_survey.csv` from **Brightspace**.
-2. Move it into the `data` folder inside your `research_methods` folder (the same `data` folder from the structure we made in Week 1).
+1.  Download the file `class_survey.csv` from **Brightspace**.
+2.  Move it into the `data` folder inside your `research_methods` folder (the same `data` folder from the structure we made in Week 1).
 :::
 
 ::: {.callout-note title="Why a data folder?"}
 Keeping your data in one `data` folder, separate from your scripts, keeps your project tidy and makes the file easy to find later.
 :::
 
----
+------------------------------------------------------------------------
 
 # Loading the data
 
@@ -116,30 +117,30 @@ survey <- read.csv("data/class_survey.csv")
 The table is now stored. Look at the **Environment** pane (top-right): `survey` appears, with the number of rows (people) and columns (questions).
 
 ::: {.callout-warning title="Watch out"}
-If you see `Error: cannot open file ... No such file or directory`, R cannot find the file. Check two things: 
+If you see `Error: cannot open file ... No such file or directory`, R cannot find the file. Check two things:
 
-1. your working directory is `research_methods`: run `getwd()` to print the current working directory
-2. the file really sits in the `data` folder and is spelled exactly, including `.csv`: in the bottom-right pane you can click on files and navigate to the folder.
+1.  your working directory is `research_methods`: run `getwd()` to print the current working directory
+2.  the file really sits in the `data` folder and is spelled exactly, including `.csv`: in the bottom-right pane you can click on files and navigate to the folder.
 :::
 
 ::: {.callout-tip collapse="true" title="Going further (optional): Excel files"}
 Other file formats, such as Excel files (`.xlsx` or `.xls`), cannot be opened with `read.csv()`. They need an extra **package**, for example `readxl` with its function `read_excel()`. The easiest path for now is to open the Excel file once and save it as a CSV.
 :::
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Load the data into an object called `survey`, then check that `survey` appears in the Environment pane.
 :::
 
----
+------------------------------------------------------------------------
 
 # Data frames
 
 The object `survey` is a **data frame**. A data frame is R's word for a table, in our case:
 
-- each **row** is one participant (one person who answered);
-- each **column** is one **variable** (one question or measure).
+-   each **row** is one participant (one person who answered);
+-   each **column** is one **variable** (one question or measure).
 
 You can think of a data frame as several vectors (from Week 1) standing side by side, one per column.
 
@@ -164,13 +165,13 @@ survey[1, ]    # the whole first row (a comma, then nothing = all columns)
 survey[1, 2]   # row 1, column 2
 ```
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Print the `self_efficacy` column. Then print the `self_efficacy` score of the third person, using `$` and square brackets. Also, print the minimum and maximum `self_efficacy` score.
 :::
 
----
+------------------------------------------------------------------------
 
 # Looking at your data
 
@@ -223,13 +224,13 @@ View(survey)
 It is `View()` with a capital **V**. Remember from Week 1: R is case-sensitive, so `view()` with a small v will not work.
 :::
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Use three of these commands on `survey`: `dim()`, `names()`, and `summary()`. How many people answered the questionnaire? How many variables are in the dataset? What's the average age?
 :::
 
----
+------------------------------------------------------------------------
 
 # Cleaning and changing your data
 
@@ -250,7 +251,7 @@ Read it as: "keep the rows of `survey` where `age` is 18 or higher."
 Do not forget the **comma**. `survey[survey$age >= 18, ]` keeps rows. Without the comma, R gets confused, because it cannot tell rows from columns.
 :::
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Create an object called `keen` that keeps only the people who study more than 15 hours per week (`study_hours > 15`). How many people are in `keen`?
@@ -265,7 +266,7 @@ survey$id <- NULL   # remove the id column
 names(survey)       # id is gone
 ```
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Look at the column names again with `names(survey)` and check that `id` is no longer there. What other function coud you use to check this?
@@ -282,11 +283,10 @@ head(survey)
 
 The new column `study_per_day` now appears in the table.
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
-Make a new variable `study_per_day_rounded` that rounds `study_per_day` to whole
-numbers, using the function `round()`. Then look at the first rows.
+Make a new variable `study_per_day_rounded` that rounds `study_per_day` to whole numbers, using the function `round()`. Then look at the first rows.
 :::
 
 ## Recoding values
@@ -305,7 +305,7 @@ Read one of those lines as: "for the rows where `program` equals 1, set `program
 To test "is equal to", use **two** equals signs `==`, just like in Week 1. One equals sign `=` will not work here.
 :::
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Check your recoding with `table(survey$program_name)`. You should see the pedagogy programme names and NAs with a count for each. Additionally, recode psychology (value 2) and `sociology` (value 3) into the `program_name` variable.
@@ -322,11 +322,10 @@ table(survey$efficacy_level)
 
 Here, everyone with a self-efficacy score of 32 or more gets `"higher"`, and the rest get `"lower"`.
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
-Make a variable `studies_a_lot` that is `"yes"` when `study_hours` is 14 or more,
-and `"no"` otherwise. Then count the groups with `table()`.
+Make a variable `studies_a_lot` that is `"yes"` when `study_hours` is 14 or more, and `"no"` otherwise. Then count the groups with `table()`.
 :::
 
 ## Taking a random subsample
@@ -342,13 +341,13 @@ subsample <- survey[sub_rows, ]        # keep those rows
 nrow(subsample)
 ```
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Create your own subsample of **15** people in an object called `my_sample`. First write `set.seed(1)`, then use `sample()` and square brackets as above. Check it has 15 rows with `nrow()`.
 :::
 
----
+------------------------------------------------------------------------
 
 # Describing your sample
 
@@ -381,7 +380,7 @@ hist(survey$self_efficacy,
      xlab = "score")                  # label for the x-axis
 ```
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Make a histogram of `age`. Give it a clear title and an x-axis label. Then, print the mean and median of `age`, are they similar or different? Argue why mean and median are similar or different, and relate it to the histogram you just plotted.
@@ -408,13 +407,13 @@ boxplot(study_hours ~ program_name,
 
 Now you can see whether students in some programmes study more than in some others in your sample.
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Make a boxplot of `self_efficacy` **by** `program_name`. Which programme has the highest middle value? What can you conclude from it?
 :::
 
----
+------------------------------------------------------------------------
 
 # Saving your cleaned data
 
@@ -425,49 +424,49 @@ You changed the data, so save the clean version under a **new** name. This keeps
 write.csv(survey, "data/class_survey_clean.csv", row.names = FALSE)
 ```
 
-::: {.your-turn}
+::: your-turn
 ### Your turn {.unnumbered}
 
 Save your cleaned `survey` as `class_survey_clean.csv` in your `data` folder. Then check in the **Files** pane (bottom-right) that the new file is there. Also, save your script in `script` folder.
 :::
 
----
+------------------------------------------------------------------------
 
 # Recap: what you can now do
 
 Last week you handled single numbers and vectors. You can now work with a whole dataset. You can:
 
-- load a CSV file with `read.csv()` and store it as a data frame;
-- reach a single column with `$`, and a single cell with `[row, column]`;
-- inspect data with `dim()`, `names()`, `head()`, `str()`, `summary()`, and `View()`;
-- filter rows with a condition;
-- make new variables and remove ones you do not need;
-- recode values into clear labels and put numbers into categories;
-- take a reproducible random subsample with `set.seed()` and `sample()`;
-- describe your sample with `table()`, `mean()`, `sd()`, `hist()`, and `boxplot()`;
-- save a cleaned dataset with `write.csv()`.
+-   load a CSV file with `read.csv()` and store it as a data frame;
+-   reach a single column with `$`, and a single cell with `[row, column]`;
+-   inspect data with `dim()`, `names()`, `head()`, `str()`, `summary()`, and `View()`;
+-   filter rows with a condition;
+-   make new variables and remove ones you do not need;
+-   recode values into clear labels and put numbers into categories;
+-   take a reproducible random subsample with `set.seed()` and `sample()`;
+-   describe your sample with `table()`, `mean()`, `sd()`, `hist()`, and `boxplot()`;
+-   save a cleaned dataset with `write.csv()`.
 
 A small cheat sheet to keep:
 
-| You want to...                | You write...                                  |
-|-------------------------------|-----------------------------------------------|
-| Load a CSV                    | `read.csv("data/file.csv")`                   |
-| View a data frame             | `View(df)`                   |
-| Use one column                | `df$age`                                      |
-| Rows and columns count        | `nrow(df)`, `ncol(df)`                         |
-| First rows / structure        | `head(df)`, `str(df)`                          |
-| Summary of all variables      | `summary(df)`                                  |
-| Keep some rows (filter)       | `df[df$age >= 18, ]`                            |
-| Make a new variable           | `df$new <- df$x / 7`                            |
-| Remove a variable             | `df$old <- NULL`                                |
-| Recode a value                | `df$x[df$x == 1] <- "label"`                    |
-| Category from a rule          | `ifelse(df$x >= 32, "higher", "lower")`         |
-| Random subsample              | `df[sample(1:nrow(df), 10), ]`                  |
-| Count a category              | `table(df$group)`                               |
-| Histogram                     | `hist(df$x)`                                    |
-| Boxplot by group              | `boxplot(y ~ group, data = df)`                 |
-| Save a CSV                    | `write.csv(df, "data/out.csv", row.names = FALSE)` |
+| You want to... | You write... |
+|-----------------------------|-------------------------------------------|
+| Load a CSV | `read.csv("data/file.csv")` |
+| View a data frame | `View(df)` |
+| Use one column | `df$age` |
+| Rows and columns count | `nrow(df)`, `ncol(df)` |
+| First rows / structure | `head(df)`, `str(df)` |
+| Summary of all variables | `summary(df)` |
+| Keep some rows (filter) | `df[df$age >= 18, ]` |
+| Make a new variable | `df$new <- df$x / 7` |
+| Remove a variable | `df$old <- NULL` |
+| Recode a value | `df$x[df$x == 1] <- "label"` |
+| Category from a rule | `ifelse(df$x >= 32, "higher", "lower")` |
+| Random subsample | `df[sample(1:nrow(df), 10), ]` |
+| Count a category | `table(df$group)` |
+| Histogram | `hist(df$x)` |
+| Boxplot by group | `boxplot(y ~ group, data = df)` |
+| Save a CSV | `write.csv(df, "data/out.csv", row.names = FALSE)` |
 
 Well done. Keep your materials in the `research_methods` folder, we build directly on them next week.
 
----
+------------------------------------------------------------------------
