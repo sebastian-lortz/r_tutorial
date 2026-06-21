@@ -34,7 +34,7 @@ knitr::opts_chunk$set(
 
 # How to use this tutorial {.unnumbered}
 
-Welcome back! Last week you learned the basics: objects, vectors, indexing, and functions. This week we work with a **dataset**: a whole table of data, like the answers from our class questionnaire.
+Welcome back! Last week you learned some basics including objects, vectors, indexing, and functions. This week we work with a **dataset**: a whole table of data, like the answers from our class questionnaire.
 
 Work through this page carefully, from top to bottom. Every short explanation is followed by a **Your turn** task to do yourself.
 
