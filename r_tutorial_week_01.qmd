@@ -83,6 +83,7 @@ Create one folder for this whole course, so everything stays in one place.
 2.  Go to your **Documents** folder.
 3.  If it is not there already, create a folder for your studies and name it `first_year`.
 4.  Inside `first_year`, create a **new folder** and name it `research_methods`.
+5.  Fill the folder `research_methods` with the subfolders in the example above.
 :::
 
 **Good practice for names:**
@@ -131,7 +132,6 @@ RStudio needs to know where to work, for example, where to look for files and da
 
 1.  In the menu, click *Session* \> *Set Working Directory* \> *Choose Directory*.
 2.  A window opens that shows your computer's file system. Navigate to the `research_methods` folder you made and select it.
-3.  Press *Enter*.
 :::
 
 RStudio has now set the working directory to that folder.
