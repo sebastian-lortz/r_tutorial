@@ -1,0 +1,545 @@
+---
+title: "r_tutorial_week_01"
+subtitle: "Werkcollege 1"
+author: "Sebastian A. J. Lortz"
+date: today
+date-format: "D MMMM YYYY"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+# This block sets defaults for the whole document. Students can ignore it.
+knitr::opts_chunk$set(
+  echo = TRUE,        # show the code
+  collapse = TRUE,    # keep code + output together
+  comment = "#>",     # output lines start with #>
+  prompt = FALSE
+)
+```
+
+<style>
+.your-turn {
+  background-color: #eaf4f1;
+  border-left: 5px solid #18bc9c;
+  padding: 0.6em 1em 0.6em 1em;
+  margin: 1em 0 1em 0;
+  border-radius: 4px;
+}
+.your-turn h3 { margin-top: 0; }
+</style>
+
+# How to use this tutorial {.unnumbered}
+
+Welcome to the R tutorial! You do **not** need any prior experience. Work through this page carefully, from top to bottom. Every short explanation is followed by a small piece of code to try and a **Your turn** task to do yourself.
+
+General tips:
+
+- Read each part slowly and in order. Each step builds on the one before it.
+- Type the code yourself instead of copying and pasting it. You learn faster this way.
+- Errors are normal. Read the message and try again.
+- If you are stuck, ask a teacher.
+- Save your work often.
+
+---
+
+# Your computer's filing system
+
+Before we start with RStudio, we discuss some important terms about your computer itself.
+
+A **file** is a single object (a photo, a Word document, an R script). A **folder** (also called a **directory**) is a box that holds files and other folders. Folders can sit inside other folders, building a **folder structure**.
+
+::: {.callout-note title="Example: a tidy folder structure"}
+A tidy folder structure can look like this:
+
+```
+Documents
+└── first_year
+    └── research_methods
+        ├── data
+        ├── scripts
+        └── output
+```
+:::
+
+At the root of this structure is a **Drive**. Thus, a drive is the storage of your computer. On a personal computer you usually have only one drive. On top of the drive sit some common **base folders**, such as the **Desktop** (the screen you see when your computer starts), **Documents** (where files are usually stored), and **Downloads** (where files you download are saved).
+
+It is important to keep this structure tidy. Work inside **Documents**, make one folder for
+your first-year studies. Inside that folder, make a folder for each course. Inside each
+course folder, you can sort your material further.
+
+Do **not** build your folder structure inside the **Downloads** folder. Everything you
+download lands there automatically, so it quickly becomes messy.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Create one folder for this whole course, so everything stays in one place.
+
+1. Open your file explorer (*Windows Explorer* on Windows, *Finder* on Mac).
+2. Go to your **Documents** folder.
+3. If it is not there already, create a folder for your studies and name it `first_year`.
+4. Inside `first_year`, create a **new folder** and name it `research_methods`.
+:::
+
+**Good practice for names:**
+
+- Keep folder and file names simple: use lowercase letters, numbers, and underscores
+  `_` instead of spaces. For example, `my data.csv` can cause problems later, but
+  `my_data.csv` does not.
+- Use short but clear names, so you know what is inside without opening the folder.
+- When a folder starts to hold many different things, make subfolders to group them.
+
+You now have a home for your course work.
+
+---
+
+# Opening RStudio
+
+**R** is the engine that does the calculations. **RStudio** is the user interface you
+use to talk to that engine comfortably. You installed both before class (see the
+Brightspace instructions). We always open **RStudio** only and **never** open **R** itself.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Open the **RStudio** program (not plain "R").
+:::
+
+::: {.callout-important title="Stuck on installation?"}
+Raise your hand right away. A teacher will help you.
+:::
+
+## The four panes
+
+RStudio's window is split into panes.
+
+- **Editor** (top-left): where you *write and save* code (empty for now).
+- **Console** (bottom-left): where R *runs* commands and shows results.
+- **Environment** (top-right): a list of everything you have stored (empty for
+  now).
+- **Files / Plots / Packages / Help** (bottom-right): your file browser, graphs,
+  installed packages, and help pages.
+
+Find the **Console**. You will see a `>` symbol. That `>` means "R is ready and
+waiting for you." If, while programming, this symbol is not shown, click in the
+console and press *Esc* (escape) on your keyboard to get the `>` symbol back.
+
+---
+
+# Working Directory
+
+RStudio needs to know where to work, for example, where to look for files and data.
+The first thing we do when working in RStudio is to set the **working directory**, that
+is the folder we are working in. Because we already made a folder for this course, we
+choose that one.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+1. In the menu, click *Session* > *Set Working Directory* > *Choose Directory*.
+2. A window opens that shows your computer's file system. Navigate to the
+   `research_methods` folder you made and select it.
+3. Press *Enter*.
+:::
+
+RStudio has now set the working directory to that folder.
+
+---
+
+# R scripts
+
+In this course we only work with **R scripts**, which are shown in the **Editor** pane.
+An R script is a place where you type and save lines of code, which are then run. A
+script runs from top to bottom.
+
+We work with R scripts because your progress in RStudio is lost when you close the
+program. But if you save your R script, you can open it again next time and run each
+line to get back to where you stopped last time.
+
+This is important for **reproducibility**: you can give your script to another person,
+and they get the same output. We never type our code straight into the console.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Create a new R script: click *File* > *New File* > *R Script*.
+:::
+
+In a script, we write notes with a `#` (hash) at the start of a line. A line that
+starts with `#` is called a **comment**. RStudio does not run a comment as code; it
+skips it. Comments help you and others understand what your code does.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Click in the first line of your new R script. Type a `#` and then a title for your
+script, for example: `# R tutorial - Week 1`.
+:::
+
+---
+
+# R as a calculator
+
+The fastest way to meet R is to use it as a calculator.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Type each line below into your R script. Press *Enter* after each one, so the lines
+sit underneath each other.
+:::
+
+```{r}
+2 + 3
+10 - 4
+6 * 7
+20 / 5
+```
+
+To run a line, click somewhere in that line and:
+
+- on Windows, hold *Ctrl* and press *Enter*;
+- on Mac, hold *Cmd* and press *Enter*.
+
+R runs the line and jumps to the next one.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Run the four calculations above, one by one.
+:::
+
+R prints the answer back. Ignore the `[1]` in front for now -- it just means
+"this is the first result."
+
+R also knows powers and square roots:
+
+```{r}
+2 ^ 3    # 2 to the power of 3
+sqrt(9)  # the square root of 9
+```
+
+Remember: anything after a `#` is a **comment**: a note for humans that R ignores.
+Use comments to remind yourself what code does.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+In your script, work out:
+
+(a) `144` divided by `12`, and
+(b) `5` to the power of `2`.
+
+*(Answers: `12` and `25`.)*
+:::
+
+---
+
+# Objects: storing values for later
+
+Re-typing numbers every time is tedious. Instead we store a value in an
+**object** (sometimes called a *variable*) and give it a name. We do this with
+the **assignment arrow** `<-`, which you read as "gets."
+
+```{r}
+age <- 19
+```
+
+Read that as: "the object `age` gets the value 19." Notice nothing was printed.
+The value is now stored. To see it, type the name on its own:
+
+```{r}
+age
+```
+
+::: {.callout-tip title="Shortcut for the assignment arrow"}
+Press *Alt* and *-* (minus) on Windows, or *Option* and *-* on Mac. RStudio types
+`<-` with the spaces for you.
+:::
+
+Once stored, an object can be used in calculations just like the number itself:
+
+```{r}
+self_efficacy <- 32   # a score on the self-efficacy scale we will collect
+self_efficacy + 8
+```
+
+You can also **overwrite** an object by assigning a new value to the same name:
+
+```{r}
+age <- 20   # age is now 20, the old value (19) is gone
+age
+```
+
+Check the **Environment** pane (top-right): `age` and `self_efficacy` now appear
+there. That pane is your live list of stored objects.
+
+**Naming rules** (important, R is strict):
+
+- Names may use letters, numbers, `.` and `_`, and must **start with a letter**.
+- No spaces. Use `self_efficacy`, not `self efficacy`.
+- Names are **case-sensitive**: `Age`, `age`, and `AGE` are three different
+  objects.
+
+```{r}
+#| error: true
+Age   # we never created "Age" with a capital A, so R complains
+```
+
+That red message is an **error**, not a disaster. Here it simply means "I don't
+know an object called `Age`." Read errors as hints.
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Create an object called `study_hours` and give it the value 12. Then create
+`study_hours_per_day` equal to `study_hours / 7` and print it.
+:::
+
+---
+
+# Operators
+
+**Operators** are used to compare objects or numbers. They give back one or more
+**logical** values: either `TRUE` or `FALSE`.
+
+These are the most common comparison operators:
+
+| Operator | Meaning                       |
+|----------|-------------------------------|
+| `==`     | is equal to                   |
+| `!=`     | is not equal to               |
+| `>`      | is greater than               |
+| `<`      | is smaller than               |
+| `>=`     | is greater than or equal to   |
+| `<=`     | is smaller than or equal to   |
+
+For example:
+
+```{r}
+10 > 5    # is 10 greater than 5?
+10 < 5    # is 10 smaller than 5?
+10 == 10  # is 10 equal to 10?
+```
+
+::: {.callout-warning title="Watch out"}
+To ask "is it equal?" you must use **two** equals signs `==`. A single `=` means
+something different and will not work here.
+:::
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+In your script, check whether:
+
+(a) `7` is greater than `3`, and
+(b) `4` is equal to `5`.
+
+Run each line and read the `TRUE` / `FALSE` answer.
+:::
+
+---
+
+# Vectors: working with many values at once
+
+In research we rarely have one number; we have many (one score per participant).
+A **vector** is an ordered collection of values. We build one with `c()`, which
+stands for *combine*. Put the values inside, separated by commas.
+
+```{r}
+scores <- c(28, 35, 31, 40, 22)
+scores
+```
+
+`scores` now holds five values in one object.
+
+A powerful feature: arithmetic on a vector applies to **every element at once**.
+No loop needed.
+
+```{r}
+scores + 10   # add 10 to each score
+scores * 2    # double each score
+```
+
+Vectors do not have to be numbers. A **character** vector holds text (each piece
+in quotes), and a **logical** vector holds `TRUE`/`FALSE` values:
+
+```{r}
+names  <- c("Sanne", "Tim", "Noor", "Mees", "Lotte")
+passed <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+names
+passed
+```
+
+::: {.callout-warning title="Watch out"}
+Every value needs its own comma, and text needs quotes. `c("Sanne" "Tim")`
+(missing comma) gives an error; so does `c(Sanne, Tim)` (missing quotes -- R would
+look for objects named Sanne and Tim).
+:::
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Create a vector `engagement` with the values 4, 5, 3, 5, 2 (imagine these are
+study-engagement ratings). Then print its `mean()` and its `length()`.
+:::
+
+---
+
+# Picking out values (indexing)
+
+Often you want just one value, or a few, out of a vector. You do this with
+**square brackets** `[ ]` and a position number. **R counts from 1**, so the
+first element is position 1.
+
+```{r}
+scores[1]   # the first score
+scores[3]   # the third score
+```
+
+Pick several at once by putting a vector of positions inside:
+
+```{r}
+scores[c(1, 2)]   # the first and second scores
+```
+
+A **minus** sign means "everything except":
+
+```{r}
+scores[-1]   # all scores except the first
+```
+
+Most powerful of all: put a **condition** inside the brackets to keep only the
+values that match. This is how you filter data.
+
+```{r}
+scores > 30          # TRUE/FALSE for each score
+scores[scores > 30]  # keep only the scores above 30
+```
+
+Read the last line as: "give me the elements of `scores` where `scores` is
+greater than 30."
+
+::: {.callout-tip collapse="true" title="Going further (optional)"}
+Combine conditions with `&` ("and") or `|` ("or"), e.g.
+`scores[scores > 25 & scores < 40]`.
+:::
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+From `scores`, (a) print the last value using its position number, and (b) keep
+only the scores below 30.
+
+*(Hint for (a): `scores` has 5 values.)*
+:::
+
+---
+
+# Functions
+
+Functions have the form `name(input)`. They take an input, apply operations, and
+give back an output. A function is a ready-made command: you write its name and
+put the input in round brackets. Many useful **functions** take a vector and
+summarise it:
+
+```{r}
+length(scores)   # how many values?
+sum(scores)      # add them all up
+mean(scores)     # the average
+min(scores)      # the smallest
+max(scores)      # the largest
+```
+
+::: {.your-turn}
+### Your turn {.unnumbered}
+
+Use the `engagement` vector you made earlier. Print its `sum()`, its `max()`, and
+its `min()`.
+:::
+
+---
+
+# Borrowing extra tools: packages and libraries
+
+Base R already does a lot. **Packages** add extra ready-made tools written by
+others. Two steps, and people mix them up constantly:
+
+- **Install** a package: download it to your computer. You do this **once**.
+- **Load** a package with `library()`: switch it on. You do this **every session**
+  you want to use it.
+
+::: {.callout-note title="Analogy"}
+Installing a package is like buying a book once and putting it on your shelf.
+`library()` is taking that book off the shelf each time you need it. Buying it
+again every day would be silly; so is re-installing.
+:::
+
+The syntax (you do not need to run this today -- we will install specific
+packages when the course needs them):
+
+```{r}
+#| eval: false
+install.packages("psych")   # download once (note: name in quotes)
+library(psych)              # switch on each session (no quotes here)
+```
+
+::: {.callout-warning title="Watch out"}
+`install.packages()` needs the name **in quotes**; `library()` does **not**. And if
+you ever see `Error: there is no package called ...`, it means the package was never
+installed.
+:::
+
+---
+
+# Saving your work
+
+Save your R script by clicking the save symbol (the small floppy disk), or by
+pressing *Ctrl* and *S* on Windows (*Cmd* and *S* on Mac). You can also click
+*File* > *Save*.
+
+The first time you save a new script, RStudio asks you where to put it. Choose
+your `research_methods` folder and give the file a clear name, for example
+`week1.R`.
+
+---
+
+# Recap: what you can now do
+
+You started today with no programming experience. You can now:
+
+- open RStudio and find your way around the four panes;
+- set the working directory;
+- create, write in, and save an R script;
+- use R as a calculator and write comments;
+- store values in objects and follow R's naming rules;
+- compare values with operators and read `TRUE` / `FALSE` answers;
+- build vectors with `c()` and do maths on all values at once;
+- pick out values with `[ ]`, including by a condition;
+- use functions such as `mean()` and `length()`;
+- explain the difference between installing and loading a package.
+
+A small cheat sheet to keep:
+
+| You want to...            | You write...              |
+|---------------------------|---------------------------|
+| Store a value             | `x <- 5`                  |
+| Make a vector             | `v <- c(1, 2, 3)`         |
+| Average of a vector       | `mean(v)`                 |
+| Number of elements        | `length(v)`               |
+| Compare two values        | `a == b`, `a > b`         |
+| Get the 2nd element       | `v[2]`                    |
+| Keep elements above 3     | `v[v > 3]`                |
+| Add a comment             | `# like this`             |
+| Install a package (once)  | `install.packages("name")`|
+| Load a package (session)  | `library(name)`           |
+
+Well done. Keep your script and your `research_methods` folder -- we build
+directly on them next week.
+
+---
