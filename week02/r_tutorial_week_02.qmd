@@ -81,18 +81,14 @@ Our class answered a short questionnaire. The answers were collected, made **ano
 ### Your turn {.unnumbered}
 
 1.  Download the file `class_survey.csv` from **Brightspace**.
-2.  Move it into the `data` folder inside your `research_methods` folder (the same `data` folder from the structure we made in Week 1).
-:::
-
-::: {.callout-note title="Why a data folder?"}
-Keeping your data in one `data` folder, separate from your scripts, keeps your project tidy and makes the file easy to find later.
+2.  Move it into the `research_methods` folder (the same folder from the structure we made in Week 1).
 :::
 
 ------------------------------------------------------------------------
 
 # Loading the data
 
-**RStudio** does not know about the file until you load it. We load a CSV with the function `read.csv()`. Inside the brackets we put the **path** to the file, in quotes. Because our working directory is `research_methods`, and the file is in the `data` folder, the path is `"data/class_survey.csv"`.
+**RStudio** does not know about the file until you load it. We load a CSV with the function `read.csv()`. Inside the brackets we put the **path** to the file, in quotes. Because our working directory is `research_methods`, and the file sits directly in that folder, the path is just `"class_survey.csv"`.
 
 We store the table in an object so we can use it again. We will call it `survey`.
 
@@ -107,12 +103,11 @@ survey_sim <- data.frame(
   study_hours   = pmax(round(rnorm(n, mean = 14, sd = 5)), 2),
   program       = sample(1:3, n, replace = TRUE)
 )
-dir.create("data", showWarnings = FALSE)
-write.csv(survey_sim, "data/class_survey.csv", row.names = FALSE)
+write.csv(survey_sim, "class_survey.csv", row.names = FALSE)
 ```
 
 ```{r}
-survey <- read.csv("data/class_survey.csv")
+survey <- read.csv("class_survey.csv")
 ```
 
 The table is now stored. Look at the **Environment** pane (top-right): `survey` appears, with the number of rows (people) and columns (questions).
@@ -121,11 +116,11 @@ The table is now stored. Look at the **Environment** pane (top-right): `survey` 
 If you see `Error: cannot open file ... No such file or directory`, R cannot find the file. Check two things:
 
 1.  your working directory is `research_methods`: run `getwd()` to print the current working directory
-2.  the file really sits in the `data` folder and is spelled exactly, including `.csv`: in the bottom-right pane you can click on files and navigate to the folder.
+2.  the file really sits in your `research_methods` folder and is spelled exactly, including `.csv`: in the bottom-right pane you can click on files and navigate to the folder.
 :::
 
 ::: {.callout-tip collapse="true" title="Going further (optional): Excel files"}
-Other file formats, such as Excel files (`.xlsx` or `.xls`), cannot be opened with `read.csv()`. They need an extra **package**, for example `readxl` with its function `read_excel()`. The easiest path for now is to open the Excel file once and save it as a CSV.
+R can open almost any kind of data file, but some formats need an extra **package**. `read.csv()` works for CSV files. Excel files (`.xlsx` or `.xls`), for example, need a different package, such as `readxl` with its function `read_excel()`. For now, the easiest path is to open the Excel file once and save it as a CSV, so you can use `read.csv()`.
 :::
 
 ::: your-turn
@@ -138,12 +133,12 @@ Load the data into an object called `survey`, then check that `survey` appears i
 
 # Data frames
 
-The object `survey` is a **data frame**. A data frame is R's word for a table, in our case:
+The object `survey` is a **data frame**. A data frame is R's word for a table. In our questionnaire data:
 
--   each **row** is one participant (one person who answered);
--   each **column** is one **variable** (one question or measure).
+-   each **row** is one **participant** (one person who answered). Row 1 is the first person, row 2 the second, and so on.
+-   each **column** is one **variable** (one question or measure). For example, `age` is one column, `self_efficacy` is another.
 
-You can think of a data frame as several vectors (from Week 1) standing side by side, one per column.
+So one row holds *all the answers of one person*, and one column holds *one answer from everybody*. You can think of a data frame as several vectors (from Week 1) standing side by side, one per column.
 
 To use a single column, write the data frame name, then a **dollar sign** `$`, then the column name:
 
@@ -181,7 +176,6 @@ Before changing anything, always look at your data first. Here are the most usef
 How big is the table?
 
 ```{r}
-dim(survey)    # dimensions: number of rows and columns
 nrow(survey)   # number of rows (people)
 ncol(survey)   # number of columns (variables)
 ```
@@ -197,14 +191,6 @@ See the first few rows:
 ```{r}
 head(survey)
 ```
-
-See the **type** of each variable with `str()` (short for *structure*):
-
-```{r}
-str(survey)
-```
-
-Notice that `program` is shown as a number (`int`). R does not know yet that it is really a **category** (1, 2, or 3 stand for study programmes). We will fix that soon.
 
 Get a quick summary of every variable with `summary()`:
 
@@ -228,7 +214,7 @@ It is `View()` with a capital **V**. Remember from Week 1: R is case-sensitive, 
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Use three of these commands on `survey`: `dim()`, `names()`, and `summary()`. How many people answered the questionnaire? How many variables are in the dataset? What's the average age?
+Use these commands on `survey`: `nrow()`, `ncol()`, `names()`, and `summary()`. How many people answered the questionnaire? How many variables are in the dataset? What is the average age?
 :::
 
 ------------------------------------------------------------------------
@@ -236,6 +222,34 @@ Use three of these commands on `survey`: `dim()`, `names()`, and `summary()`. Ho
 # Cleaning and changing your data
 
 Real data almost always needs some tidying before we describe it. We will keep the loaded data in `survey` and change it step by step.
+
+## Variable classes
+
+Every column has a **class**: the kind of values it holds. The most common classes are:
+
+-   **numeric**: numbers, for example `age`.
+-   **character**: text (always in quotes), for example a label like `"yes"`.
+-   **logical**: `TRUE` or `FALSE` values.
+-   **factor**: categories, for example a study programme.
+
+You check the class of a column with the function `class()`:
+
+```{r}
+class(survey$age)       # age holds whole numbers
+class(survey$program)   # program is stored as whole numbers too
+```
+
+::: {.callout-note title="integer or numeric?"}
+For whole numbers R often says `integer`; for numbers with decimals it says `numeric`. Both are simply **numbers**, so you do not need to worry about the difference for now.
+:::
+
+Look closely at `program`. R stores it as a number, because the questionnaire used the codes 1, 2, and 3. But `program` is not really a number: each code stands for a **category** (one of three study programmes). This is why its "average" in `summary()` made no sense. Knowing the class of a variable tells you what you can sensibly do with it: you can take the mean of a real number, but not of a category.
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Check the class of the `study_hours` column and of the `self_efficacy` column with `class()`. Which column in the data set is stored as a number, but is really a **category**?
+:::
 
 ## Filtering: choosing rows
 
@@ -258,7 +272,7 @@ Do not forget the **comma**. `survey[survey$age >= 18, ]` keeps rows. Without th
 Create an object called `keen` that keeps only the people who study more than 15 hours per week (`study_hours > 15`). How many people are in `keen`?
 :::
 
-## Choosing and removing columns
+## Removing columns
 
 Sometimes a column is not useful for analysis. The `id` number, for example, only tells people apart; it is not something we study. We remove a column by setting it to `NULL`:
 
@@ -270,7 +284,7 @@ names(survey)       # id is gone
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Look at the column names again with `names(survey)` and check that `id` is no longer there. What other function coud you use to check this?
+Look at the column names again with `names(survey)` and check that `id` is no longer there. What other function could you use to check this?
 :::
 
 ## Making a new variable
@@ -290,28 +304,6 @@ The new column `study_per_day` now appears in the table.
 Make a new variable `study_per_day_rounded` that rounds `study_per_day` to whole numbers, using the function `round()`. Then look at the first rows.
 :::
 
-## Recoding values
-
-**Recoding** means changing values into clearer ones. Our `program` column holds the codes 1, 2, and 3, but those numbers are hard to read. We will make a new column with real names. We start it as `NA` (R's word for "not available / empty ") and then fill it in:
-
-```{r}
-survey$program_name <- NA   # a new, empty column
-survey$program_name[survey$program == 1] <- "Pedagogy"
-head(survey)
-```
-
-Read one of those lines as: "for the rows where `program` equals 1, set `program_name` to Pedagogy." We kept the original `program` column, which is good practice: never throw away the raw values.
-
-::: {.callout-warning title="Watch out"}
-To test "is equal to", use **two** equals signs `==`, just like in Week 1. One equals sign `=` will not work here.
-:::
-
-::: your-turn
-### Your turn {.unnumbered}
-
-Check your recoding with `table(survey$program_name)`. You should see the pedagogy programme names and NAs with a count for each. Additionally, recode psychology (value 2) and `sociology` (value 3) into the `program_name` variable.
-:::
-
 ## Putting values into categories
 
 **Categorizing** means turning a number into groups. A common tool is `ifelse()`. It takes three parts: a test, the value if the test is `TRUE`, and the value if it is `FALSE`.
@@ -321,7 +313,7 @@ survey$efficacy_level <- ifelse(survey$self_efficacy >= 32, "higher", "lower")
 table(survey$efficacy_level)
 ```
 
-Here, everyone with a self-efficacy score of 32 or more gets `"higher"`, and the rest get `"lower"`.
+The function `table()` **counts** how often each value appears. Here it shows how many people are in the `"higher"` group and how many in the `"lower"` group. We use `table()` a lot when describing categories, and look at it again in the next section.
 
 ::: your-turn
 ### Your turn {.unnumbered}
@@ -329,24 +321,17 @@ Here, everyone with a self-efficacy score of 32 or more gets `"higher"`, and the
 Make a variable `studies_a_lot` that is `"yes"` when `study_hours` is 14 or more, and `"no"` otherwise. Then count the groups with `table()`.
 :::
 
-## Taking a random subsample
-
-A **subsample** is a smaller, random part of your data. We pick random row numbers with `sample()`, then keep those rows.
-
-Because the choice is random, we first use `set.seed()`. This makes the "random"vchoice the same every time you run it, so your work stays **reproducible**.
+**Recoding** means changing values into clearer ones. Our `program` column holds the codes 1, 2, and 3, but those numbers are hard to read. We can make a new column with real names. We start it as `NA` (R's word for "not available / empty") and then fill it in:
 
 ```{r}
-set.seed(123)                          # makes the random choice repeatable
-sub_rows <- sample(1:nrow(survey), 10) # pick 10 random row numbers
-subsample <- survey[sub_rows, ]        # keep those rows
-nrow(subsample)
+survey$program_name <- NA   # a new, empty column
+survey$program_name[survey$program == 1] <- "Pedagogy"
+survey$program_name[survey$program == 2] <- "Psychology"
+survey$program_name[survey$program == 3] <- "Sociology"
+table(survey$program_name)
 ```
 
-::: your-turn
-### Your turn {.unnumbered}
-
-Create your own subsample of **15** people in an object called `my_sample`. First write `set.seed(1)`, then use `sample()` and square brackets as above. Check it has 15 rows with `nrow()`.
-:::
+Read one of those lines as: "for the rows where `program` equals 1, set `program_name` to Pedagogy." We kept the original `program` column, which is good practice: never throw away the raw values. As before, testing "is equal to" needs **two** equals signs `==`.
 
 ------------------------------------------------------------------------
 
@@ -377,14 +362,34 @@ A **histogram** shows how a numeric variable is distributed. It puts the values 
 
 ```{r}
 hist(survey$self_efficacy,
+     breaks = 10,                     # roughly how many bars
+     col = "steelblue",               # colour of the bars
      main = "Self-efficacy scores",   # title
      xlab = "score")                  # label for the x-axis
 ```
 
+Each part inside the brackets is an **argument** that changes the plot: `main` renames the title, `xlab` renames the x-axis label, `breaks` sets roughly how many bars there are, and `col` sets the colour of the bars. Try changing them and run the line again to see the effect.
+
+::: {.callout-tip collapse="true" title="Going further (optional): nicer graphics with ggplot2"}
+The plots from `hist()` are fine for a quick look. For nicer graphics, many people use the **package** `ggplot2`. You install it once and load it each session:
+
+```{r}
+#| eval: false
+install.packages("ggplot2")   # once
+library(ggplot2)              # each session
+
+ggplot(survey, aes(x = self_efficacy)) +
+  geom_histogram(fill = "steelblue", colour = "white", bins = 10) +
+  labs(title = "Self-efficacy scores", x = "score", y = "count")
+```
+
+You do not need `ggplot2` for this course, but it is good to know it exists.
+:::
+
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Make a histogram of `age`. Give it a clear title and an x-axis label. Then, print the mean and median of `age`, are they similar or different? Argue why mean and median are similar or different, and relate it to the histogram you just plotted.
+Make a histogram of `age`. Give it a clear title and an x-axis label, and try a colour of your choice with `col` and a different number of `breaks`. Then print the mean and median of `age`: are they similar or different? Argue why, and relate your answer to the histogram you just plotted.
 :::
 
 ## Boxplots with boxplot()
@@ -428,7 +433,7 @@ write.csv(survey, "data/class_survey_clean.csv", row.names = FALSE)
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Save your cleaned `survey` as `class_survey_clean.csv` in your `data` folder. Then check in the **Files** pane (bottom-right) that the new file is there. Also, save your script in `script` folder.
+Save your cleaned `survey` as `class_survey_clean.csv` in your `research_methods` folder. Then check in the **Files** pane (bottom-right) that the new file is there. Also save your script.
 :::
 
 ------------------------------------------------------------------------
@@ -439,11 +444,10 @@ Last week you handled single numbers and vectors. You can now work with a whole 
 
 -   load a CSV file with `read.csv()` and store it as a data frame;
 -   reach a single column with `$`, and a single cell with `[row, column]`;
--   inspect data with `dim()`, `names()`, `head()`, `str()`, `summary()`, and `View()`;
+-   inspect data with `nrow()`, `ncol()`, `names()`, `head()`, `summary()`, `View()`, and check a column's type with `class()`;
 -   filter rows with a condition;
 -   make new variables and remove ones you do not need;
 -   recode values into clear labels and put numbers into categories;
--   take a reproducible random subsample with `set.seed()` and `sample()`;
 -   describe your sample with `table()`, `mean()`, `sd()`, `hist()`, and `boxplot()`;
 -   save a cleaned dataset with `write.csv()`.
 
@@ -455,14 +459,14 @@ A small cheat sheet to keep:
 | View a data frame | `View(df)` |
 | Use one column | `df$age` |
 | Rows and columns count | `nrow(df)`, `ncol(df)` |
-| First rows / structure | `head(df)`, `str(df)` |
+| First rows | `head(df)` |
+| Class of a column | `class(df$x)` |
 | Summary of all variables | `summary(df)` |
 | Keep some rows (filter) | `df[df$age >= 18, ]` |
 | Make a new variable | `df$new <- df$x / 7` |
 | Remove a variable | `df$old <- NULL` |
 | Recode a value | `df$x[df$x == 1] <- "label"` |
 | Category from a rule | `ifelse(df$x >= 32, "higher", "lower")` |
-| Random subsample | `df[sample(1:nrow(df), 10), ]` |
 | Count a category | `table(df$group)` |
 | Histogram | `hist(df$x)` |
 | Boxplot by group | `boxplot(y ~ group, data = df)` |
