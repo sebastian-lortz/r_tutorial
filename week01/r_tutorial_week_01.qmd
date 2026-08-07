@@ -47,7 +47,7 @@ General tips:
 -   Read each part slowly and in order. Each step builds on the one before it.
 -   Type the code yourself instead of copying and pasting it. You learn faster this way.
 -   Errors are normal. Read the message and try again.
--   If you are stuck, ask a teacher.
+-   If you are stuck, ask a teacher or check the FAQ.
 -   Save your work often.
 
 ------------------------------------------------------------------------
@@ -65,13 +65,11 @@ A tidy folder structure can look like this:
 Documents
 └── first_year
     └── research_methods
-        ├── data
-        ├── scripts
-        └── output
+[screenshot from UWP]
 ```
 :::
 
-At the root of this structure is a **Drive**. Thus, a drive is the storage of your computer. On a personal computer you usually have only one drive. On top of the drive sit some common **base folders**, such as the **Desktop** (the screen you see when your computer starts), **Documents** (where files are usually stored), and **Downloads** (where files you download are saved).
+At the root of this structure is a **Drive**. Thus, a drive is the storage of your computer. On a personal computer you usually have only one drive. On top of the drive sit some common **base folders** that every computer have, such as the **Desktop** (the screen you see when your computer starts), **Documents** (where files are usually stored), and **Downloads** (where files you download are saved).
 
 It is important to keep this structure tidy. Work inside **Documents**, make one folder for your first-year studies. Inside that folder, make a folder for each course. Inside each course folder, you can sort your material further.
 
@@ -106,7 +104,7 @@ You now have a home for your course work.
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Open the **RStudio** program (not plain "R").
+Open the **RStudio** program (not plain "R"). We work with RStudio version [..] running R version [..].
 :::
 
 ::: {.callout-important title="Stuck on installation?"}
@@ -122,7 +120,11 @@ RStudio's window is split into panes.
 -   **Environment** (top-right): a list of everything you have stored (empty for now).
 -   **Files / Plots / Packages / Help** (bottom-right): your file browser, graphs, installed packages, and help pages.
 
-Find the **Console**. You will see a `>` symbol. That `>` means "R is ready and waiting for you." If, while programming, this symbol is not shown, click in the console and press *Esc* (escape) on your keyboard to get the `>` symbol back.
+Find the **Console**. You will see a `>` symbol. That `>` means "R is ready and waiting for you."
+
+::: {.callout-tip title="Getting the `>` back"}
+While programming, the `>` symbol is sometimes not shown. When this happens, click in the **Console** and press *Esc* (escape) on your keyboard to get the `>` symbol back.
+:::
 
 ------------------------------------------------------------------------
 
@@ -135,9 +137,16 @@ RStudio needs to know where to work, for example, where to look for files and da
 
 1.  In the menu, click *Session* \> *Set Working Directory* \> *Choose Directory*.
 2.  A window opens that shows your computer's file system. Navigate to the `research_methods` folder you made and select it.
+3.  Click *Open*.
 :::
 
-RStudio has now set the working directory to that folder.
+RStudio has now set the working directory to that folder. In the **Console**, a line appears that starts with `setwd(...)` and shows the path to your folder, for example:
+
+> In the **Console** you now see:
+>
+> `> setwd("C:/Users/you/Documents/first_year/research_methods")`
+
+The exact path is different on every computer, so yours will not look the same.
 
 ------------------------------------------------------------------------
 
@@ -145,9 +154,11 @@ RStudio has now set the working directory to that folder.
 
 In this course we only work with **R scripts**, which are shown in the **Editor** pane. An R script is a place where you type and save lines of code, which are then run. A script runs from top to bottom.
 
-We work with R scripts because your progress in RStudio is lost when you close the program. But if you save your R script, you can open it again next time and run each line to get back to where you stopped last time.
+We work with R scripts because everything you do in RStudio is lost when you close the program. Without a script, you would have to start again from scratch every time. But if you save your R script, you can open it again next time and run the lines to build your work back up.
 
-This is important for **reproducibility**: you can give your script to another person, and they get the same output. We never type our code straight into the console.
+For this to work, keep your script tidy: only keep the lines that work and that are needed to produce your output. Remove anything you tried that did not work. This way, running the script from top to bottom always gives a clean result.
+
+This is important for **reproducibility**: you can give your tidy script to another person, and they get the same output. We never type our code straight into the console.
 
 ::: your-turn
 ### Your turn {.unnumbered}
@@ -212,9 +223,8 @@ Remember: anything after a `#` is a **comment**: a note for humans that R ignore
 In your script, work out:
 
 (a) `144` divided by `12`, and
-(b) `5` to the power of `2`.
+(b) `15` times `4`.
 
-*(Answers: `12` and `25`.)*
 :::
 
 ------------------------------------------------------------------------
@@ -227,7 +237,7 @@ Re-typing numbers every time is tedious. Instead we store a value in an **object
 age <- 19
 ```
 
-Read that as: "the object `age` gets the value 19." Notice nothing was printed. The value is now stored. To see it, type the name on its own:
+Read that as: "the object `age` gets the value 19." Notice nothing was printed. The value is now stored in the **environment**. To see it, type the name on its own:
 
 ```{r}
 age
@@ -264,7 +274,7 @@ Check the **Environment** pane (top-right): `age` and `self_efficacy` now appear
 Age   # we never created "Age" with a capital A, so R complains
 ```
 
-That red message is an **error**, not a disaster. Here it simply means "I don't know an object called `Age`." Read errors as hints.
+That red message is called an **error**. The message starts with the word `Error`. An error means R stopped: the code did not work. Here it simply means "I do not know an object called `Age`." Do not panic when you see an error: read it as a hint about what went wrong.
 
 ::: your-turn
 ### Your turn {.unnumbered}
@@ -325,7 +335,7 @@ scores
 
 `scores` now holds five values in one object.
 
-A powerful feature: arithmetic on a vector applies to **every element at once**. No loop needed.
+A powerful feature: when you do arithmetic on a vector, it applies to **every element at once**. You do not have to do it by hand for every value.
 
 ```{r}
 scores + 10   # add 10 to each score
@@ -348,7 +358,7 @@ Every value needs its own comma, and text needs quotes. `c("Sanne" "Tim")` (miss
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Create a vector `engagement` with the values 4, 5, 3, 5, 2 (imagine these are study-engagement ratings). Then print its `mean()` and its `length()`.
+Create a vector `engagement` with the values 4, 5, 3, 5, 2 (imagine these are study-engagement ratings). Then (a) add `1` to every value at once, and (b) multiple every value by `2`.
 :::
 
 ------------------------------------------------------------------------
@@ -399,7 +409,9 @@ From `scores`, (a) print the last value using its position number, and (b) keep 
 
 # Functions
 
-Functions have the form `name(input)`. They take an input, apply operations, and give back an output. A function is a ready-made command: you write its name and put the input in round brackets. Many useful **functions** take a vector and summarise it:
+A **function** is a ready-made command. It takes an input, does something with it, and gives back an output. You do not see the work inside; you only give the input and read the output.
+
+A function has the form `function_name(function_input)`: you write the name of the function, and put the input in round brackets `( )`. Many useful functions take a vector and summarise it:
 
 ```{r}
 length(scores)   # how many values?
@@ -412,14 +424,14 @@ max(scores)      # the largest
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Use the `engagement` vector you made earlier. Print its `sum()`, its `max()`, and its `min()`.
+Use the `engagement` vector you made earlier. Work out its average yourself: divide its `sum()` by its `length()`. Then compare your answer with `mean(engagement)`. You should get the same number.
 :::
 
 ------------------------------------------------------------------------
 
 # Borrowing extra tools: packages and libraries
 
-Base R already does a lot. **Packages** add extra ready-made tools written by others. Two steps, and people mix them up constantly:
+Base R already does a lot. **Packages** add extra ready-made tools written by others. There are two steps here, and people often confuse them, so read carefully:
 
 -   **Install** a package: download it to your computer. You do this **once**.
 -   **Load** a package with `library()`: switch it on. You do this **every session** you want to use it.
@@ -444,7 +456,7 @@ library(psych)              # switch on each session (no quotes here)
 
 # Saving your work
 
-Save your R script by clicking the save symbol (the small floppy disk), or by pressing *Ctrl* and *S* on Windows (*Cmd* and *S* on Mac). You can also click *File* \> *Save*.
+Save your R script by clicking the save symbol, or by pressing *Ctrl* and *S* on Windows (*Cmd* and *S* on Mac). You can also click *File* \> *Save*.
 
 The first time you save a new script, RStudio asks you where to put it. Choose your `research_methods` folder and give the file a clear name, for example `week1.R`.
 
