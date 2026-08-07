@@ -450,7 +450,7 @@ Last week you handled single numbers and vectors. You can now work with a whole 
 A small cheat sheet to keep:
 
 | You want to... | You write... |
-|-----------------------------|-------------------------------------------|
+|----|----|
 | Load a CSV | `read.csv("data/file.csv")` |
 | View a data frame | `View(df)` |
 | Use one column | `df$age` |
