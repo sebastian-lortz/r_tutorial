@@ -116,8 +116,8 @@ We first walk these five steps for a **one-sample t-test** (comparing our mean t
 
 A hypothesis test always has two hypotheses.
 
--   The **null hypothesis** ($H_0$) is the "no difference" statement: the population mean equals the value from the literature. We write **$H_0: \mu = 30$**.
--   The **alternative hypothesis** ($H_1$) is what we suspect instead: the population mean is **different** from 30. We write **$H_1: \mu \neq 30$**.
+-   The **null hypothesis** ($H_0$) is the "no difference" statement: the population mean equals the value from the literature. We write $H_0: \mu = 30$.
+-   The **alternative hypothesis** ($H_1$) is what we suspect instead: the population mean is **different** from 30. We write $H_1: \mu \neq 30$.
 
 Because $H_1$ uses "different" ($\neq$), and allows a difference in **either** direction (higher *or* lower), this is a **two-sided test**. Two-sided is our default, because usually we do not know in advance which way the difference will go.
 
@@ -130,7 +130,7 @@ A one-sided test puts all of the 5% in one tail, which makes it a little easier 
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Pick a continuous variable and find a value for $\mu_0$. Write down your **$H_0$** and **$H_1$** in the two-sided form ($=$ and $\neq$). In one sentence, explain why you chose that value for $\mu_0$, and why you test two-sided.
+Pick a continuous variable and find a value for $\mu_0$. Write down your $H_0$ and $H_1$ in the two-sided form ($=$ and $\neq$). In one sentence, explain why you chose that value for $\mu_0$, and why you test two-sided.
 :::
 
 ## Step 2 -- Assumptions
@@ -222,13 +222,13 @@ t.test(survey$self_efficacy, mu = 30)   # default is alternative = "two.sided"
 Read the output: it prints the **t** value, the **df**, and the **p-value**. These should match your hand calculation from Steps 3 and 4. It also prints a **95% confidence interval** for the mean, exactly like Week 3.
 
 ::: {.callout-tip title="Testing and confidence intervals are two sides of one coin"}
-Look at the 95% confidence interval in the output. A two-sided test at the 0.05 level **rejects $H_0$** when $\mu_0$ (here 30) falls **outside** that interval, and **fails to reject** when $\mu_0$ falls **inside** it. So the Week 3 confidence interval already contained the answer to this test.
+Look at the 95% confidence interval in the output. A two-sided test at the 0.05 level **rejects** $H_0$ when $\mu_0$ (here 30) falls **outside** that interval, and **fails to reject** when $\mu_0$ falls **inside** it. So the Week 3 confidence interval already contained the answer to this test.
 :::
 
 **Interpretation.** We compare the p-value to 0.05:
 
--   If **p < 0.05**, we **reject $H_0$**: there is evidence that the population mean differs from $\mu_0$.
--   If **p $\geq$ 0.05**, we **do not reject $H_0$**: we do not have enough evidence to say it differs from $\mu_0$. (This is *not* the same as proving $H_0$ true.)
+-   If **p \< 0.05**, we **reject** $H_0$: there is evidence that the population mean differs from $\mu_0$.
+-   If **p** $\geq$ 0.05, we **do not reject** $H_0$: we do not have enough evidence to say it differs from $\mu_0$. (This is *not* the same as proving $H_0$ true.)
 
 ::: your-turn
 ### Your turn {.unnumbered}
@@ -301,8 +301,8 @@ Make the boxplot and the group summaries for your own two groups. Which group ha
 
 Now the hypotheses are about the **difference** between the two group means.
 
--   **$H_0$:** the two population means are equal (their difference is 0). Written **$H_0: \mu_1 = \mu_2$**.
--   **$H_1$:** the two population means are different. Written **$H_1: \mu_1 \neq \mu_2$**.
+-   $H_0$: the two population means are equal (their difference is 0). Written $H_0: \mu_1 = \mu_2$.
+-   $H_1$: the two population means are different. Written $H_1: \mu_1 \neq \mu_2$.
 
 Again this is **two-sided**: we allow either group to be higher.
 
@@ -378,8 +378,8 @@ t.test(self_efficacy ~ program_name, data = two_programs)
 
 The `t`, `df`, and `p-value` should match your hand values. Read the p-value and decide:
 
--   **p < 0.05** $\rightarrow$ reject $H_0$: the two programmes differ in self-efficacy.
--   **p $\geq$ 0.05** $\rightarrow$ do not reject $H_0$: not enough evidence of a difference.
+-   **p \< 0.05** $\rightarrow$ reject $H_0$: the two programmes differ in self-efficacy.
+-   **p** $\geq$ 0.05 $\rightarrow$ do not reject $H_0$: not enough evidence of a difference.
 
 ::: your-turn
 ### Your turn {.unnumbered}
@@ -443,10 +443,10 @@ A test can give the wrong answer in two ways. Understanding these leads to the i
 
 There are two kinds of mistake a test can make:
 
-| | $H_0$ is really true | $H_0$ is really false |
+|   | $H_0$ is really true | $H_0$ is really false |
 |----|----|----|
-| **Test rejects $H_0$** | Type I error (false alarm) | Correct |
-| **Test keeps $H_0$** | Correct | Type II error (missed effect) |
+| **Test rejects** $H_0$ | Type I error (false alarm) | Correct |
+| **Test keeps** $H_0$ | Correct | Type II error (missed effect) |
 
 -   A **Type I error** is a **false alarm**: we reject $H_0$ when it is actually true. Its rate is $\alpha$ (alpha), the 0.05 cut-off we choose.
 -   A **Type II error** is a **missed effect**: we keep $H_0$ when there really is a difference.
