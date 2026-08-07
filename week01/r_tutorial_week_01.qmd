@@ -47,7 +47,7 @@ General tips:
 -   Read each part slowly and in order. Each step builds on the one before it.
 -   Type the code yourself instead of copying and pasting it. You learn faster this way.
 -   Errors are normal. Read the message and try again.
--   If you are stuck, ask a teacher.
+-   If you are stuck, ask a teacher or check the FAQ.
 -   Save your work often.
 
 ------------------------------------------------------------------------
@@ -65,13 +65,11 @@ A tidy folder structure can look like this:
 Documents
 └── first_year
     └── research_methods
-        ├── data
-        ├── scripts
-        └── output
+[screenshot from UWP]
 ```
 :::
 
-At the root of this structure is a **Drive**. Thus, a drive is the storage of your computer. On a personal computer you usually have only one drive. On top of the drive sit some common **base folders**, such as the **Desktop** (the screen you see when your computer starts), **Documents** (where files are usually stored), and **Downloads** (where files you download are saved).
+At the root of this structure is a **Drive**. Thus, a drive is the storage of your computer. On a personal computer you usually have only one drive. On top of the drive sit some common **base folders** that every computer have, such as the **Desktop** (the screen you see when your computer starts), **Documents** (where files are usually stored), and **Downloads** (where files you download are saved).
 
 It is important to keep this structure tidy. Work inside **Documents**, make one folder for your first-year studies. Inside that folder, make a folder for each course. Inside each course folder, you can sort your material further.
 
@@ -106,7 +104,7 @@ You now have a home for your course work.
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Open the **RStudio** program (not plain "R").
+Open the **RStudio** program (not plain "R"). We work with RStudio version [..] running R version [..].
 :::
 
 ::: {.callout-important title="Stuck on installation?"}
