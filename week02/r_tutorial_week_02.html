@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sebastian A. J. Lortz">
-<meta name="dcterms.date" content="2026-06-21">
+<meta name="dcterms.date" content="2026-10-04">
 
 <title>r_tutorial_week_02</title>
 <style>
@@ -92,12 +92,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#looking-at-your-data" id="toc-looking-at-your-data" class="nav-link" data-scroll-target="#looking-at-your-data"><span class="header-section-number">5</span> Looking at your data</a></li>
   <li><a href="#cleaning-and-changing-your-data" id="toc-cleaning-and-changing-your-data" class="nav-link" data-scroll-target="#cleaning-and-changing-your-data"><span class="header-section-number">6</span> Cleaning and changing your data</a>
   <ul class="collapse">
-  <li><a href="#filtering-choosing-rows" id="toc-filtering-choosing-rows" class="nav-link" data-scroll-target="#filtering-choosing-rows"><span class="header-section-number">6.1</span> Filtering: choosing rows</a></li>
-  <li><a href="#choosing-and-removing-columns" id="toc-choosing-and-removing-columns" class="nav-link" data-scroll-target="#choosing-and-removing-columns"><span class="header-section-number">6.2</span> Choosing and removing columns</a></li>
-  <li><a href="#making-a-new-variable" id="toc-making-a-new-variable" class="nav-link" data-scroll-target="#making-a-new-variable"><span class="header-section-number">6.3</span> Making a new variable</a></li>
-  <li><a href="#recoding-values" id="toc-recoding-values" class="nav-link" data-scroll-target="#recoding-values"><span class="header-section-number">6.4</span> Recoding values</a></li>
+  <li><a href="#variable-classes" id="toc-variable-classes" class="nav-link" data-scroll-target="#variable-classes"><span class="header-section-number">6.1</span> Variable classes</a></li>
+  <li><a href="#filtering-choosing-rows" id="toc-filtering-choosing-rows" class="nav-link" data-scroll-target="#filtering-choosing-rows"><span class="header-section-number">6.2</span> Filtering: choosing rows</a></li>
+  <li><a href="#removing-columns" id="toc-removing-columns" class="nav-link" data-scroll-target="#removing-columns"><span class="header-section-number">6.3</span> Removing columns</a></li>
+  <li><a href="#making-a-new-variable" id="toc-making-a-new-variable" class="nav-link" data-scroll-target="#making-a-new-variable"><span class="header-section-number">6.4</span> Making a new variable</a></li>
   <li><a href="#putting-values-into-categories" id="toc-putting-values-into-categories" class="nav-link" data-scroll-target="#putting-values-into-categories"><span class="header-section-number">6.5</span> Putting values into categories</a></li>
-  <li><a href="#taking-a-random-subsample" id="toc-taking-a-random-subsample" class="nav-link" data-scroll-target="#taking-a-random-subsample"><span class="header-section-number">6.6</span> Taking a random subsample</a></li>
   </ul></li>
   <li><a href="#describing-your-sample" id="toc-describing-your-sample" class="nav-link" data-scroll-target="#describing-your-sample"><span class="header-section-number">7</span> Describing your sample</a>
   <ul class="collapse">
@@ -133,7 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">21 June 2026</p>
+      <p class="date">4 October 2026</p>
     </div>
   </div>
   
@@ -193,30 +192,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-1">Your turn</h3>
 <ol type="1">
 <li>Download the file <code>class_survey.csv</code> from <strong>Brightspace</strong>.</li>
-<li>Move it into the <code>data</code> folder inside your <code>research_methods</code> folder (the same <code>data</code> folder from the structure we made in Week 1).</li>
+<li>Move it into the <code>research_methods</code> folder (the same folder from the structure we made in Week 1).</li>
 </ol>
 </section>
-<div class="callout callout-style-default callout-note callout-titled" title="Why a data folder?">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Why a data folder?
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Keeping your data in one <code>data</code> folder, separate from your scripts, keeps your project tidy and makes the file easy to find later.</p>
-</div>
-</div>
 <hr>
 </section>
 <section id="loading-the-data" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Loading the data</h1>
-<p><strong>RStudio</strong> does not know about the file until you load it. We load a CSV with the function <code>read.csv()</code>. Inside the brackets we put the <strong>path</strong> to the file, in quotes. Because our working directory is <code>research_methods</code>, and the file is in the <code>data</code> folder, the path is <code>"data/class_survey.csv"</code>.</p>
+<p><strong>RStudio</strong> does not know about the file until you load it. We load a CSV with the function <code>read.csv()</code>. Inside the brackets we put the <strong>path</strong> to the file, in quotes. Because our working directory is <code>research_methods</code>, and the file sits directly in that folder, the path is just <code>"class_survey.csv"</code>.</p>
 <p>We store the table in an object so we can use it again. We will call it <code>survey</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/class_survey.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"class_survey.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The table is now stored. Look at the <strong>Environment</strong> pane (top-right): <code>survey</code> appears, with the number of rows (people) and columns (questions).</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
@@ -232,12 +218,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If you see <code>Error: cannot open file ... No such file or directory</code>, R cannot find the file. Check two things:</p>
 <ol type="1">
 <li>your working directory is <code>research_methods</code>: run <code>getwd()</code> to print the current working directory</li>
-<li>the file really sits in the <code>data</code> folder and is spelled exactly, including <code>.csv</code>: in the bottom-right pane you can click on files and navigate to the folder.</li>
+<li>the file really sits in your <code>research_methods</code> folder and is spelled exactly, including <code>.csv</code>: in the bottom-right pane you can click on files and navigate to the folder.</li>
 </ol>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Going further (optional): Excel files">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -246,9 +232,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Other file formats, such as Excel files (<code>.xlsx</code> or <code>.xls</code>), cannot be opened with <code>read.csv()</code>. They need an extra <strong>package</strong>, for example <code>readxl</code> with its function <code>read_excel()</code>. The easiest path for now is to open the Excel file once and save it as a CSV.</p>
+<p>R can open almost any kind of data file, but some formats need an extra <strong>package</strong>. <code>read.csv()</code> works for CSV files. Excel files (<code>.xlsx</code> or <code>.xls</code>), for example, need a different package, such as <code>readxl</code> with its function <code>read_excel()</code>. For now, the easiest path is to open the Excel file once and save it as a CSV, so you can use <code>read.csv()</code>.</p>
 </div>
 </div>
 </div>
@@ -260,32 +246,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-frames" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Data frames</h1>
-<p>The object <code>survey</code> is a <strong>data frame</strong>. A data frame is R’s word for a table, in our case:</p>
+<p>The object <code>survey</code> is a <strong>data frame</strong>. A data frame is R’s word for a table. In our questionnaire data:</p>
 <ul>
-<li>each <strong>row</strong> is one participant (one person who answered);</li>
-<li>each <strong>column</strong> is one <strong>variable</strong> (one question or measure).</li>
+<li>each <strong>row</strong> is one <strong>participant</strong> (one person who answered). Row 1 is the first person, row 2 the second, and so on.</li>
+<li>each <strong>column</strong> is one <strong>variable</strong> (one question or measure). For example, <code>age</code> is one column, <code>self_efficacy</code> is another.</li>
 </ul>
-<p>You can think of a data frame as several vectors (from Week 1) standing side by side, one per column.</p>
+<p>So one row holds <em>all the answers of one person</em>, and one column holds <em>one answer from everybody</em>. You can think of a data frame as several vectors (from Week 1) standing side by side, one per column.</p>
 <p>To use a single column, write the data frame name, then a <strong>dollar sign</strong> <code>$</code>, then the column name:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>age   <span class="co"># all the ages, as a vector</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 25 17 22 20 21 18 24 19 17 22 18 18 21 24 21 19 19 19 20 24 18 18 25 21 25</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [26] 18 25 23 18 21 21 20 17 24 25 19 25 23 20 25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [26] 18 25 23 18 21</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A column is just a vector, so everything you learned last week still works:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(survey<span class="sc">$</span>age)        <span class="co"># average age</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20.975</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20.66667</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>age[<span class="dv">1</span>]           <span class="co"># the first person's age</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 25</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>age[survey<span class="sc">$</span>age <span class="sc">&gt;</span> <span class="dv">20</span>]   <span class="co"># ages above 20</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 25 22 21 24 22 21 24 21 24 25 21 25 25 23 21 21 24 25 25 23 25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 25 22 21 24 22 21 24 21 24 25 21 25 25 23 21</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can also pick a value by its row and column, inside square brackets, with a <strong>comma</strong> in between: <code>survey[row, column]</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>survey[<span class="dv">1</span>, ]    <span class="co"># the whole first row (a comma, then nothing = all columns)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id age self_efficacy study_hours program</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1  25            40           4       2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1  25            40           8       1</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>survey[<span class="dv">1</span>, <span class="dv">2</span>]   <span class="co"># row 1, column 2</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -300,12 +286,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Before changing anything, always look at your data first. Here are the most useful commands.</p>
 <p>How big is the table?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(survey)    <span class="co"># dimensions: number of rows and columns</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 40  5</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(survey)   <span class="co"># number of rows (people)</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 40</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(survey)   <span class="co"># number of columns (variables)</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(survey)   <span class="co"># number of rows (people)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 30</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(survey)   <span class="co"># number of columns (variables)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>What are the columns called?</p>
 <div class="cell">
@@ -317,39 +301,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(survey)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id age self_efficacy study_hours program</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1  25            40           4       2</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2  17            42          14       1</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3  22            43           8       1</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  4  20            44          12       2</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  5  21            41          13       2</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  6  18            27           8       2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1  25            40           8       1</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2  17            31          18       2</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3  22            24           6       1</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  4  20            31          14       3</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  5  21            35          13       1</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  6  18            30          16       2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>See the <strong>type</strong> of each variable with <code>str()</code> (short for <em>structure</em>):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(survey)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 'data.frame':    40 obs. of  5 variables:</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ id           : int  1 2 3 4 5 6 7 8 9 10 ...</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ age          : int  25 17 22 20 21 18 24 19 17 22 ...</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ self_efficacy: int  40 42 43 44 41 27 36 29 30 30 ...</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ study_hours  : int  4 14 8 12 13 8 17 18 15 22 ...</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ program      : int  2 1 1 2 2 2 1 2 2 2 ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Notice that <code>program</code> is shown as a number (<code>int</code>). R does not know yet that it is really a <strong>category</strong> (1, 2, or 3 stand for study programmes). We will fix that soon.</p>
 <p>Get a quick summary of every variable with <code>summary()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(survey)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        id             age        self_efficacy    study_hours       program    </span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   : 1.00   Min.   :17.00   Min.   :16.00   Min.   : 4.00   Min.   :1.00  </span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:10.75   1st Qu.:18.75   1st Qu.:26.75   1st Qu.: 9.75   1st Qu.:1.00  </span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :20.50   Median :21.00   Median :31.00   Median :13.50   Median :2.00  </span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :20.50   Mean   :20.98   Mean   :31.27   Mean   :13.38   Mean   :1.85  </span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:30.25   3rd Qu.:24.00   3rd Qu.:36.00   3rd Qu.:16.25   3rd Qu.:2.00  </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :40.00   Max.   :25.00   Max.   :44.00   Max.   :23.00   Max.   :3.00</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(survey)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        id             age        self_efficacy    study_hours   </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   : 1.00   Min.   :17.00   Min.   :22.00   Min.   : 2.00  </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.: 8.25   1st Qu.:18.00   1st Qu.:29.25   1st Qu.: 8.00  </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :15.50   Median :20.50   Median :33.00   Median :13.50  </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :15.50   Mean   :20.67   Mean   :33.23   Mean   :12.17  </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:22.75   3rd Qu.:22.75   3rd Qu.:38.00   3rd Qu.:16.00  </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :30.00   Max.   :25.00   Max.   :44.00   Max.   :22.00  </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     program     </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :1.000  </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:1.000  </span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2.000  </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :2.033  </span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:3.000  </span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :3.000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For numbers, <code>summary()</code> shows the smallest value, the 1st Quartile, the median, the average, the 3rd Quartile, and the largest value. Because R still thinks <code>program</code> is a number, it even shows its “average”, which makes no sense for a category. Another reason to recode it later.</p>
 <p>Finally, you can open the table in a spreadsheet view. Type this in RStudio (the capital <strong>V</strong> matters):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(survey)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(survey)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
 <div class="callout-header d-flex align-content-center">
@@ -366,20 +346,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="your-turn-4" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-4">Your turn</h3>
-<p>Use three of these commands on <code>survey</code>: <code>dim()</code>, <code>names()</code>, and <code>summary()</code>. How many people answered the questionnaire? How many variables are in the dataset? What’s the average age?</p>
+<p>Use these commands on <code>survey</code>: <code>nrow()</code>, <code>ncol()</code>, <code>names()</code>, and <code>summary()</code>. How many people answered the questionnaire? How many variables are in the dataset? What is the average age?</p>
 </section>
 <hr>
 </section>
 <section id="cleaning-and-changing-your-data" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Cleaning and changing your data</h1>
 <p>Real data almost always needs some tidying before we describe it. We will keep the loaded data in <code>survey</code> and change it step by step.</p>
-<section id="filtering-choosing-rows" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="filtering-choosing-rows"><span class="header-section-number">6.1</span> Filtering: choosing rows</h2>
+<section id="variable-classes" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="variable-classes"><span class="header-section-number">6.1</span> Variable classes</h2>
+<p>Every column has a <strong>class</strong>: the kind of values it holds. The most common classes are:</p>
+<ul>
+<li><strong>numeric</strong>: numbers, for example <code>age</code>.</li>
+<li><strong>character</strong>: text (always in quotes), for example a label like <code>"yes"</code>.</li>
+<li><strong>logical</strong>: <code>TRUE</code> or <code>FALSE</code> values.</li>
+<li><strong>factor</strong>: categories, for example a study programme.</li>
+</ul>
+<p>You check the class of a column with the function <code>class()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(survey<span class="sc">$</span>age)       <span class="co"># age holds whole numbers</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "integer"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(survey<span class="sc">$</span>program)   <span class="co"># program is stored as whole numbers too</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "integer"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="integer or numeric?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>integer or numeric?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For whole numbers R often says <code>integer</code>; for numbers with decimals it says <code>numeric</code>. Both are simply <strong>numbers</strong>, so you do not need to worry about the difference for now.</p>
+</div>
+</div>
+<p>Look closely at <code>program</code>. R stores it as a number, because the questionnaire used the codes 1, 2, and 3. But <code>program</code> is not really a number: each code stands for a <strong>category</strong> (one of three study programmes). This is why its “average” in <code>summary()</code> made no sense. Knowing the class of a variable tells you what you can sensibly do with it: you can take the mean of a real number, but not of a category.</p>
+<section id="your-turn-5" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-5">Your turn</h3>
+<p>Check the class of the <code>study_hours</code> column and of the <code>self_efficacy</code> column with <code>class()</code>. Which column in the data set is stored as a number, but is really a <strong>category</strong>?</p>
+</section>
+</section>
+<section id="filtering-choosing-rows" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="filtering-choosing-rows"><span class="header-section-number">6.2</span> Filtering: choosing rows</h2>
 <p><strong>Filtering</strong> means keeping only the rows that match a rule. We use square brackets with a condition before the comma: <code>survey[condition, ]</code>. The empty part after the comma means “keep all columns”.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>adults <span class="ot">&lt;-</span> survey[survey<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]   <span class="co"># keep only people aged 18 or older</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(adults)                           <span class="co"># how many are left?</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 37</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 28</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Read it as: “keep the rows of <code>survey</code> where <code>age</code> is 18 or higher.”</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
@@ -395,109 +410,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Do not forget the <strong>comma</strong>. <code>survey[survey$age &gt;= 18, ]</code> keeps rows. Without the comma, R gets confused, because it cannot tell rows from columns.</p>
 </div>
 </div>
-<section id="your-turn-5" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-5">Your turn</h3>
+<section id="your-turn-6" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-6">Your turn</h3>
 <p>Create an object called <code>keen</code> that keeps only the people who study more than 15 hours per week (<code>study_hours &gt; 15</code>). How many people are in <code>keen</code>?</p>
 </section>
 </section>
-<section id="choosing-and-removing-columns" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="choosing-and-removing-columns"><span class="header-section-number">6.2</span> Choosing and removing columns</h2>
+<section id="removing-columns" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="removing-columns"><span class="header-section-number">6.3</span> Removing columns</h2>
 <p>Sometimes a column is not useful for analysis. The <code>id</code> number, for example, only tells people apart; it is not something we study. We remove a column by setting it to <code>NULL</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="cn">NULL</span>   <span class="co"># remove the id column</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(survey)       <span class="co"># id is gone</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "age"           "self_efficacy" "study_hours"   "program"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="your-turn-6" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-6">Your turn</h3>
-<p>Look at the column names again with <code>names(survey)</code> and check that <code>id</code> is no longer there. What other function coud you use to check this?</p>
+<section id="your-turn-7" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
+<p>Look at the column names again with <code>names(survey)</code> and check that <code>id</code> is no longer there. What other function could you use to check this?</p>
 </section>
 </section>
-<section id="making-a-new-variable" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="making-a-new-variable"><span class="header-section-number">6.3</span> Making a new variable</h2>
+<section id="making-a-new-variable" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="making-a-new-variable"><span class="header-section-number">6.4</span> Making a new variable</h2>
 <p>We can build a new column from the columns we already have. Give the new column a name with <code>$</code>, and put a calculation on the right of the arrow <code>&lt;-</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>study_per_day <span class="ot">&lt;-</span> survey<span class="sc">$</span>study_hours <span class="sc">/</span> <span class="dv">7</span>   <span class="co"># weekly hours -&gt; daily hours</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(survey)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   age self_efficacy study_hours program study_per_day</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  25            40           4       2     0.5714286</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  17            42          14       1     2.0000000</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  22            43           8       1     1.1428571</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  20            44          12       2     1.7142857</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  21            41          13       2     1.8571429</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  18            27           8       2     1.1428571</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  25            40           8       1     1.1428571</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  17            31          18       2     2.5714286</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  22            24           6       1     0.8571429</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  20            31          14       3     2.0000000</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  21            35          13       1     1.8571429</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  18            30          16       2     2.2857143</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The new column <code>study_per_day</code> now appears in the table.</p>
-<section id="your-turn-7" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
-<p>Make a new variable <code>study_per_day_rounded</code> that rounds <code>study_per_day</code> to whole numbers, using the function <code>round()</code>. Then look at the first rows.</p>
-</section>
-</section>
-<section id="recoding-values" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="recoding-values"><span class="header-section-number">6.4</span> Recoding values</h2>
-<p><strong>Recoding</strong> means changing values into clearer ones. Our <code>program</code> column holds the codes 1, 2, and 3, but those numbers are hard to read. We will make a new column with real names. We start it as <code>NA</code> (R’s word for “not available / empty”) and then fill it in:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>program_name <span class="ot">&lt;-</span> <span class="cn">NA</span>   <span class="co"># a new, empty column</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>program_name[survey<span class="sc">$</span>program <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Pedagogy"</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(survey)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   age self_efficacy study_hours program study_per_day program_name</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  25            40           4       2     0.5714286         &lt;NA&gt;</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  17            42          14       1     2.0000000     Pedagogy</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  22            43           8       1     1.1428571     Pedagogy</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  20            44          12       2     1.7142857         &lt;NA&gt;</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  21            41          13       2     1.8571429         &lt;NA&gt;</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  18            27           8       2     1.1428571         &lt;NA&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Read one of those lines as: “for the rows where <code>program</code> equals 1, set <code>program_name</code> to Pedagogy.” We kept the original <code>program</code> column, which is good practice: never throw away the raw values.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Watch out
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To test “is equal to”, use <strong>two</strong> equals signs <code>==</code>, just like in Week 1. One equals sign <code>=</code> will not work here.</p>
-</div>
-</div>
 <section id="your-turn-8" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
-<p>Check your recoding with <code>table(survey$program_name)</code>. You should see the pedagogy programme names and NAs with a count for each. Additionally, recode psychology (value 2) and <code>sociology</code> (value 3) into the <code>program_name</code> variable.</p>
+<p>Make a new variable <code>study_per_day_rounded</code> that rounds <code>study_per_day</code> to whole numbers, using the function <code>round()</code>. Then look at the first rows.</p>
 </section>
 </section>
 <section id="putting-values-into-categories" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="putting-values-into-categories"><span class="header-section-number">6.5</span> Putting values into categories</h2>
 <p><strong>Categorizing</strong> means turning a number into groups. A common tool is <code>ifelse()</code>. It takes three parts: a test, the value if the test is <code>TRUE</code>, and the value if it is <code>FALSE</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>efficacy_level <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(survey<span class="sc">$</span>self_efficacy <span class="sc">&gt;=</span> <span class="dv">32</span>, <span class="st">"higher"</span>, <span class="st">"lower"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(survey<span class="sc">$</span>efficacy_level)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; higher  lower </span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     19     21</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>efficacy_level <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(survey<span class="sc">$</span>self_efficacy <span class="sc">&gt;=</span> <span class="dv">32</span>, <span class="st">"higher"</span>, <span class="st">"lower"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(survey<span class="sc">$</span>efficacy_level)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; higher  lower </span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     16     14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Here, everyone with a self-efficacy score of 32 or more gets <code>"higher"</code>, and the rest get <code>"lower"</code>.</p>
+<p>The function <code>table()</code> <strong>counts</strong> how often each value appears. Here it shows how many people are in the <code>"higher"</code> group and how many in the <code>"lower"</code> group. We use <code>table()</code> a lot when describing categories, and look at it again in the next section.</p>
 <section id="your-turn-9" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-9">Your turn</h3>
 <p>Make a variable <code>studies_a_lot</code> that is <code>"yes"</code> when <code>study_hours</code> is 14 or more, and <code>"no"</code> otherwise. Then count the groups with <code>table()</code>.</p>
 </section>
-</section>
-<section id="taking-a-random-subsample" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="taking-a-random-subsample"><span class="header-section-number">6.6</span> Taking a random subsample</h2>
-<p>A <strong>subsample</strong> is a smaller, random part of your data. We pick random row numbers with <code>sample()</code>, then keep those rows.</p>
-<p>Because the choice is random, we first use <code>set.seed()</code>. This makes the “random”vchoice the same every time you run it, so your work stays <strong>reproducible</strong>.</p>
+<p><strong>Recoding</strong> means changing values into clearer ones. Our <code>program</code> column holds the codes 1, 2, and 3, but those numbers are hard to read. We can make a new column with real names. We start it as <code>NA</code> (R’s word for “not available / empty”) and then fill it in:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)                          <span class="co"># makes the random choice repeatable</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sub_rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(survey), <span class="dv">10</span>) <span class="co"># pick 10 random row numbers</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>subsample <span class="ot">&lt;-</span> survey[sub_rows, ]        <span class="co"># keep those rows</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(subsample)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>program_name <span class="ot">&lt;-</span> <span class="cn">NA</span>   <span class="co"># a new, empty column</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>program_name[survey<span class="sc">$</span>program <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Pedagogy"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>program_name[survey<span class="sc">$</span>program <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"Psychology"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>program_name[survey<span class="sc">$</span>program <span class="sc">==</span> <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="st">"Sociology"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(survey<span class="sc">$</span>program_name)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Pedagogy Psychology  Sociology </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         10          9         11</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="your-turn-10" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
-<p>Create your own subsample of <strong>15</strong> people in an object called <code>my_sample</code>. First write <code>set.seed(1)</code>, then use <code>sample()</code> and square brackets as above. Check it has 15 rows with <code>nrow()</code>.</p>
-</section>
+<p>Read one of those lines as: “for the rows where <code>program</code> equals 1, set <code>program_name</code> to Pedagogy.” We kept the original <code>program</code> column, which is good practice: never throw away the raw values. As before, testing “is equal to” needs <strong>two</strong> equals signs <code>==</code>.</p>
 <hr>
 </section>
 </section>
@@ -508,40 +485,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="7.1" class="anchored" data-anchor-id="counting-categories-with-table"><span class="header-section-number">7.1</span> Counting categories with table()</h2>
 <p>For categories (text variables), we count how often each value appears with <code>table()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(survey<span class="sc">$</span>program_name)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Pedagogy </span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(survey<span class="sc">$</span>program_name)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Pedagogy Psychology  Sociology </span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         10          9         11</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="numbers-in-short-mean-and-sd" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="numbers-in-short-mean-and-sd"><span class="header-section-number">7.2</span> Numbers in short: mean and sd</h2>
 <p>For numbers, the average (<code>mean()</code>), the median (<code>median()</code>), and the standard deviation (<code>sd()</code>) give a quick picture.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)   <span class="co"># average self-efficacy</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.275</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(survey<span class="sc">$</span>self_efficacy)     <span class="co"># how spread out the scores are</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6.629335</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)   <span class="co"># average self-efficacy</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 33.23333</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(survey<span class="sc">$</span>self_efficacy)     <span class="co"># how spread out the scores are</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6.043996</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="histograms-with-hist" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="histograms-with-hist"><span class="header-section-number">7.3</span> Histograms with hist()</h2>
 <p>A <strong>histogram</strong> shows how a numeric variable is distributed. It puts the values into bars: tall bars mean many people have those values.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(survey<span class="sc">$</span>self_efficacy,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy scores"</span>,   <span class="co"># title</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"score"</span>)                  <span class="co"># label for the x-axis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(survey<span class="sc">$</span>self_efficacy,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>,                     <span class="co"># roughly how many bars</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"steelblue"</span>,               <span class="co"># colour of the bars</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy scores"</span>,   <span class="co"># title</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"score"</span>)                  <span class="co"># label for the x-axis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_02_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_02_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="your-turn-11" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-11">Your turn</h3>
-<p>Make a histogram of <code>age</code>. Give it a clear title and an x-axis label. Then, print the mean and median of <code>age</code>, are they similar or different? Argue why mean and median are similar or different, and relate it to the histogram you just plotted.</p>
+<p>Each part inside the brackets is an <strong>argument</strong> that changes the plot: <code>main</code> renames the title, <code>xlab</code> renames the x-axis label, <code>breaks</code> sets roughly how many bars there are, and <code>col</code> sets the colour of the bars. Try changing them and run the line again to see the effect.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Going further (optional): nicer graphics with ggplot2">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Going further (optional): nicer graphics with ggplot2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The plots from <code>hist()</code> are fine for a quick look. For nicer graphics, many people use the <strong>package</strong> <code>ggplot2</code>. You install it once and load it each session:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)   <span class="co"># once</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)              <span class="co"># each session</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(survey, <span class="fu">aes</span>(<span class="at">x =</span> self_efficacy)) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">bins =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Self-efficacy scores"</span>, <span class="at">x =</span> <span class="st">"score"</span>, <span class="at">y =</span> <span class="st">"count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You do not need <code>ggplot2</code> for this course, but it is good to know it exists.</p>
+</div>
+</div>
+</div>
+<section id="your-turn-10" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
+<p>Make a histogram of <code>age</code>. Give it a clear title and an x-axis label, and try a colour of your choice with <code>col</code> and a different number of <code>breaks</code>. Then print the mean and median of <code>age</code>: are they similar or different? Argue why, and relate your answer to the histogram you just plotted.</p>
 </section>
 </section>
 <section id="boxplots-with-boxplot" class="level2" data-number="7.4">
@@ -574,8 +579,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now you can see whether students in some programmes study more than in some others in your sample.</p>
-<section id="your-turn-12" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-12">Your turn</h3>
+<section id="your-turn-11" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-11">Your turn</h3>
 <p>Make a boxplot of <code>self_efficacy</code> <strong>by</strong> <code>program_name</code>. Which programme has the highest middle value? What can you conclude from it?</p>
 </section>
 <hr>
@@ -587,9 +592,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(survey, <span class="st">"data/class_survey_clean.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="your-turn-13" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-13">Your turn</h3>
-<p>Save your cleaned <code>survey</code> as <code>class_survey_clean.csv</code> in your <code>data</code> folder. Then check in the <strong>Files</strong> pane (bottom-right) that the new file is there. Also, save your script in <code>script</code> folder.</p>
+<section id="your-turn-12" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-12">Your turn</h3>
+<p>Save your cleaned <code>survey</code> as <code>class_survey_clean.csv</code> in your <code>research_methods</code> folder. Then check in the <strong>Files</strong> pane (bottom-right) that the new file is there. Also save your script.</p>
 </section>
 <hr>
 </section>
@@ -599,20 +604,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>load a CSV file with <code>read.csv()</code> and store it as a data frame;</li>
 <li>reach a single column with <code>$</code>, and a single cell with <code>[row, column]</code>;</li>
-<li>inspect data with <code>dim()</code>, <code>names()</code>, <code>head()</code>, <code>str()</code>, <code>summary()</code>, and <code>View()</code>;</li>
+<li>inspect data with <code>nrow()</code>, <code>ncol()</code>, <code>names()</code>, <code>head()</code>, <code>summary()</code>, <code>View()</code>, and check a column’s type with <code>class()</code>;</li>
 <li>filter rows with a condition;</li>
 <li>make new variables and remove ones you do not need;</li>
 <li>recode values into clear labels and put numbers into categories;</li>
-<li>take a reproducible random subsample with <code>set.seed()</code> and <code>sample()</code>;</li>
 <li>describe your sample with <code>table()</code>, <code>mean()</code>, <code>sd()</code>, <code>hist()</code>, and <code>boxplot()</code>;</li>
 <li>save a cleaned dataset with <code>write.csv()</code>.</li>
 </ul>
 <p>A small cheat sheet to keep:</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 40%">
-<col style="width: 59%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>You want to…</th>
@@ -637,36 +637,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>nrow(df)</code>, <code>ncol(df)</code></td>
 </tr>
 <tr class="odd">
-<td>First rows / structure</td>
-<td><code>head(df)</code>, <code>str(df)</code></td>
+<td>First rows</td>
+<td><code>head(df)</code></td>
 </tr>
 <tr class="even">
+<td>Class of a column</td>
+<td><code>class(df$x)</code></td>
+</tr>
+<tr class="odd">
 <td>Summary of all variables</td>
 <td><code>summary(df)</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Keep some rows (filter)</td>
 <td><code>df[df$age &gt;= 18, ]</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Make a new variable</td>
 <td><code>df$new &lt;- df$x / 7</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Remove a variable</td>
 <td><code>df$old &lt;- NULL</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Recode a value</td>
 <td><code>df$x[df$x == 1] &lt;- "label"</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Category from a rule</td>
 <td><code>ifelse(df$x &gt;= 32, "higher", "lower")</code></td>
-</tr>
-<tr class="even">
-<td>Random subsample</td>
-<td><code>df[sample(1:nrow(df), 10), ]</code></td>
 </tr>
 <tr class="odd">
 <td>Count a category</td>
