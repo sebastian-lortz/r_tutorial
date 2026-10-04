@@ -62,7 +62,7 @@ write.csv(survey, "class_survey_clean.csv", row.names = FALSE)
 
 Welcome back! In Week 2 you learned to describe **one sample**: you loaded the class data, cleaned it, and summarised it with the mean, the standard deviation, histograms, and boxplots.
 
-This week we take the next step. We have measured a **sample**, but we usually want to say something about a much larger **population**. For example, our class is a small sample, but we may want to say something about all first-year students. This week is about that step: **from sample to population**.
+This week we take the next step. We have collected a **sample**, but we usually want to say something about a much larger **population**. For example, our class is a small sample, but we may want to say something about all first-year students. This week is about that step: **from sample to population**.
 
 Work through this page carefully, from top to bottom. Every short explanation is followed by a **Your turn** task to do yourself.
 
@@ -71,7 +71,7 @@ General tips:
 -   Read each part slowly and in order. Each step builds on the one before it.
 -   Type the code yourself instead of copying and pasting it. You learn faster this way.
 -   Errors are normal. Read the message and try again.
--   If you are stuck, ask a teacher or check the FAQ.
+-   If you are stuck, check the FAQ or ask a teacher.
 -   Save your work often.
 
 ------------------------------------------------------------------------
@@ -105,7 +105,7 @@ Complete the **start workflow** and load `survey`. Check that `survey` appears i
 
 # From sample to population
 
-A **population** is the whole group you want to say something about, for example *all first-year Orthopedagogy students*. A **sample** is the smaller group you actually measured, for example *the students in our class*. We almost never measure a whole population, because it is too big. So we measure a sample and use it to make an estimate about the population.
+A **population** is the whole group you want to say something about, for example *all first-year Orthopedagogy students*. A **sample** is the smaller group you actually collected data from, for example *the students in our class*. We almost never sample a whole population, because it is too big. So we collect a sample and use it to make an estimate about the population.
 
 When we compute the average of a sample, that number is a **point estimate** of the population average. A point estimate is our single best guess for the population value, based on the sample.
 
@@ -116,7 +116,7 @@ mean(survey$self_efficacy)   # point estimate of the population's average self-e
 This one number is our best guess for the average self-efficacy of the whole population, based only on the information we collected in our class.
 
 ::: {.callout-note title="Example: what is the population?"}
-Imagine you measured the average number of study hours in our class and found 14 hours per week.
+Imagine you assessed the average number of study hours in our class and found 14 hours per week.
 
 -   Your **sample** is our class.
 -   Your **point estimate** is 14 hours.
@@ -125,7 +125,7 @@ Imagine you measured the average number of study hours in our class and found 14
 The point estimate is always the same number (14), but *what it says something about* depends on which population you have in mind.
 :::
 
-Choosing your population is not a technical step; it is a thinking step. It depends on who you measured and thus, if your sample generalises to the population.
+Choosing your population is not a technical step; it is a thinking step. It depends on who you assessed and thus, if your sample generalises to the population.
 
 ::: your-turn
 ### Your turn {.unnumbered}
@@ -186,7 +186,7 @@ The two subsample means are **not the same**, and neither is exactly equal to th
 mean(survey$self_efficacy)             # the full-data mean
 ```
 
-None of these numbers is "wrong". They simply show that a sample mean is an estimate that wobbles a bit. To measure that wobble, we first ask a bigger question: if we could take *many* samples, how would their means be spread out? That spread is the **sampling distribution**, and it is the key to everything that follows.
+None of these numbers is "wrong". They simply show that a sample mean is an estimate that wobbles a bit. To assess that wobble, we first ask a bigger question: if we could take *many* samples, how would their means be spread out? That spread is characterized by the **sampling distribution**, and it is the key to everything that follows.
 
 ::: your-turn
 ### Your turn {.unnumbered}
@@ -198,15 +198,15 @@ Repeat the steps above for the `study_hours` variable. Draw two subsamples of 15
 
 # The sampling distribution
 
-In the previous section, each subsample gave a slightly different mean. Now imagine repeating a whole study many times: each time you draw a fresh sample of the same size, measure it, and write down its mean. If you collected all those means together, they would form their own distribution. This is the **sampling distribution of the mean**: the distribution of the sample mean across many repeated samples.
+In the previous section, each subsample gave a slightly different mean. Now imagine repeating a whole study many times: each time you draw a fresh sample of the same size, assess it, and write down its mean. If you collected all those means together, they would form their own distribution. This is the **sampling distribution of the mean**: the distribution of the sample mean across many repeated samples.
 
-With real data this is impossible: we collect our sample once, and that is it. The sampling distribution of a sample mean is a theoretical idea, but to make it concrete, we can **simulate** it. We assume an exemplary population with a mean and a spread that we choose ourselves, draw many samples from it, and look at their means. This section uses code you can run and read; you do **not** need to write it yourself.
+With real data this is impossible: we collect our sample once, and that is it. The sampling distribution of a sample mean is a theoretical idea, but to make it concrete, we can **simulate** it. We assume an exemplary population with a mean and a standard deviation that we choose ourselves, draw many samples from it, and look at their means. This section uses code you can run and read; you do **not** need to write it yourself.
 
-**Step 1: one simulated sample.** The function `rnorm(n, mean, sd)` draws `n` random values from a normal population with a given mean and standard deviation. We pretend the population has an average of 32 and a spread of 6:
+**Step 1: one simulated sample.** The function `rnorm(n, mean, sd)` draws `n` random values from a normal population with a given mean and standard deviation. We pretend the population has an average of 32 and a standard deviation of 6:
 
 ```{r}
 pop_mean <- 32   # the TRUE population mean (we decide it)
-pop_sd   <- 6    # the TRUE population spread
+pop_sd   <- 6    # the TRUE population standard deviation
 n        <- 30   # people per sample
 
 set.seed(2026)
@@ -232,12 +232,12 @@ This picture, the histogram of many sample means, **is** the sampling distributi
 
 1.  It is **centered on the true population mean** (the black line at 32). Most samples give a mean near the truth.
 2.  It is **bell-shaped**: means near the center are common, means far away are rare.
-3.  Its **spread** has a special name: the **standard error**. The standard error is simply how wide the sampling distribution is.
+3.  Its **standard deviation** has a special name: the **standard error**. The standard error is simply how wide the sampling distribution is.
 
-We can check point 3. The spread (standard deviation) of our 1000 means should be close to the population spread divided by the square root of the sample size:
+We can check point 3. The standard deviation of our 1000 means should be close to the population standard deviation divided by the square root of the sample size:
 
 ```{r}
-sd(sample_means)     # the spread of the sampling distribution
+sd(sample_means)     # the standard deviation of the sampling distribution
 pop_sd / sqrt(n)     # the standard error, from the formula
 ```
 
@@ -325,7 +325,7 @@ se
 Look at the formula `s / sqrt(n)`: a **bigger sample** (larger `n`) makes the standard error **smaller**. More people means a narrower sampling distribution, less wobble, and a more precise estimate. This is one reason why larger samples are better, and it is exactly what you saw in the Your turn of the previous section.
 :::
 
-**3. The z-value.** For a 95% confidence interval, we multiply the standard error by the fixed number we just met in the picture: **1.96**. This number comes from the tail areas under the standard normal distribution, assuming we know the population's standard deviation:
+**3. The z-value.** For a 95% confidence interval, we multiply the standard error by the fixed number we just met in the picture: **1.96**. This number comes from the tail areas under the standard normal distribution, assuming we know the population's standard deviation (see the lecture for more details). We set our z-value:
 
 ```{r}
 z <- 1.96
@@ -361,13 +361,13 @@ The dot in the middle is our best guess (the point estimate). The blue line is t
 Two things a 95% confidence interval does **not** mean:
 
 -   It does **not** mean "95% of people fall in this range." The interval is about the **average**, not about individual people.
--   It does **not** mean "there is a 95% chance the true average is inside *this* interval." The 95% is about the **method**, not about this one interval: intervals built this way catch the true average about 95% of the time.
+-   It does **not** mean "there is a 95% chance the population average is inside *this* interval." The 95% is about the **method**, not about this one interval: intervals built this way contain the population average about 95% of the time.
 :::
 
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Compute a 95% confidence interval **by hand** for the `study_hours` variable, following the same four steps: the mean, the standard error (`sd / sqrt(n)`), the z-value `1.96`, and the lower and upper edges. Write down the interval.
+Compute a 95% confidence interval **by hand** for the `study_hours` variable, following the same four steps: the mean, the standard error (`sd / sqrt(n)`), the z-value `1.96`, and the lower and upper bounds Write down the interval.
 :::
 
 ------------------------------------------------------------------------
@@ -412,15 +412,15 @@ c(ci_lower, ci_upper)
 -   *What does the confidence interval add?* It tells you how **precise** that estimate is. A **narrow** interval means a precise estimate; a **wide** interval means there is more uncertainty about the population average.
 
 ::: {.callout-tip collapse="true" title="Going further: the t-distribution and t.test()"}
-The value **1.96** comes from the **normal distribution** (also called the **z-distribution**). It assumes we know the spread in the population very well. In real research we only *estimate* the spread from our sample, so for **small samples** the correct multiplier is a little **larger** than 1.96. That larger multiplier comes from the **t-distribution**.
+The value **1.96** comes from the **normal distribution** (also called the **z-distribution**). It assumes we know the standard deviation in the population very well. In real research we only *estimate* the standard deviation from our sample, so for **small samples** the correct multiplier is a little **larger** than 1.96. That larger multiplier comes from the **t-distribution**.
 
-You do not need to compute this by hand. R has a function, `t.test()`, that builds the interval for you using the t-distribution:
+You learned how to compute it by hand already. In R there is the function, `t.test()`, that builds the interval for you using the t-distribution:
 
 ```{r}
 t.test(survey$self_efficacy)$conf.int
 ```
 
-Compare this with your by-hand interval: it is very **similar**, but usually a little **wider**, because the t-distribution is more cautious with small samples. As the sample gets bigger, the t-value gets closer and closer to 1.96, and the two intervals become almost identical.
+Compare this with your by-hand interval: it is very **similar**, but usually a little **wider**, because the t-distribution is more cautious with small samples. As the sample gets bigger, the t-value gets closer and closer to 1.96, and the two intervals become essentially identical when the sample size gets very large.
 :::
 
 ::: your-turn
@@ -475,7 +475,7 @@ Run the check above three times, each time with a different seed (for example `s
 
 In the earlier section we simulated many sample **means** and saw the sampling distribution. Now we go one step further: for many samples we build a whole **confidence interval** each time, and count how often the interval catches the true population mean. Because *we* chose the true mean, we can check this exactly. As before, this is code to run and read.
 
-We use the same pretend population as before (mean 32, spread 6, samples of 30):
+We use the same pretend population as before (mean 32, standard deviation 6, samples of 30):
 
 ```{r}
 pop_mean <- 32
@@ -543,7 +543,7 @@ Last week you described a single sample. This week you learned to reason from th
 -   explain the difference between a **sample** and a **population**;
 -   describe a sample mean as a **point estimate** of the population mean;
 -   explain **sampling fluctuation** by drawing subsamples with `set.seed()` and `sample()`;
--   describe the **sampling distribution** of the mean, and know that its spread is the **standard error**;
+-   describe the **sampling distribution** of the mean, and know that its standard deviation is the **standard error**;
 -   compute a 95% **confidence interval by hand** using the mean, the standard error (`sd / sqrt(n)`), and the z-value `1.96`, and explain where the `1.96` comes from;
 -   visualise, estimate, and interpret a confidence interval for your own variable;
 -   check whether an interval catches a known mean with a logical test;
@@ -552,7 +552,7 @@ Last week you described a single sample. This week you learned to reason from th
 A small cheat sheet to keep:
 
 | You want... | You write... |
-|----|----|
+|------------------------------------|------------------------------------|
 | Point estimate (sample mean) | `mean(df$x)` |
 | Standard deviation | `sd(df$x)` |
 | Number of people | `nrow(df)` |
