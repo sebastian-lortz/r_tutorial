@@ -1,5 +1,2 @@
 project:
-  title: "r_tutorial"
-
-editor: visual
-
+  type: default
