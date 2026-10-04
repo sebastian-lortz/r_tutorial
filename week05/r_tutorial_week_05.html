@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sebastian A. J. Lortz">
+<meta name="dcterms.date" content="2026-10-04">
+
+<title>r_tutorial_week_05</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="r_tutorial_week_05_files/libs/clipboard/clipboard.min.js"></script>
+<script src="r_tutorial_week_05_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="r_tutorial_week_05_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="r_tutorial_week_05_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="r_tutorial_week_05_files/libs/quarto-html/popper.min.js"></script>
+<script src="r_tutorial_week_05_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="r_tutorial_week_05_files/libs/quarto-html/anchor.min.js"></script>
+<link href="r_tutorial_week_05_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="r_tutorial_week_05_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="r_tutorial_week_05_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="r_tutorial_week_05_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="r_tutorial_week_05_files/libs/bootstrap/bootstrap-82a8e0681529fff444bbc39736ff6b3a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#how-to-use-this-tutorial" id="toc-how-to-use-this-tutorial" class="nav-link active" data-scroll-target="#how-to-use-this-tutorial">How to use this tutorial</a></li>
+  <li><a href="#start-workflow" id="toc-start-workflow" class="nav-link" data-scroll-target="#start-workflow"><span class="header-section-number">1</span> Start workflow</a></li>
+  <li><a href="#the-five-steps-once-more" id="toc-the-five-steps-once-more" class="nav-link" data-scroll-target="#the-five-steps-once-more"><span class="header-section-number">2</span> The five steps, once more</a></li>
+  <li><a href="#part-1-a-number-by-two-groups-t-test-and-regression" id="toc-part-1-a-number-by-two-groups-t-test-and-regression" class="nav-link" data-scroll-target="#part-1-a-number-by-two-groups-t-test-and-regression"><span class="header-section-number">3</span> Part 1 – A number by two groups: t-test and regression</a>
+  <ul class="collapse">
+  <li><a href="#look-first-a-boxplot-and-the-group-means" id="toc-look-first-a-boxplot-and-the-group-means" class="nav-link" data-scroll-target="#look-first-a-boxplot-and-the-group-means"><span class="header-section-number">3.1</span> Look first: a boxplot and the group means</a></li>
+  <li><a href="#the-t-test-from-week-4" id="toc-the-t-test-from-week-4" class="nav-link" data-scroll-target="#the-t-test-from-week-4"><span class="header-section-number">3.2</span> The t-test (from Week 4)</a></li>
+  <li><a href="#making-a-dummy-variable" id="toc-making-a-dummy-variable" class="nav-link" data-scroll-target="#making-a-dummy-variable"><span class="header-section-number">3.3</span> Making a dummy variable</a></li>
+  <li><a href="#the-regression-with-the-dummy" id="toc-the-regression-with-the-dummy" class="nav-link" data-scroll-target="#the-regression-with-the-dummy"><span class="header-section-number">3.4</span> The regression with the dummy</a></li>
+  <li><a href="#comparing-the-two-outputs" id="toc-comparing-the-two-outputs" class="nav-link" data-scroll-target="#comparing-the-two-outputs"><span class="header-section-number">3.5</span> Comparing the two outputs</a></li>
+  </ul></li>
+  <li><a href="#part-2-a-number-by-a-number-simple-regression" id="toc-part-2-a-number-by-a-number-simple-regression" class="nav-link" data-scroll-target="#part-2-a-number-by-a-number-simple-regression"><span class="header-section-number">4</span> Part 2 – A number by a number: simple regression</a>
+  <ul class="collapse">
+  <li><a href="#look-first-a-scatterplot" id="toc-look-first-a-scatterplot" class="nav-link" data-scroll-target="#look-first-a-scatterplot"><span class="header-section-number">4.1</span> Look first: a scatterplot</a></li>
+  <li><a href="#a-short-recap-correlation" id="toc-a-short-recap-correlation" class="nav-link" data-scroll-target="#a-short-recap-correlation"><span class="header-section-number">4.2</span> A short recap: correlation</a></li>
+  <li><a href="#from-correlation-to-a-regression-line" id="toc-from-correlation-to-a-regression-line" class="nav-link" data-scroll-target="#from-correlation-to-a-regression-line"><span class="header-section-number">4.3</span> From correlation to a regression line</a></li>
+  <li><a href="#predicted-values-and-residuals" id="toc-predicted-values-and-residuals" class="nav-link" data-scroll-target="#predicted-values-and-residuals"><span class="header-section-number">4.4</span> Predicted values and residuals</a></li>
+  </ul></li>
+  <li><a href="#testing-the-slope-the-five-steps" id="toc-testing-the-slope-the-five-steps" class="nav-link" data-scroll-target="#testing-the-slope-the-five-steps"><span class="header-section-number">5</span> Testing the slope: the five steps</a>
+  <ul class="collapse">
+  <li><a href="#step-1-hypotheses" id="toc-step-1-hypotheses" class="nav-link" data-scroll-target="#step-1-hypotheses"><span class="header-section-number">5.1</span> Step 1 – Hypotheses</a></li>
+  <li><a href="#step-2-assumptions" id="toc-step-2-assumptions" class="nav-link" data-scroll-target="#step-2-assumptions"><span class="header-section-number">5.2</span> Step 2 – Assumptions</a></li>
+  <li><a href="#step-3-the-test-statistic" id="toc-step-3-the-test-statistic" class="nav-link" data-scroll-target="#step-3-the-test-statistic"><span class="header-section-number">5.3</span> Step 3 – The test statistic</a></li>
+  <li><a href="#step-4-the-p-value" id="toc-step-4-the-p-value" class="nav-link" data-scroll-target="#step-4-the-p-value"><span class="header-section-number">5.4</span> Step 4 – The p-value</a></li>
+  <li><a href="#a-confidence-interval-for-the-slope" id="toc-a-confidence-interval-for-the-slope" class="nav-link" data-scroll-target="#a-confidence-interval-for-the-slope"><span class="header-section-number">5.5</span> A confidence interval for the slope</a></li>
+  <li><a href="#how-much-does-the-model-explain-r-squared" id="toc-how-much-does-the-model-explain-r-squared" class="nav-link" data-scroll-target="#how-much-does-the-model-explain-r-squared"><span class="header-section-number">5.6</span> How much does the model explain? R-squared</a></li>
+  <li><a href="#step-5-interpretation" id="toc-step-5-interpretation" class="nav-link" data-scroll-target="#step-5-interpretation"><span class="header-section-number">5.7</span> Step 5 – Interpretation</a></li>
+  </ul></li>
+  <li><a href="#checking-the-assumptions" id="toc-checking-the-assumptions" class="nav-link" data-scroll-target="#checking-the-assumptions"><span class="header-section-number">6</span> Checking the assumptions</a>
+  <ul class="collapse">
+  <li><a href="#two-assumptions-you-check-by-thinking" id="toc-two-assumptions-you-check-by-thinking" class="nav-link" data-scroll-target="#two-assumptions-you-check-by-thinking"><span class="header-section-number">6.1</span> Two assumptions you check by thinking</a></li>
+  <li><a href="#three-assumptions-you-check-with-plots" id="toc-three-assumptions-you-check-with-plots" class="nav-link" data-scroll-target="#three-assumptions-you-check-with-plots"><span class="header-section-number">6.2</span> Three assumptions you check with plots</a></li>
+  <li><a href="#what-do-violations-look-like" id="toc-what-do-violations-look-like" class="nav-link" data-scroll-target="#what-do-violations-look-like"><span class="header-section-number">6.3</span> What do violations look like?</a></li>
+  </ul></li>
+  <li><a href="#influential-observations" id="toc-influential-observations" class="nav-link" data-scroll-target="#influential-observations"><span class="header-section-number">7</span> Influential observations</a>
+  <ul class="collapse">
+  <li><a href="#re-running-the-analysis-without-them" id="toc-re-running-the-analysis-without-them" class="nav-link" data-scroll-target="#re-running-the-analysis-without-them"><span class="header-section-number">7.1</span> Re-running the analysis without them</a></li>
+  </ul></li>
+  <li><a href="#recap-what-you-can-now-do" id="toc-recap-what-you-can-now-do" class="nav-link" data-scroll-target="#recap-what-you-can-now-do"><span class="header-section-number">8</span> Recap: what you can now do</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="r_tutorial_week_05.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">r_tutorial_week_05</h1>
+<p class="subtitle lead">Werkcollege 5</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sebastian A. J. Lortz </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">4 October 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+.your-turn {
+  background-color: #eaf4f1;
+  border-left: 5px solid #18bc9c;
+  padding: 0.6em 1em 0.6em 1em;
+  margin: 1em 0 1em 0;
+  border-radius: 4px;
+}
+.your-turn h3 { margin-top: 0; }
+</style>
+<section id="how-to-use-this-tutorial" class="level1 unnumbered">
+<h1 class="unnumbered">How to use this tutorial</h1>
+<p>Welcome back! In Week 4 you learned to <strong>test</strong> a claim with a t-test. You compared one mean to a known value, and you compared the means of two groups.</p>
+<p>This week we look at <strong>relations between two variables</strong>. For example: <em>do older students study fewer hours?</em> The tool we use is <strong>simple regression</strong>. You will see that regression is not a completely new tool: the two-group t-test from Week 4 is actually a special case of it.</p>
+<p>We work in two parts:</p>
+<ol type="1">
+<li><strong>A number by two groups</strong>: we compare a t-test with a regression that uses a <strong>dummy variable</strong>.</li>
+<li><strong>A number by a number</strong>: we draw a scatterplot, fit a regression line, and check the assumptions.</li>
+</ol>
+<p>Work through this page carefully, from top to bottom. Every short explanation is followed by a <strong>Your turn</strong> task to do yourself.</p>
+<p>General tips:</p>
+<ul>
+<li>Read each part slowly and in order. Each step builds on the one before it.</li>
+<li>Type the code yourself instead of copying and pasting it. You learn faster this way.</li>
+<li>Errors are normal. Read the message and try again.</li>
+<li>If you are stuck, ask a teacher or check the FAQ.</li>
+<li>Save your work often.</li>
+</ul>
+<hr>
+</section>
+<section id="start-workflow" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Start workflow</h1>
+<p>We begin, as always, with the <strong>start workflow</strong>:</p>
+<ol type="1">
+<li>Open <strong>RStudio</strong>: click on the RStudio application.</li>
+<li>Set the <strong>working directory</strong>: click <em>Session</em> &gt; <em>Set Working Directory</em> &gt; <em>Choose Directory</em>, and choose your <code>research_methods</code> folder.</li>
+<li>Open a <strong>new script</strong>: click <em>File</em> &gt; <em>New File</em> &gt; <em>R Script</em>.</li>
+<li>On the first line, write a comment with the title, for example: <code># R tutorial - Week 5</code>.</li>
+<li>Save the script as <code>week5.R</code> in your <code>research_methods</code> folder.</li>
+<li>Load your cleaned data from Week 2 into an object called <code>survey</code>:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"class_survey_clean.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch out
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you see <code>Error: cannot open file ...</code>, R cannot find the file. Check that your working directory is <code>research_methods</code> (run <code>getwd()</code> to print it), and that <code>class_survey_clean.csv</code> really sits in that folder.</p>
+</div>
+</div>
+<section id="your-turn" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn">Your turn</h3>
+<p>Complete the <strong>start workflow</strong> and load <code>survey</code>. Check that <code>survey</code> appears in the <strong>Environment</strong> pane (top-right).</p>
+</section>
+<hr>
+</section>
+<section id="the-five-steps-once-more" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The five steps, once more</h1>
+<p>In Week 4 you learned that every hypothesis test follows the <strong>same five steps</strong>. This week we use them again, now for regression. Keep this list next to you: you will use it in every test for the rest of the course.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="The five steps">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The five steps
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Hypotheses</strong> – write down the null and the alternative.</li>
+<li><strong>Assumptions</strong> – check that the test is allowed for your data.</li>
+<li><strong>Test statistic</strong> – compute the t-value.</li>
+<li><strong>p-value</strong> – find how surprising that t-value is if the null hypothesis were true.</li>
+<li><strong>Interpretation</strong> – decide about the null hypothesis and say what it means <strong>in context</strong>.</li>
+</ol>
+</div>
+</div>
+<p>Step 5 deserves a reminder. Statistics does <strong>not</strong> give you an automatic, “objective” answer. A p-value and an estimate are <strong>tools</strong>. You still have to <strong>interpret</strong> them yourself: How big is the effect, in real units? Does it matter for practice? How good is the sample? Two researchers can look at the same output and write slightly different, but both reasonable, conclusions, as long as they explain their reasoning.</p>
+<hr>
+</section>
+<section id="part-1-a-number-by-two-groups-t-test-and-regression" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part 1 – A number by two groups: t-test and regression</h1>
+<p>We start with a question you already know from Week 4: <em>do Pedagogy and Psychology students differ in self-efficacy?</em> We answer it twice: once with a t-test, and once with regression. Then we compare the two outputs.</p>
+<p>We keep only the two programmes, exactly like last week:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>two_programs <span class="ot">&lt;-</span> survey[survey<span class="sc">$</span>program_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Pedagogy"</span>, <span class="st">"Psychology"</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="look-first-a-boxplot-and-the-group-means" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="look-first-a-boxplot-and-the-group-means"><span class="header-section-number">3.1</span> Look first: a boxplot and the group means</h2>
+<p>Before any test, always <strong>look</strong> at the data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(self_efficacy <span class="sc">~</span> program_name,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> two_programs,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Self-efficacy by programme"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"self-efficacy score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now the group means and the <strong>raw difference</strong> between them. “Raw” means: in the original units of the scale (here, scale points), not converted into some other unit.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mean_ped <span class="ot">&lt;-</span> <span class="fu">mean</span>(two_programs<span class="sc">$</span>self_efficacy[two_programs<span class="sc">$</span>program_name <span class="sc">==</span> <span class="st">"Pedagogy"</span>])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mean_psy <span class="ot">&lt;-</span> <span class="fu">mean</span>(two_programs<span class="sc">$</span>self_efficacy[two_programs<span class="sc">$</span>program_name <span class="sc">==</span> <span class="st">"Psychology"</span>])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>mean_ped</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 33.9</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>mean_psy</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 33.55556</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>mean_psy <span class="sc">-</span> mean_ped   <span class="co"># the raw difference: Psychology minus Pedagogy</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.3444444</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The raw difference is the easiest effect size to understand: “Psychology students score, on average, this many points higher (or lower) than Pedagogy students.”</p>
+<section id="your-turn-1" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-1">Your turn</h3>
+<p>Make the boxplot and compute the two group means and the raw difference for <strong>your own</strong> two groups. Write down the raw difference. Is it large or small compared to the range of the scale?</p>
+</section>
+</section>
+<section id="the-t-test-from-week-4" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-t-test-from-week-4"><span class="header-section-number">3.2</span> The t-test (from Week 4)</h2>
+<p>We run the two-sample t-test. This time we add <code>var.equal = TRUE</code>. This tells R to assume that both groups have the <strong>same spread</strong> in the population. We do this here <strong>only</strong> because regression makes the same assumption, so the two outputs will match exactly. (In Week 4 we used Welch’s test, which does not need this assumption.)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(self_efficacy <span class="sc">~</span> program_name, <span class="at">data =</span> two_programs, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Two Sample t-test</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  self_efficacy by program_name</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 0.13488, df = 17, p-value = 0.8943</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group Pedagogy and group Psychology is not equal to 0</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  -5.043285  5.732174</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean in group Pedagogy mean in group Psychology </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 33.90000                 33.55556</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Write down three numbers from this output: the <strong>t-value</strong>, the <strong>p-value</strong>, and the two <strong>group means</strong>.</p>
+</section>
+<section id="making-a-dummy-variable" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="making-a-dummy-variable"><span class="header-section-number">3.3</span> Making a dummy variable</h2>
+<p>Regression works with numbers. So we turn the group into a number with a <strong>dummy variable</strong>. A dummy variable has only two values:</p>
+<ul>
+<li><code>0</code> for the <strong>reference group</strong> (here: Pedagogy),</li>
+<li><code>1</code> for the other group (here: Psychology).</li>
+</ul>
+<p>We make it with <code>ifelse()</code> from Week 2:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>two_programs<span class="sc">$</span>psychology <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(two_programs<span class="sc">$</span>program_name <span class="sc">==</span> <span class="st">"Psychology"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(two_programs<span class="sc">$</span>program_name, two_programs<span class="sc">$</span>psychology)   <span class="co"># check: every Pedagogy row is 0, every Psychology row is 1</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               0  1</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Pedagogy   10  0</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Psychology  0  9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Example: reading a dummy">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example: reading a dummy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A dummy is named after the group that gets the <code>1</code>. So <code>psychology = 1</code> means “this person studies Psychology”, and <code>psychology = 0</code> means “this person does <strong>not</strong> study Psychology” (here: studies Pedagogy).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Going further (optional): R can make the dummy for you">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Going further (optional): R can make the dummy for you
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you put a text variable straight into a regression, R makes the dummy itself. It picks the reference group alphabetically (here: Pedagogy). So <code>lm(self_efficacy ~ program_name, data = two_programs)</code> gives the same result. Making the dummy by hand helps you see what happens.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-regression-with-the-dummy" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="the-regression-with-the-dummy"><span class="header-section-number">3.4</span> The regression with the dummy</h2>
+<p>We fit a regression model with the function <code>lm()</code>, which stands for <strong>linear model</strong>. The formula form <code>y ~ x</code> is the same as in <code>boxplot()</code> and <code>t.test()</code>: the <strong>dependent variable</strong> (y) comes before the <code>~</code>, the <strong>independent variable</strong> (x) after it.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_dummy <span class="ot">&lt;-</span> <span class="fu">lm</span>(self_efficacy <span class="sc">~</span> psychology, <span class="at">data =</span> two_programs)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_dummy)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = self_efficacy ~ psychology, data = two_programs)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Min     1Q Median     3Q    Max </span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -9.900 -3.900  0.100  4.272  8.100 </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  33.9000     1.7575  19.288 5.41e-13 ***</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psychology   -0.3444     2.5536  -0.135    0.894    </span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 5.558 on 17 degrees of freedom</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.001069,   Adjusted R-squared:  -0.05769 </span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 0.01819 on 1 and 17 DF,  p-value: 0.8943</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Look at the table under <code>Coefficients:</code>. It has two rows:</p>
+<ul>
+<li><code>(Intercept)</code>: the predicted score when the dummy is <code>0</code>. That is the <strong>mean of Pedagogy</strong>.</li>
+<li><code>psychology</code>: how much the prediction changes when the dummy goes from <code>0</code> to <code>1</code>. That is the <strong>raw difference</strong> between the two means (Psychology minus Pedagogy).</li>
+</ul>
+<p>Check this yourself:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model_dummy)     <span class="co"># intercept and slope</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  psychology </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  33.9000000  -0.3444444</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(mean_ped, mean_psy <span class="sc">-</span> mean_ped)   <span class="co"># Pedagogy mean, and the raw difference</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 33.9000000 -0.3444444</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The numbers are the same.</p>
+</section>
+<section id="comparing-the-two-outputs" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="comparing-the-two-outputs"><span class="header-section-number">3.5</span> Comparing the two outputs</h2>
+<p>Now compare the t-test and the regression side by side:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 32%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>What</th>
+<th>t-test output</th>
+<th>regression output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean of Pedagogy</td>
+<td><code>mean in group Pedagogy</code></td>
+<td><code>(Intercept)</code> estimate</td>
+</tr>
+<tr class="even">
+<td>Raw difference</td>
+<td>difference of the two means</td>
+<td><code>psychology</code> estimate</td>
+</tr>
+<tr class="odd">
+<td>t-value</td>
+<td><code>t</code></td>
+<td><code>t value</code> in the <code>psychology</code> row</td>
+</tr>
+<tr class="even">
+<td>p-value</td>
+<td><code>p-value</code></td>
+<td><code>Pr(&gt;\|t\|)</code> in the <code>psychology</code> row</td>
+</tr>
+</tbody>
+</table>
+<p>The t-value has the <strong>same size</strong> in both outputs. The <strong>sign</strong> can be different, because <code>t.test()</code> subtracts in the order Pedagogy minus Psychology, and our dummy measures Psychology minus Pedagogy. The p-value is exactly the same.</p>
+<p>So a two-group t-test (with equal spreads) and a regression with a dummy are <strong>the same test</strong>. Regression is the more general tool: next you will see that it also works when x is a number instead of a group.</p>
+<section id="your-turn-2" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-2">Your turn</h3>
+<p>For <strong>your own</strong> two groups:</p>
+<ol type="1">
+<li>Run <code>t.test()</code> with <code>var.equal = TRUE</code>.</li>
+<li>Make a dummy variable with <code>ifelse()</code> and check it with <code>table()</code>.</li>
+<li>Run <code>lm()</code> with the dummy and look at <code>summary()</code>.</li>
+<li>Copy the table above into your script as comments, and fill in your own numbers in both columns.</li>
+<li>Write a conclusion of two or three sentences. Use the <strong>raw difference</strong> (in scale points), the p-value, and say what the difference means for practice.</li>
+</ol>
+</section>
+<hr>
+</section>
+</section>
+<section id="part-2-a-number-by-a-number-simple-regression" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part 2 – A number by a number: simple regression</h1>
+<p>Now x is a number. Our example question: <em>do older students study fewer hours per week?</em></p>
+<ul>
+<li><strong>Dependent variable</strong> (y): <code>study_hours</code>, the variable we want to explain.</li>
+<li><strong>Independent variable</strong> (x): <code>age</code>, the variable we use to explain it.</li>
+</ul>
+<section id="look-first-a-scatterplot" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="look-first-a-scatterplot"><span class="header-section-number">4.1</span> Look first: a scatterplot</h2>
+<p>For two numeric variables, the right picture is a <strong>scatterplot</strong>: one dot per person, with x on the horizontal axis and y on the vertical axis. We use <code>plot()</code> with the same <code>y ~ x</code> formula:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(study_hours <span class="sc">~</span> age,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> survey,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Study hours by age"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"age (years)"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"study hours per week"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When you look at a scatterplot, ask three questions:</p>
+<ol type="1">
+<li><strong>Direction</strong>: do the dots go up (positive), down (negative), or neither?</li>
+<li><strong>Form</strong>: do they follow a straight line, or a curve?</li>
+<li><strong>Strength and odd points</strong>: are the dots close to a line, or widely spread? Are there dots far away from the rest?</li>
+</ol>
+<section id="your-turn-3" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-3">Your turn</h3>
+<p>Choose <strong>two numeric variables</strong> for your own research question: one dependent variable (y) and one independent variable (x). Make a scatterplot with a title and clear axis labels. Answer the three questions above in one sentence each.</p>
+</section>
+</section>
+<section id="a-short-recap-correlation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="a-short-recap-correlation"><span class="header-section-number">4.2</span> A short recap: correlation</h2>
+<p>You met the <strong>correlation</strong> (<span class="math inline">\(r\)</span>) in the lecture. It is a number between <span class="math inline">\(-1\)</span> and <span class="math inline">\(+1\)</span> that describes how strongly two numeric variables move together <strong>in a straight line</strong>:</p>
+<ul>
+<li><span class="math inline">\(r\)</span> close to <span class="math inline">\(+1\)</span>: a strong positive relation (higher x, higher y).</li>
+<li><span class="math inline">\(r\)</span> close to <span class="math inline">\(-1\)</span>: a strong negative relation (higher x, lower y).</li>
+<li><span class="math inline">\(r\)</span> close to <span class="math inline">\(0\)</span>: no straight-line relation.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(survey<span class="sc">$</span>age, survey<span class="sc">$</span>study_hours)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.3014262</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A correlation can also be tested, with <span class="math inline">\(H_0: \rho = 0\)</span> (no relation in the population; <span class="math inline">\(\rho\)</span> is the Greek letter “rho”, the correlation in the population). The function <code>cor.test()</code> does this with a t-test:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(survey<span class="sc">$</span>age, survey<span class="sc">$</span>study_hours)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Pearson's product-moment correlation</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  survey$age and survey$study_hours</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = -1.6728, df = 28, p-value = 0.1055</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  -0.59687775  0.06601149</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        cor </span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.3014262</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Remember the <code>t</code>, <code>df</code>, and <code>p-value</code> here. You will see the same numbers again in a moment.</p>
+<section id="your-turn-4" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-4">Your turn</h3>
+<p>Compute the correlation for your two variables with <code>cor()</code>, and test it with <code>cor.test()</code>. Is the correlation positive or negative? Is it strong or weak?</p>
+</section>
+</section>
+<section id="from-correlation-to-a-regression-line" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="from-correlation-to-a-regression-line"><span class="header-section-number">4.3</span> From correlation to a regression line</h2>
+<p>The correlation tells you <strong>how strongly</strong> two variables are related. Regression tells you <strong>how much</strong> y changes when x goes up by one unit. It does this by drawing the best straight line through the dots:</p>
+<p><span class="math display">\[\hat{y} = a + b \cdot x\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat{y}\)</span> (“y-hat”) is the <strong>predicted</strong> value of y.</li>
+<li><span class="math inline">\(a\)</span> is the <strong>intercept</strong>: the predicted y when x is 0.</li>
+<li><span class="math inline">\(b\)</span> is the <strong>slope</strong> (or <strong>regression coefficient</strong>): how much the predicted y changes when x goes up by <strong>1</strong>.</li>
+</ul>
+<p>We fit the model with <code>lm()</code>, exactly like in Part 1:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(study_hours <span class="sc">~</span> age, <span class="at">data =</span> survey)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)         age </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  23.6000000  -0.5532258</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We draw the line on top of the scatterplot with <code>abline()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(study_hours <span class="sc">~</span> age,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> survey,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Study hours by age, with regression line"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"age (years)"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"study hours per week"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Read the slope in words</strong>, always in the units of your variables. Here the slope is -0.55: “for every year older, the predicted study time changes by -0.55 hours per week.” Because the slope is negative, older students are predicted to study <strong>less</strong>. A positive slope would mean they are predicted to study <strong>more</strong>. This raw slope is the effect size for regression: it tells you how big the relation is, in real units.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Watch out: the intercept is not always meaningful">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch out: the intercept is not always meaningful
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The intercept is the predicted y when x is <strong>0</strong>. Here that means the study hours of a student aged 0, which makes no sense. The intercept is needed to draw the line, but you often do not interpret it. In Part 1 it <strong>was</strong> meaningful, because x = 0 meant “Pedagogy”.</p>
+</div>
+</div>
+<section id="your-turn-5" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-5">Your turn</h3>
+<p>Fit <code>lm()</code> for your own two variables and draw the regression line on your scatterplot. Write the slope in one sentence, in the real units of your variables (for example “for every extra hour of …, the score goes up by … points”).</p>
+</section>
+</section>
+<section id="predicted-values-and-residuals" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="predicted-values-and-residuals"><span class="header-section-number">4.4</span> Predicted values and residuals</h2>
+<p>For every person, the model gives a <strong>predicted value</strong> <span class="math inline">\(\hat{y}\)</span>: the point on the line at that person’s x. The person’s real score is usually not exactly on the line. The distance between the real score and the predicted score is the <strong>residual</strong>:</p>
+<p><span class="math display">\[\text{residual} = y - \hat{y}\]</span></p>
+<ul>
+<li>A <strong>positive</strong> residual: the person is <strong>above</strong> the line (scores higher than predicted).</li>
+<li>A <strong>negative</strong> residual: the person is <strong>below</strong> the line (scores lower than predicted).</li>
+</ul>
+<p>R gives you both with <code>fitted()</code> and <code>residuals()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="at">age       =</span> survey<span class="sc">$</span>age,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">observed  =</span> survey<span class="sc">$</span>study_hours,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">predicted =</span> <span class="fu">round</span>(<span class="fu">fitted</span>(model), <span class="dv">1</span>),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">residual  =</span> <span class="fu">round</span>(<span class="fu">residuals</span>(model), <span class="dv">1</span>)))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   age observed predicted residual</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  25        8       9.8     -1.8</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  17       18      14.2      3.8</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  22        6      11.4     -5.4</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  20       14      12.5      1.5</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  21       13      12.0      1.0</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  18       16      13.6      2.4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In a picture, the residuals are the vertical lines between each dot and the regression line:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(study_hours <span class="sc">~</span> age,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> survey,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Residuals: the distance from each dot to the line"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"age (years)"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"study hours per week"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> survey<span class="sc">$</span>age, <span class="at">y0 =</span> <span class="fu">fitted</span>(model),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">x1 =</span> survey<span class="sc">$</span>age, <span class="at">y1 =</span> survey<span class="sc">$</span>study_hours,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> <span class="st">"grey60"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The regression line is the line that makes these residuals as <strong>small as possible</strong> (to be exact: it makes the sum of the squared residuals as small as possible). This is why the method is called <strong>least squares</strong>.</p>
+<section id="your-turn-6" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-6">Your turn</h3>
+<p>Look at the first row of the table above. Check by hand (in R, as a calculator) that the residual is the observed value minus the predicted value. Then use <code>coef(model)</code> to compute the predicted value yourself: <code>a + b * age</code>.</p>
+</section>
+<hr>
+</section>
+</section>
+<section id="testing-the-slope-the-five-steps" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Testing the slope: the five steps</h1>
+<p>Is the relation in our sample strong enough to say something about the population? We walk the five steps.</p>
+<section id="step-1-hypotheses" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="step-1-hypotheses"><span class="header-section-number">5.1</span> Step 1 – Hypotheses</h2>
+<p>We test whether the slope in the <strong>population</strong> (<span class="math inline">\(\beta\)</span>, the Greek letter “beta”) is zero:</p>
+<ul>
+<li><span class="math inline">\(H_0: \beta = 0\)</span> – there is <strong>no</strong> linear relation between age and study hours in the population.</li>
+<li><span class="math inline">\(H_1: \beta \neq 0\)</span> – there <strong>is</strong> a linear relation (positive or negative).</li>
+</ul>
+<p>This is a <strong>two-sided</strong> test, our default, just like in Week 4.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="A special case (optional): one-sided tests">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>A special case (optional): one-sided tests
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you have a strong reason to expect one direction <strong>before</strong> you look at the data (for example “older students study <strong>less</strong>”, <span class="math inline">\(H_1: \beta &lt; 0\)</span>), you could test one-sided. <code>summary()</code> always reports the two-sided p-value. For a one-sided test you halve it, but <strong>only</strong> if the slope goes in the direction you predicted. In this course, use two-sided unless you have a very good reason.</p>
+</div>
+</div>
+</div>
+<section id="your-turn-7" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
+<p>Write down <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> for your own two variables, in words <strong>and</strong> with <span class="math inline">\(\beta\)</span>.</p>
+</section>
+</section>
+<section id="step-2-assumptions" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="step-2-assumptions"><span class="header-section-number">5.2</span> Step 2 – Assumptions</h2>
+<p>Regression has more assumptions than the t-test. We discuss them in a separate section below, because checking them takes some work. For now, remember the list:</p>
+<ol type="1">
+<li><strong>Linearity</strong>: the relation between x and y is a straight line.</li>
+<li><strong>Independent observations</strong>: one row per person, and people do not influence each other.</li>
+<li><strong>Normality of the residuals</strong>: the residuals are roughly normally distributed.</li>
+<li><strong>Homoscedasticity</strong>: the spread of the residuals is about the same for all values of x.</li>
+<li><strong>No measurement error in x</strong>: the independent variable is measured (almost) perfectly.</li>
+</ol>
+<p>We come back to all five in the section <em>Checking the assumptions</em>.</p>
+</section>
+<section id="step-3-the-test-statistic" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="step-3-the-test-statistic"><span class="header-section-number">5.3</span> Step 3 – The test statistic</h2>
+<p>The t-value for the slope works like every t-value you have seen: the estimate, divided by its <strong>standard error</strong>.</p>
+<p><span class="math display">\[t = \frac{b - 0}{SE_b}\]</span></p>
+<p>The “<span class="math inline">\(- 0\)</span>” is there because <span class="math inline">\(H_0\)</span> says the slope is 0. Both <span class="math inline">\(b\)</span> and its standard error are in the <code>summary()</code> output:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = study_hours ~ age, data = survey)</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -11.0887  -3.1524   0.9645   3.1081   8.3581 </span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  23.6000     6.8897   3.425  0.00191 **</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age          -0.5532     0.3307  -1.673  0.10551   </span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 4.754 on 28 degrees of freedom</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.09086,    Adjusted R-squared:  0.05839 </span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 2.798 on 1 and 28 DF,  p-value: 0.1055</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In the <code>Coefficients:</code> table, the <code>age</code> row gives <code>Estimate</code> (<span class="math inline">\(b\)</span>), <code>Std. Error</code> (<span class="math inline">\(SE_b\)</span>), <code>t value</code>, and <code>Pr(&gt;|t|)</code> (the p-value). We compute the t-value by hand from the table:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>coef_table <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>coef_table        <span class="co"># the coefficients table on its own</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               Estimate Std. Error   t value    Pr(&gt;|t|)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 23.6000000  6.8897452  3.425381 0.001912969</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age         -0.5532258  0.3307184 -1.672800 0.105505297</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>b    <span class="ot">&lt;-</span> coef_table[<span class="st">"age"</span>, <span class="st">"Estimate"</span>]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>se_b <span class="ot">&lt;-</span> coef_table[<span class="st">"age"</span>, <span class="st">"Std. Error"</span>]</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> (b <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">/</span> se_b</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>t_value</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.6728</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Where does the standard error come from?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Where does the standard error come from?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The standard error of the slope is the <strong>width of the sampling distribution of the slope</strong>, just like the standard error of the mean in Week 3. If you drew many samples, each would give a slightly different slope. <span class="math inline">\(SE_b\)</span> tells you how much the slope wobbles from sample to sample. R computes it for you; you do not need the formula.</p>
+</div>
+</div>
+<section id="your-turn-8" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
+<p>Run <code>summary()</code> for your own model. Find <span class="math inline">\(b\)</span> and <span class="math inline">\(SE_b\)</span> in the table, and compute the t-value by hand. Check that it matches the <code>t value</code> in the output.</p>
+</section>
+</section>
+<section id="step-4-the-p-value" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="step-4-the-p-value"><span class="header-section-number">5.4</span> Step 4 – The p-value</h2>
+<p>The t-value follows a t-distribution with <span class="math inline">\(n - 2\)</span> degrees of freedom (we lose 2: one for the intercept, one for the slope). We use <code>pt()</code> exactly like in Week 4:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(survey)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_value), <span class="at">df =</span> df)   <span class="co"># two-sided p-value</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>p_value</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1055053</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Correlation and regression give the same test">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Correlation and regression give the same test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Compare the <code>t</code>, <code>df</code>, and <code>p-value</code> with the output of <code>cor.test()</code> above. They are <strong>identical</strong>. Testing “the correlation is 0” and testing “the slope is 0” is the same test.</p>
+</div>
+</div>
+<section id="your-turn-9" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-9">Your turn</h3>
+<p>Compute the two-sided p-value for your slope with <code>pt()</code>. Check that it matches <code>Pr(&gt;|t|)</code> in <code>summary()</code> and the p-value from <code>cor.test()</code>. On paper, you would look it up in Table B with <span class="math inline">\(df = n - 2\)</span>.</p>
+</section>
+</section>
+<section id="a-confidence-interval-for-the-slope" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="a-confidence-interval-for-the-slope"><span class="header-section-number">5.5</span> A confidence interval for the slope</h2>
+<p>As in Week 3, a single estimate is not the whole story. A 95% <strong>confidence interval</strong> for the slope gives a range of plausible values for <span class="math inline">\(\beta\)</span> in the population:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 2.5 %   97.5 %</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  9.486997 37.71300</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age         -1.230672  0.12422</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Read the <code>age</code> row. If the interval contains 0, then “no relation” is still a plausible value, and the two-sided test is not significant at 0.05. If 0 is outside the interval, the test is significant. Testing and confidence intervals are two sides of one coin, just as in Week 4.</p>
+<section id="your-turn-10" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
+<p>Compute <code>confint()</code> for your model. Does the interval for the slope contain 0? Does this agree with your p-value?</p>
+</section>
+</section>
+<section id="how-much-does-the-model-explain-r-squared" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="how-much-does-the-model-explain-r-squared"><span class="header-section-number">5.6</span> How much does the model explain? R-squared</h2>
+<p>The slope tells you <strong>how much</strong> y changes per unit of x. Another question is: <strong>how well</strong> does x predict y? Do the dots lie close to the line, or far away? This is measured by <strong>R-squared</strong> (<span class="math inline">\(R^2\)</span>).</p>
+<p><span class="math inline">\(R^2\)</span> is the <strong>share of the differences in y</strong> (the variance) that the model explains. It lies between 0 and 1:</p>
+<ul>
+<li><span class="math inline">\(R^2 = 0\)</span>: x explains nothing of y.</li>
+<li><span class="math inline">\(R^2 = 1\)</span>: x explains y perfectly (all dots on the line).</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)<span class="sc">$</span>r.squared</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.09085777</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Multiply by 100 to read it as a percentage: “age explains about 9% of the differences in study hours between students.” The other part is explained by other things that are not in the model.</p>
+<p>In simple regression, <span class="math inline">\(R^2\)</span> is simply the correlation squared:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(survey<span class="sc">$</span>age, survey<span class="sc">$</span>study_hours)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.09085777</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Raw slope or R-squared?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Raw slope or R-squared?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Both are useful, but they answer different questions. The <strong>raw slope</strong> says how big the change in y is, in real units: easy to judge for practice. <span class="math inline">\(R^2\)</span> (like the correlation) is <strong>standardized</strong>: it has no units, which makes it easier to compare across studies, but harder to judge for practice. In this course we focus on the raw slope and use <span class="math inline">\(R^2\)</span> as extra information.</p>
+</div>
+</div>
+<section id="your-turn-11" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-11">Your turn</h3>
+<p>Compute <span class="math inline">\(R^2\)</span> for your model, and check that it equals your correlation squared. Write one sentence: “x explains about …% of the differences in y.”</p>
+</section>
+</section>
+<section id="step-5-interpretation" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="step-5-interpretation"><span class="header-section-number">5.7</span> Step 5 – Interpretation</h2>
+<p>Now we put everything together. A good conclusion answers these questions:</p>
+<ol type="1">
+<li><strong>The test:</strong> is <span class="math inline">\(p\)</span> smaller than 0.05? Do we reject <span class="math inline">\(H_0\)</span> or not?</li>
+<li><strong>The size:</strong> what is the raw slope, in real units? What is the confidence interval?</li>
+<li><strong>The meaning:</strong> is this relation large enough to matter in practice? What does it mean for the people you study?</li>
+<li><strong>The limits:</strong> how good is the sample? Are the assumptions met? Are there influential observations (see below)?</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Example: a conclusion">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example: a conclusion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“In our sample of 30 students, older students studied somewhat fewer hours: for every year older, about 0.6 hour less per week (95% CI from -1.2 to 0.1). This relation was <strong>not</strong> statistically significant (<span class="math inline">\(t\)</span>(28) = -1.67, <span class="math inline">\(p\)</span> = 0.106), so we do not reject <span class="math inline">\(H_0\)</span>. The interval is wide and includes both no relation and a relation of more than one hour per year. With only 30 students we cannot say much about the population. A larger sample is needed before we draw any conclusion for practice.”</p>
+</div>
+</div>
+<p>Notice what this example does <strong>not</strong> say: it does not say “there is no relation”. Not rejecting <span class="math inline">\(H_0\)</span> is not the same as proving <span class="math inline">\(H_0\)</span>. And a significant result would not automatically mean an important result: with a very large sample, even a slope of a few minutes per year could become significant. You always have to judge the <strong>size</strong> of the effect in the <strong>context</strong> of your research question.</p>
+<section id="your-turn-12" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-12">Your turn</h3>
+<p>Write a conclusion of four to six sentences for your own model. Answer the four questions above. Use the raw slope (in real units), the confidence interval, the t-value, and the p-value.</p>
+</section>
+<hr>
+</section>
+</section>
+<section id="checking-the-assumptions" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Checking the assumptions</h1>
+<p>A regression always gives you numbers, even when the model is wrong for your data. So we must check the assumptions <strong>before</strong> we trust the t-value and the p-value. Most checks are done with <strong>pictures of the residuals</strong>.</p>
+<section id="two-assumptions-you-check-by-thinking" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="two-assumptions-you-check-by-thinking"><span class="header-section-number">6.1</span> Two assumptions you check by thinking</h2>
+<p>Some assumptions cannot be seen in a plot. You check them by thinking about <strong>how the data were collected</strong>.</p>
+<ul>
+<li><strong>Independent observations.</strong> Each person should appear only once, and people should not influence each other’s answers. This is violated, for example, when you measure the same person twice, or when classmates fill in the questionnaire together.</li>
+<li><strong>No measurement error in x.</strong> Regression assumes that the independent variable is measured (almost) perfectly. <code>age</code> is measured very precisely. A questionnaire score, such as self-efficacy, always contains some measurement error. Measurement error in x makes the slope look <strong>smaller</strong> than it really is.</li>
+</ul>
+<section id="your-turn-13" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-13">Your turn</h3>
+<p>For your own model, write one or two sentences on each of these two assumptions. How were your data collected? How precisely is your x measured?</p>
+</section>
+</section>
+<section id="three-assumptions-you-check-with-plots" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="three-assumptions-you-check-with-plots"><span class="header-section-number">6.2</span> Three assumptions you check with plots</h2>
+<p>R makes the diagnostic plots for you with <code>plot(model)</code>. We look at two of them.</p>
+<p><strong>Plot 1 – Residuals vs Fitted: linearity and homoscedasticity.</strong> This plot shows the predicted values on the x-axis and the residuals on the y-axis:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What you want to see:</p>
+<ul>
+<li><strong>Linearity:</strong> the dots are spread around the horizontal line at 0 <strong>without a pattern</strong>. The red line should be roughly flat. A clear curve (a U-shape or a hill) means the relation is not a straight line.</li>
+<li><strong>Homoscedasticity:</strong> the vertical spread of the dots is about the <strong>same</strong> from left to right. A funnel shape (narrow on one side, wide on the other) means the spread is not equal: this is called <strong>heteroscedasticity</strong>.</li>
+</ul>
+<p><strong>Plot 2 – Q-Q plot: normality of the residuals.</strong> This plot compares the residuals with a perfect normal distribution:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">which =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What you want to see: the dots lie roughly <strong>on the dashed line</strong>. Small wiggles at the ends are normal. Dots that curve far away from the line, especially at both ends, point to non-normal residuals.</p>
+<p>You can also simply make a histogram of the residuals, as in Week 4:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">residuals</span>(model),</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Histogram of the residuals"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"residual"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Watch out: normality of the residuals, not of x or y">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch out: normality of the residuals, not of x or y
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The normality assumption is about the <strong>residuals</strong>, not about x or y themselves. A skewed x variable is not a problem in itself. Always check the residuals.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Small samples are hard to judge">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Small samples are hard to judge
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>With only 30 people, the plots always look a bit messy. Do not look for perfection. Look for <strong>clear</strong> patterns: a strong curve, a clear funnel, or dots far away from the rest. When in doubt, describe what you see and be careful in your conclusion.</p>
+</div>
+</div>
+<section id="your-turn-14" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-14">Your turn</h3>
+<p>Make the two diagnostic plots and the histogram of the residuals for your own model. For each of the three assumptions (linearity, homoscedasticity, normality of the residuals), write one sentence: what do you see, and is the assumption reasonable?</p>
+</section>
+</section>
+<section id="what-do-violations-look-like" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="what-do-violations-look-like"><span class="header-section-number">6.3</span> What do violations look like?</h2>
+<p>With real data of 30 people, it is hard to learn what a “bad” plot looks like. So we <strong>simulate</strong> four datasets, as in Week 3: one where all assumptions hold, and three where one assumption is broken. This is code to run and read; you do <strong>not</strong> need to write it yourself.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>n_sim <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n_sim, <span class="dv">0</span>, <span class="dv">10</span>)                                 <span class="co"># x values between 0 and 10</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>y_good   <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(n_sim, <span class="at">sd =</span> <span class="dv">1</span>)           <span class="co"># all assumptions hold</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>y_curve  <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> (x <span class="sc">-</span> <span class="dv">5</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n_sim, <span class="at">sd =</span> <span class="dv">1</span>)   <span class="co"># the relation is a curve</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>y_funnel <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(n_sim, <span class="at">sd =</span> <span class="fl">0.2</span> <span class="sc">*</span> x)     <span class="co"># the spread grows with x</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>y_skew   <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> x <span class="sc">+</span> (<span class="fu">rexp</span>(n_sim, <span class="at">rate =</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="dv">1</span>)    <span class="co"># skewed residuals</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))                                     <span class="co"># four plots in one window</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(y_good   <span class="sc">~</span> x), <span class="at">which =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">"A: all fine"</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(y_curve  <span class="sc">~</span> x), <span class="at">which =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">"B"</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(y_funnel <span class="sc">~</span> x), <span class="at">which =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">"C"</span>)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(y_skew   <span class="sc">~</span> x), <span class="at">which =</span> <span class="dv">2</span>, <span class="at">main =</span> <span class="st">"D (Q-Q plot)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))                                     <span class="co"># back to one plot per window</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="your-turn-15" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-15">Your turn</h3>
+<p>Plot A shows what “all fine” looks like. For plots B, C, and D, decide which assumption is violated: <strong>linearity</strong>, <strong>homoscedasticity</strong>, or <strong>normality of the residuals</strong>. Explain in one sentence per plot what you see that tells you this.</p>
+<p><em>Hint: compare each plot with plot A. Where is the pattern, a curve, a funnel, or dots leaving the line?</em></p>
+</section>
+<hr>
+</section>
+</section>
+<section id="influential-observations" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Influential observations</h1>
+<p>Sometimes <strong>one person</strong> has a large effect on the regression line. If you removed that one person, the line (and maybe your conclusion) would change a lot. Such a person is called an <strong>influential observation</strong>.</p>
+<p>A person is usually influential when they have an <strong>unusual x value</strong> (far from the other x values) <strong>and</strong> do not follow the pattern of the others. We measure influence with <strong>Cook’s distance</strong>: one number per person. The larger, the more influence.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">which =</span> <span class="dv">4</span>)   <span class="co"># Cook's distance for each person</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_05_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A common rule of thumb: look more closely at people with a Cook’s distance larger than <span class="math inline">\(4 / n\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>cooks <span class="ot">&lt;-</span> <span class="fu">cooks.distance</span>(model)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>cut_off <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">nrow</span>(survey)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>cut_off</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1333333</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(cooks <span class="sc">&gt;</span> cut_off)            <span class="co"># the row numbers above the rule of thumb</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 27 </span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 27</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>survey[cooks <span class="sc">&gt;</span> cut_off, <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"study_hours"</span>)]   <span class="co"># their values</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    age study_hours</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   19           2</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 27  25          18</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="re-running-the-analysis-without-them" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="re-running-the-analysis-without-them"><span class="header-section-number">7.1</span> Re-running the analysis without them</h2>
+<p>To see how much these people matter, we run the model <strong>again without them</strong> and compare. We do <strong>not</strong> delete them from <code>survey</code>; we make a new object:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>survey_check <span class="ot">&lt;-</span> survey[cooks <span class="sc">&lt;=</span> cut_off, ]     <span class="co"># everyone at or below the rule of thumb</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>model_check  <span class="ot">&lt;-</span> <span class="fu">lm</span>(study_hours <span class="sc">~</span> age, <span class="at">data =</span> survey_check)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># compare the two slopes and p-values</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="at">all_people     =</span> <span class="fu">summary</span>(model)<span class="sc">$</span>coefficients[<span class="st">"age"</span>, ],</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">without_influ  =</span> <span class="fu">summary</span>(model_check)<span class="sc">$</span>coefficients[<span class="st">"age"</span>, ])</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 Estimate Std. Error   t value    Pr(&gt;|t|)</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; all_people    -0.5532258  0.3307184 -1.672800 0.105505297</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; without_influ -0.8446677  0.2977908 -2.836447 0.008720827</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Compare the two rows. Did the slope change much? Did the p-value cross 0.05? Did the conclusion change?</p>
+<p>In our example, two students change the result: without them, the slope is steeper and the p-value drops below 0.05. So <strong>two people</strong> decide whether the result is “significant” or not. This is exactly the situation where you must be careful, as the box below explains.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Never remove people just to get a better result">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Never remove people just to get a better result
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An influential observation is <strong>not</strong> automatically a mistake. Only remove a person when there is a <strong>clear reason</strong>, for example a typing error (an age of 190) or someone who does not belong to your population. If there is no such reason, keep everyone in the main analysis and <strong>report both results</strong>: “Without these two students the slope was …, so our conclusion depends (or does not depend) on these two people.” Removing people until <span class="math inline">\(p &lt; 0.05\)</span> is a serious research error.</p>
+</div>
+</div>
+<section id="your-turn-16" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-16">Your turn</h3>
+<p>For your own model:</p>
+<ol type="1">
+<li>Make the Cook’s distance plot and find the people above <span class="math inline">\(4 / n\)</span>.</li>
+<li>Look at their values. Is there a clear reason to remove them (for example, an impossible value)?</li>
+<li>Re-run the model without them and compare the slope and the p-value.</li>
+<li>Write two sentences: does your conclusion change, and what would you report?</li>
+</ol>
+</section>
+<hr>
+</section>
+</section>
+<section id="recap-what-you-can-now-do" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Recap: what you can now do</h1>
+<p>Last week you tested means. This week you learned to describe and test <strong>relations between two variables</strong>. You can now:</p>
+<ul>
+<li>apply the <strong>five steps</strong> of a hypothesis test to regression;</li>
+<li>make a <strong>dummy variable</strong> with <code>ifelse()</code> and show that a regression with a dummy gives the same test as a t-test;</li>
+<li>read the <strong>intercept</strong> and <strong>slope</strong> of a dummy regression as a group mean and a <strong>raw mean difference</strong>;</li>
+<li>make a <strong>scatterplot</strong> and compute and test a <strong>correlation</strong> with <code>cor()</code> and <code>cor.test()</code>;</li>
+<li>fit a <strong>simple regression</strong> with <code>lm()</code>, draw the line with <code>abline()</code>, and interpret the <strong>slope</strong> in real units;</li>
+<li>explain <strong>predicted values</strong> and <strong>residuals</strong>;</li>
+<li>compute the <strong>t-value</strong> of the slope by hand, find the <strong>p-value</strong>, and compute a <strong>confidence interval</strong> with <code>confint()</code>;</li>
+<li>compute and interpret <strong>R-squared</strong>;</li>
+<li>name the five <strong>assumptions</strong> of regression and check them with <code>plot(model)</code>;</li>
+<li>find <strong>influential observations</strong> with Cook’s distance, and re-run the analysis to see whether your conclusion depends on them;</li>
+<li>write a conclusion that combines the test, the size of the effect, and the <strong>context</strong>.</li>
+</ul>
+<p>A small cheat sheet to keep:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>You want to…</th>
+<th>You write…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Make a dummy variable</td>
+<td><code>df$d &lt;- ifelse(df$group == "B", 1, 0)</code></td>
+</tr>
+<tr class="even">
+<td>t-test with equal spreads</td>
+<td><code>t.test(y ~ group, data = df, var.equal = TRUE)</code></td>
+</tr>
+<tr class="odd">
+<td>Scatterplot</td>
+<td><code>plot(y ~ x, data = df)</code></td>
+</tr>
+<tr class="even">
+<td>Correlation</td>
+<td><code>cor(df$x, df$y)</code></td>
+</tr>
+<tr class="odd">
+<td>Test a correlation</td>
+<td><code>cor.test(df$x, df$y)</code></td>
+</tr>
+<tr class="even">
+<td>Fit a regression</td>
+<td><code>model &lt;- lm(y ~ x, data = df)</code></td>
+</tr>
+<tr class="odd">
+<td>Full output</td>
+<td><code>summary(model)</code></td>
+</tr>
+<tr class="even">
+<td>Intercept and slope</td>
+<td><code>coef(model)</code></td>
+</tr>
+<tr class="odd">
+<td>Draw the line</td>
+<td><code>abline(model)</code></td>
+</tr>
+<tr class="even">
+<td>Predicted values / residuals</td>
+<td><code>fitted(model)</code>, <code>residuals(model)</code></td>
+</tr>
+<tr class="odd">
+<td>t-value of the slope by hand</td>
+<td><code>b / se_b</code></td>
+</tr>
+<tr class="even">
+<td>Two-sided p-value</td>
+<td><code>2 * pt(-abs(t), df = n - 2)</code></td>
+</tr>
+<tr class="odd">
+<td>Confidence interval for the slope</td>
+<td><code>confint(model)</code></td>
+</tr>
+<tr class="even">
+<td>R-squared</td>
+<td><code>summary(model)$r.squared</code></td>
+</tr>
+<tr class="odd">
+<td>Linearity and homoscedasticity</td>
+<td><code>plot(model, which = 1)</code></td>
+</tr>
+<tr class="even">
+<td>Normality of the residuals</td>
+<td><code>plot(model, which = 2)</code></td>
+</tr>
+<tr class="odd">
+<td>Cook’s distance</td>
+<td><code>plot(model, which = 4)</code>, <code>cooks.distance(model)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Well done. Keep your materials in the <code>research_methods</code> folder, we build directly on them next week.</p>
+<hr>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
