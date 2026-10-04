@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sebastian A. J. Lortz">
-<meta name="dcterms.date" content="2026-06-23">
+<meta name="dcterms.date" content="2026-10-04">
 
 <title>r_tutorial_week_01</title>
 <style>
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">23 June 2026</p>
+      <p class="date">4 October 2026</p>
     </div>
   </div>
   
@@ -156,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Read each part slowly and in order. Each step builds on the one before it.</li>
 <li>Type the code yourself instead of copying and pasting it. You learn faster this way.</li>
 <li>Errors are normal. Read the message and try again.</li>
-<li>If you are stuck, ask a teacher.</li>
+<li>If you are stuck, ask a teacher or check the FAQ.</li>
 <li>Save your work often.</li>
 </ul>
 <hr>
@@ -179,12 +179,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Documents
 └── first_year
     └── research_methods
-        ├── data
-        ├── scripts
-        └── output</code></pre>
+[screenshot from UWP]</code></pre>
 </div>
 </div>
-<p>At the root of this structure is a <strong>Drive</strong>. Thus, a drive is the storage of your computer. On a personal computer you usually have only one drive. On top of the drive sit some common <strong>base folders</strong>, such as the <strong>Desktop</strong> (the screen you see when your computer starts), <strong>Documents</strong> (where files are usually stored), and <strong>Downloads</strong> (where files you download are saved).</p>
+<p>At the root of this structure is a <strong>Drive</strong>. Thus, a drive is the storage of your computer. On a personal computer you usually have only one drive. On top of the drive sit some common <strong>base folders</strong> that every computer have, such as the <strong>Desktop</strong> (the screen you see when your computer starts), <strong>Documents</strong> (where files are usually stored), and <strong>Downloads</strong> (where files you download are saved).</p>
 <p>It is important to keep this structure tidy. Work inside <strong>Documents</strong>, make one folder for your first-year studies. Inside that folder, make a folder for each course. Inside each course folder, you can sort your material further.</p>
 <p>Do <strong>not</strong> build your folder structure inside the <strong>Downloads</strong> folder. Everything you download lands there automatically, so it quickly becomes messy.</p>
 <section id="your-turn" class="level3 unnumbered your-turn">
@@ -212,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>R</strong> is the engine that does the calculations. <strong>RStudio</strong> is the user interface you use to talk to that engine comfortably. You installed both before class (see the Brightspace instructions). We always open <strong>RStudio</strong> only and <strong>never</strong> open <strong>R</strong> itself.</p>
 <section id="your-turn-1" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-1">Your turn</h3>
-<p>Open the <strong>RStudio</strong> program (not plain “R”).</p>
+<p>Open the <strong>RStudio</strong> program (not plain “R”). We work with RStudio version [..] running R version [..].</p>
 </section>
 <div class="callout callout-style-default callout-important callout-titled" title="Stuck on installation?">
 <div class="callout-header d-flex align-content-center">
@@ -236,7 +234,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Environment</strong> (top-right): a list of everything you have stored (empty for now).</li>
 <li><strong>Files / Plots / Packages / Help</strong> (bottom-right): your file browser, graphs, installed packages, and help pages.</li>
 </ul>
-<p>Find the <strong>Console</strong>. You will see a <code>&gt;</code> symbol. That <code>&gt;</code> means “R is ready and waiting for you.” If, while programming, this symbol is not shown, click in the console and press <em>Esc</em> (escape) on your keyboard to get the <code>&gt;</code> symbol back.</p>
+<p>Find the <strong>Console</strong>. You will see a <code>&gt;</code> symbol. That <code>&gt;</code> means “R is ready and waiting for you.”</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Getting the `>` back">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Getting the <code>&gt;</code> back
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While programming, the <code>&gt;</code> symbol is sometimes not shown. When this happens, click in the <strong>Console</strong> and press <em>Esc</em> (escape) on your keyboard to get the <code>&gt;</code> symbol back.</p>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -248,16 +259,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>In the menu, click <em>Session</em> &gt; <em>Set Working Directory</em> &gt; <em>Choose Directory</em>.</li>
 <li>A window opens that shows your computer’s file system. Navigate to the <code>research_methods</code> folder you made and select it.</li>
+<li>Click <em>Open</em>.</li>
 </ol>
 </section>
-<p>RStudio has now set the working directory to that folder.</p>
+<p>RStudio has now set the working directory to that folder. In the <strong>Console</strong>, a line appears that starts with <code>setwd(...)</code> and shows the path to your folder, for example:</p>
+<blockquote class="blockquote">
+<p>In the <strong>Console</strong> you now see:</p>
+<p><code>&gt; setwd("C:/Users/you/Documents/first_year/research_methods")</code></p>
+</blockquote>
+<p>The exact path is different on every computer, so yours will not look the same.</p>
 <hr>
 </section>
 <section id="r-scripts" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> R scripts</h1>
 <p>In this course we only work with <strong>R scripts</strong>, which are shown in the <strong>Editor</strong> pane. An R script is a place where you type and save lines of code, which are then run. A script runs from top to bottom.</p>
-<p>We work with R scripts because your progress in RStudio is lost when you close the program. But if you save your R script, you can open it again next time and run each line to get back to where you stopped last time.</p>
-<p>This is important for <strong>reproducibility</strong>: you can give your script to another person, and they get the same output. We never type our code straight into the console.</p>
+<p>We work with R scripts because everything you do in RStudio is lost when you close the program. Without a script, you would have to start again from scratch every time. But if you save your R script, you can open it again next time and run the lines to build your work back up.</p>
+<p>For this to work, keep your script tidy: only keep the lines that work and that are needed to produce your output. Remove anything you tried that did not work. This way, running the script from top to bottom always gives a clean result.</p>
+<p>This is important for <strong>reproducibility</strong>: you can give your tidy script to another person, and they get the same output. We never type our code straight into the console.</p>
 <section id="your-turn-3" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-3">Your turn</h3>
 <p>Create a new R script: click <em>File</em> &gt; <em>New File</em> &gt; <em>R Script</em>.</p>
@@ -310,9 +328,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In your script, work out:</p>
 <ol type="a">
 <li><code>144</code> divided by <code>12</code>, and</li>
-<li><code>5</code> to the power of <code>2</code>.</li>
+<li><code>15</code> times <code>4</code>.</li>
 </ol>
-<p><em>(Answers: <code>12</code> and <code>25</code>.)</em></p>
 </section>
 <hr>
 </section>
@@ -322,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="dv">19</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Read that as: “the object <code>age</code> gets the value 19.” Notice nothing was printed. The value is now stored. To see it, type the name on its own:</p>
+<p>Read that as: “the object <code>age</code> gets the value 19.” Notice nothing was printed. The value is now stored in the <strong>environment</strong>. To see it, type the name on its own:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>age</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 19</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -361,9 +378,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Age   <span class="co"># we never created "Age" with a capital A, so R complains</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: object 'Age' not found</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error:</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! object 'Age' not found</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>That red message is an <strong>error</strong>, not a disaster. Here it simply means “I don’t know an object called <code>Age</code>.” Read errors as hints.</p>
+<p>That red message is called an <strong>error</strong>. The message starts with the word <code>Error</code>. An error means R stopped: the code did not work. Here it simply means “I do not know an object called <code>Age</code>.” Do not panic when you see an error: read it as a hint about what went wrong.</p>
 <section id="your-turn-8" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
 <p>Create an object called <code>study_hours</code> and give it the value 12. Then create <code>study_hours_per_day</code> equal to <code>study_hours / 7</code> and print it.</p>
@@ -450,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 28 35 31 40 22</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>scores</code> now holds five values in one object.</p>
-<p>A powerful feature: arithmetic on a vector applies to <strong>every element at once</strong>. No loop needed.</p>
+<p>A powerful feature: when you do arithmetic on a vector, it applies to <strong>every element at once</strong>. You do not have to do it by hand for every value.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">+</span> <span class="dv">10</span>   <span class="co"># add 10 to each score</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 38 45 41 50 32</span></span>
@@ -481,7 +499,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="your-turn-10" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
-<p>Create a vector <code>engagement</code> with the values 4, 5, 3, 5, 2 (imagine these are study-engagement ratings). Then print its <code>mean()</code> and its <code>length()</code>.</p>
+<p>Create a vector <code>engagement</code> with the values 4, 5, 3, 5, 2 (imagine these are study-engagement ratings). Then (a) add <code>1</code> to every value at once, and (b) multiple every value by <code>2</code>.</p>
 </section>
 <hr>
 </section>
@@ -513,7 +531,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Read the last line as: “give me the elements of <code>scores</code> where <code>scores</code> is greater than 30.”</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Going further (optional)">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -522,7 +540,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Combine conditions with <code>&amp;</code> (“and”) or <code>|</code> (“or”), e.g.&nbsp;<code>scores[scores &gt; 25 &amp; scores &lt; 40]</code>.</p>
 </div>
@@ -537,7 +555,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="functions" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> Functions</h1>
-<p>Functions have the form <code>name(input)</code>. They take an input, apply operations, and give back an output. A function is a ready-made command: you write its name and put the input in round brackets. Many useful <strong>functions</strong> take a vector and summarise it:</p>
+<p>A <strong>function</strong> is a ready-made command. It takes an input, does something with it, and gives back an output. You do not see the work inside; you only give the input and read the output.</p>
+<p>A function has the form <code>function_name(function_input)</code>: you write the name of the function, and put the input in round brackets <code>( )</code>. Many useful functions take a vector and summarise it:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores)   <span class="co"># how many values?</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span>
@@ -552,13 +571,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="your-turn-12" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-12">Your turn</h3>
-<p>Use the <code>engagement</code> vector you made earlier. Print its <code>sum()</code>, its <code>max()</code>, and its <code>min()</code>.</p>
+<p>Use the <code>engagement</code> vector you made earlier. Work out its average yourself: divide its <code>sum()</code> by its <code>length()</code>. Then compare your answer with <code>mean(engagement)</code>. You should get the same number.</p>
 </section>
 <hr>
 </section>
 <section id="borrowing-extra-tools-packages-and-libraries" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Borrowing extra tools: packages and libraries</h1>
-<p>Base R already does a lot. <strong>Packages</strong> add extra ready-made tools written by others. Two steps, and people mix them up constantly:</p>
+<p>Base R already does a lot. <strong>Packages</strong> add extra ready-made tools written by others. There are two steps here, and people often confuse them, so read carefully:</p>
 <ul>
 <li><strong>Install</strong> a package: download it to your computer. You do this <strong>once</strong>.</li>
 <li><strong>Load</strong> a package with <code>library()</code>: switch it on. You do this <strong>every session</strong> you want to use it.</li>
@@ -598,7 +617,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="saving-your-work" class="level1" data-number="12">
 <h1 data-number="12"><span class="header-section-number">12</span> Saving your work</h1>
-<p>Save your R script by clicking the save symbol (the small floppy disk), or by pressing <em>Ctrl</em> and <em>S</em> on Windows (<em>Cmd</em> and <em>S</em> on Mac). You can also click <em>File</em> &gt; <em>Save</em>.</p>
+<p>Save your R script by clicking the save symbol, or by pressing <em>Ctrl</em> and <em>S</em> on Windows (<em>Cmd</em> and <em>S</em> on Mac). You can also click <em>File</em> &gt; <em>Save</em>.</p>
 <p>The first time you save a new script, RStudio asks you where to put it. Choose your <code>research_methods</code> folder and give the file a clear name, for example <code>week1.R</code>.</p>
 <hr>
 </section>
