@@ -606,7 +606,7 @@ Last week you estimated a population mean. This week you learned to **test** cla
 A small cheat sheet to keep:
 
 | You want to... | You write... |
-|----|----|
+|------------------------------------|------------------------------------|
 | Sample mean / sd / n | `mean(x)`, `sd(x)`, `length(x)` |
 | Standard error | `sd(x) / sqrt(length(x))` |
 | One-sample t by hand | `(mean(x) - mu0) / se` |
