@@ -93,6 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#visualisation" id="toc-visualisation" class="nav-link" data-scroll-target="#visualisation"><span class="header-section-number">5.1</span> Visualisation</a></li>
   <li><a href="#building-the-interval-step-by-step" id="toc-building-the-interval-step-by-step" class="nav-link" data-scroll-target="#building-the-interval-step-by-step"><span class="header-section-number">5.2</span> Building the interval step by step</a></li>
+  <li><a href="#other-confidence-levels" id="toc-other-confidence-levels" class="nav-link" data-scroll-target="#other-confidence-levels"><span class="header-section-number">5.3</span> Other confidence levels</a></li>
   </ul></li>
   <li><a href="#a-confidence-interval-for-your-own-variable" id="toc-a-confidence-interval-for-your-own-variable" class="nav-link" data-scroll-target="#a-confidence-interval-for-your-own-variable"><span class="header-section-number">6</span> A confidence interval for your own variable</a></li>
   <li><a href="#does-the-interval-cover-the-true-mean" id="toc-does-the-interval-cover-the-true-mean" class="nav-link" data-scroll-target="#does-the-interval-cover-the-true-mean"><span class="header-section-number">7</span> Does the interval cover the true mean?</a></li>
@@ -441,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Look at the formula <code>s / sqrt(n)</code>: a <strong>bigger sample</strong> (larger <code>n</code>) makes the standard error <strong>smaller</strong>. More people means a narrower sampling distribution, less wobble, and a more precise estimate. This is one reason why larger samples are better, and it is exactly what you saw in the Your turn of the previous section.</p>
 </div>
 </div>
-<p><strong>3. The z-value.</strong> For a 95% confidence interval, we multiply the standard error by the fixed number we just met in the picture: <strong>1.96</strong>. This number comes from the tail areas under the standard normal distribution, assuming we know the population’s standard deviation (see the lecture for more details). We set our z-value:</p>
+<p><strong>3. The z-value.</strong> For a 95% confidence interval, we multiply the standard error by the fixed number we just met in the picture: <strong>1.96</strong>. This number comes from the tail areas under the standard normal distribution, assuming we know the population’s standard deviation (see the lecture for more details). Other confidence levels, such as 80% or 99%, need a different z-value; we come back to this in the section <em>Other confidence levels</em> below. We set our z-value:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fl">1.96</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -495,6 +496,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-4">Your turn</h3>
 <p>Compute a 95% confidence interval <strong>by hand</strong> for the <code>study_hours</code> variable, following the same four steps: the mean, the standard error (<code>sd / sqrt(n)</code>), the z-value <code>1.96</code>, and the lower and upper bounds Write down the interval.</p>
 </section>
+</section>
+<section id="other-confidence-levels" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="other-confidence-levels"><span class="header-section-number">5.3</span> Other confidence levels</h2>
+<p>So far we always used <strong>95%</strong>. But 95% is a choice, not a rule. The <strong>confidence level</strong> (in the lecture: <strong>C</strong>) can also be, for example, 80%, 90%, or 99%. The level decides which <strong>z-value</strong> we use.</p>
+<p>For a C% interval we want the <strong>middle C%</strong> of the sampling distribution. What is left over is split equally over the two tails. For 95%, that is 2.5% in each tail; for 80%, it is 10% in each tail.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Confidence level (C)</th>
+<th>Left over in each tail</th>
+<th>z-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>80%</td>
+<td>10%</td>
+<td>1.28</td>
+</tr>
+<tr class="even">
+<td>90%</td>
+<td>5%</td>
+<td>1.645</td>
+</tr>
+<tr class="odd">
+<td>95%</td>
+<td>2.5%</td>
+<td>1.96</td>
+</tr>
+<tr class="even">
+<td>99%</td>
+<td>0.5%</td>
+<td>2.576</td>
+</tr>
+</tbody>
+</table>
+<p>On paper, you look up the z-value in a table (see the lecture). In R, the function <code>qnorm()</code> finds it for you. <code>qnorm()</code> gives the z-value that has a given area to its <strong>left</strong>. For a 95% interval, 2.5% is left over in the upper tail, so 97.5% of the area lies to the left of z:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.975</span>)   <span class="co"># 95%: 2.5% in the upper tail</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.959964</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.90</span>)    <span class="co"># 80%: 10% in the upper tail</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.281552</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.995</span>)   <span class="co"># 99%: 0.5% in the upper tail</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.575829</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we build an 80%, a 95%, and a 99% interval for self-efficacy. Only the z-value changes; the point estimate and the standard error stay the same:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sd</span>(survey<span class="sc">$</span>self_efficacy) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(survey))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>z80 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.90</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>z95 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>z99 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.995</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(m <span class="sc">-</span> z80 <span class="sc">*</span> se, m <span class="sc">+</span> z80 <span class="sc">*</span> se)   <span class="co"># 80% confidence interval</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.81917 34.64750</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(m <span class="sc">-</span> z95 <span class="sc">*</span> se, m <span class="sc">+</span> z95 <span class="sc">*</span> se)   <span class="co"># 95% confidence interval</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.07056 35.39611</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(m <span class="sc">-</span> z99 <span class="sc">*</span> se, m <span class="sc">+</span> z99 <span class="sc">*</span> se)   <span class="co"># 99% confidence interval</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 30.39096 36.07570</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We draw the three intervals above each other:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>zs <span class="ot">&lt;-</span> <span class="fu">c</span>(z80, z95, z99)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(m <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> se, m <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> se), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">yaxt =</span> <span class="st">"n"</span>, <span class="at">ylab =</span> <span class="st">""</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"self-efficacy score"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Higher confidence gives a wider interval"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(m <span class="sc">-</span> zs <span class="sc">*</span> se, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, m <span class="sc">+</span> zs <span class="sc">*</span> se, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">rep</span>(m, <span class="dv">3</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">1.4</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"80%"</span>, <span class="st">"95%"</span>, <span class="st">"99%"</span>), <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_03_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The higher the confidence level, the <strong>wider</strong> the interval. This is a trade-off: if you want to be more confident that your method catches the population average, you have to accept a wider, less precise range. The meaning stays the same as before: an 80% interval is built in a way that catches the population average in about <strong>80%</strong> of the samples.</p>
+<section id="your-turn-5" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-5">Your turn</h3>
+<p>Compute a <strong>90%</strong> and a <strong>99%</strong> confidence interval by hand for the <code>study_hours</code> variable. Use <code>qnorm()</code> to find the two z-values. Compare them with your 95% interval from before: which interval is the widest, and why?</p>
+</section>
 <hr>
 </section>
 </section>
@@ -503,15 +589,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>From now on you work with the variable(s) you chose for your research question. This is the variable whose average you want to estimate: your <strong>dependent variable</strong>. We do three things: look at it, estimate it, and interpret it.</p>
 <p><strong>Step 1: visualise the distribution.</strong> Always look at the variable first, with a histogram (from Week 2):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(survey<span class="sc">$</span>self_efficacy,</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>,</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy in the sample"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"self-efficacy score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(survey<span class="sc">$</span>self_efficacy,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy in the sample"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"self-efficacy score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_03_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_03_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -531,19 +617,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Step 2: the point estimate and the confidence interval.</strong> These are the same four steps as the section above, gathered in one place:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>s  <span class="ot">&lt;-</span> <span class="fu">sd</span>(survey<span class="sc">$</span>self_efficacy)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(survey)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>point_estimate <span class="ot">&lt;-</span> m</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> m <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>point_estimate</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 33.23333</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(ci_lower, ci_upper)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.07052 35.39615</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>s  <span class="ot">&lt;-</span> <span class="fu">sd</span>(survey<span class="sc">$</span>self_efficacy)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(survey)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>point_estimate <span class="ot">&lt;-</span> m</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> m <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>point_estimate</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 33.23333</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(ci_lower, ci_upper)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.07052 35.39615</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Step 3: interpret.</strong> Two questions matter here.</p>
 <ul>
@@ -565,17 +651,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The value <strong>1.96</strong> comes from the <strong>normal distribution</strong> (also called the <strong>z-distribution</strong>). It assumes we know the standard deviation in the population very well. In real research we only <em>estimate</em> the standard deviation from our sample, so for <strong>small samples</strong> the correct multiplier is a little <strong>larger</strong> than 1.96. That larger multiplier comes from the <strong>t-distribution</strong>.</p>
 <p>You learned how to compute it by hand already. In R there is the function, <code>t.test()</code>, that builds the interval for you using the t-distribution:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(survey<span class="sc">$</span>self_efficacy)<span class="sc">$</span>conf.int</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 30.97647 35.49020</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"conf.level")</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.95</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(survey<span class="sc">$</span>self_efficacy)<span class="sc">$</span>conf.int</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 30.97647 35.49020</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"conf.level")</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.95</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Compare this with your by-hand interval: it is very <strong>similar</strong>, but usually a little <strong>wider</strong>, because the t-distribution is more cautious with small samples. As the sample gets bigger, the t-value gets closer and closer to 1.96, and the two intervals become essentially identical when the sample size gets very large.</p>
+<p>For another confidence level, add the argument <code>conf.level</code>, for example an 80% interval:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(survey<span class="sc">$</span>self_efficacy, <span class="at">conf.level =</span> <span class="fl">0.80</span>)<span class="sc">$</span>conf.int</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.78620 34.68047</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"conf.level")</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
-<section id="your-turn-5" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-5">Your turn</h3>
+</div>
+<section id="your-turn-6" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-6">Your turn</h3>
 <p>For your <strong>own</strong> dependent variable:</p>
 <ol type="1">
 <li>Make a histogram with a clear title and x-axis label.</li>
@@ -589,30 +682,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="7"><span class="header-section-number">7</span> Does the interval cover the true mean?</h1>
 <p>This is a good moment to test the idea. Let us pretend, for a second, that the mean of the <strong>whole dataset</strong> is the “true” population value. Then we take a <strong>subsample</strong>, build its confidence interval (assuming that we know the population standard deviation), and check: does the full-data mean fall <strong>inside</strong> that interval?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>true_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)   <span class="co"># we treat this as the "truth"</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>pop_sd   <span class="ot">&lt;-</span> <span class="dv">6</span> <span class="co"># the populaiton standard deviation</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(survey), <span class="dv">15</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>sub  <span class="ot">&lt;-</span> survey[rows, ]</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(sub<span class="sc">$</span>self_efficacy)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sub)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> pop_sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>low  <span class="ot">&lt;-</span> m <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>high <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(low, high)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 30.89691 36.96975</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># is the true mean inside this interval? (TRUE or FALSE)</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>low <span class="sc">&lt;=</span> true_mean <span class="sc">&amp;</span> true_mean <span class="sc">&lt;=</span> high</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>true_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)   <span class="co"># we treat this as the "truth"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pop_sd   <span class="ot">&lt;-</span> <span class="dv">6</span> <span class="co"># the populaiton standard deviation</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(survey), <span class="dv">15</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>sub  <span class="ot">&lt;-</span> survey[rows, ]</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(sub<span class="sc">$</span>self_efficacy)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sub)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> pop_sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>low  <span class="ot">&lt;-</span> m <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>high <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(low, high)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 30.89691 36.96975</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co"># is the true mean inside this interval? (TRUE or FALSE)</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>low <span class="sc">&lt;=</span> true_mean <span class="sc">&amp;</span> true_mean <span class="sc">&lt;=</span> high</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The last line asks: “is <code>true_mean</code> greater than or equal to the lower edge <strong>and</strong> smaller than or equal to the upper edge?” It gives back <code>TRUE</code> if the interval <strong>catches</strong> the true mean, and <code>FALSE</code> if it misses.</p>
 <p>If you change the seed and run it again, you will sometimes get <code>TRUE</code> and sometimes <code>FALSE</code>. A confidence interval does not catch the truth every single time; a 95% interval is built to catch it about 95% of the time in the long run.</p>
-<section id="your-turn-6" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-6">Your turn</h3>
+<section id="your-turn-7" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
 <p>Run the check above three times, each time with a different seed (for example <code>set.seed(3)</code>, <code>set.seed(4)</code>, <code>set.seed(5)</code>). For each run, note whether the interval caught the full-data mean (<code>TRUE</code> or <code>FALSE</code>). How many of your three intervals caught it?</p>
 </section>
 <hr>
@@ -622,62 +715,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the earlier section we simulated many sample <strong>means</strong> and saw the sampling distribution. Now we go one step further: for many samples we build a whole <strong>confidence interval</strong> each time, and count how often the interval catches the true population mean. Because <em>we</em> chose the true mean, we can check this exactly. As before, this is code to run and read.</p>
 <p>We use the same pretend population as before (mean 32, standard deviation 6, samples of 30):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pop_mean <span class="ot">&lt;-</span> <span class="dv">32</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pop_sd   <span class="ot">&lt;-</span> <span class="dv">6</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>n        <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>n_sim    <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For each sample, compute its lower and upper CI edge.</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sim, {</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> pop_mean, <span class="at">sd =</span> pop_sd)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  se <span class="ot">&lt;-</span> pop_sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">lower =</span> m <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se, <span class="at">upper =</span> m <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>lowers <span class="ot">&lt;-</span> sims[<span class="st">"lower"</span>, ]</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>uppers <span class="ot">&lt;-</span> sims[<span class="st">"upper"</span>, ]</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Does each interval contain the true mean?</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>contains <span class="ot">&lt;-</span> lowers <span class="sc">&lt;=</span> pop_mean <span class="sc">&amp;</span> pop_mean <span class="sc">&lt;=</span> uppers</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(contains)   <span class="co"># the share of intervals that caught the truth</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.92</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pop_mean <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pop_sd   <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>n        <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>n_sim    <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For each sample, compute its lower and upper CI edge.</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>sims <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sim, {</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> pop_mean, <span class="at">sd =</span> pop_sd)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  se <span class="ot">&lt;-</span> pop_sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">lower =</span> m <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se, <span class="at">upper =</span> m <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>lowers <span class="ot">&lt;-</span> sims[<span class="st">"lower"</span>, ]</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>uppers <span class="ot">&lt;-</span> sims[<span class="st">"upper"</span>, ]</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Does each interval contain the true mean?</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>contains <span class="ot">&lt;-</span> lowers <span class="sc">&lt;=</span> pop_mean <span class="sc">&amp;</span> pop_mean <span class="sc">&lt;=</span> uppers</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(contains)   <span class="co"># the share of intervals that caught the truth</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.92</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>That last number is the <strong>coverage</strong>: the share of intervals that caught the true mean. It should be close to <strong>0.95</strong> (95%). This is what “95% confidence” really means.</p>
 <p>Finally, we draw each interval as a horizontal line, stacked on top of each other. The vertical black line is the true population mean. Intervals that <strong>miss</strong> the true mean are drawn in <strong>red</strong>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>,</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(<span class="fu">c</span>(lowers, uppers)),</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, n_sim),</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"sample mean with 95% confidence interval"</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"sample number"</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"100 confidence intervals for the same true mean"</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># one horizontal line per interval; red if it misses the true mean</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> lowers, <span class="at">y0 =</span> <span class="dv">1</span><span class="sc">:</span>n_sim,</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">x1 =</span> uppers, <span class="at">y1 =</span> <span class="dv">1</span><span class="sc">:</span>n_sim,</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">ifelse</span>(contains, <span class="st">"grey60"</span>, <span class="st">"red"</span>),</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> pop_mean, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)   <span class="co"># the true population mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(<span class="fu">c</span>(lowers, uppers)),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, n_sim),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"sample mean with 95% confidence interval"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"sample number"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"100 confidence intervals for the same true mean"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># one horizontal line per interval; red if it misses the true mean</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> lowers, <span class="at">y0 =</span> <span class="dv">1</span><span class="sc">:</span>n_sim,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">x1 =</span> uppers, <span class="at">y1 =</span> <span class="dv">1</span><span class="sc">:</span>n_sim,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">ifelse</span>(contains, <span class="st">"grey60"</span>, <span class="st">"red"</span>),</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> pop_mean, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)   <span class="co"># the true population mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_03_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_03_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>This picture is the definition of a 95% confidence interval, made visible: build many intervals, and about 95% of them cross the true value. <strong>Most</strong> intervals cross the black line (they caught the truth), and a <strong>few red ones</strong> miss it. About 5 out of 100 are expected to miss. That is the price of 95% confidence: it is right most of the time, but not always.</p>
-<section id="your-turn-7" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
+<section id="your-turn-8" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
 <p>Change the sample size <code>n</code> near the top from <code>30</code> to <code>100</code>, then run the code again.</p>
 <ol type="1">
 <li>What happens to the <strong>width</strong> of the intervals in the plot?</li>
 <li>Does the <strong>coverage</strong> (the share close to 0.95) change much?</li>
 </ol>
 <p>Write one sentence explaining what a larger sample does to your estimate.</p>
+<p>Then set <code>n</code> back to <code>30</code>, and replace both <code>1.96</code> in the code by <code>qnorm(0.90)</code> (an <strong>80%</strong> interval). Run the code again. What happens to the width of the intervals, to the number of red intervals, and to the coverage?</p>
 </section>
 <hr>
 </section>
@@ -690,6 +784,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>explain <strong>sampling fluctuation</strong> by drawing subsamples with <code>set.seed()</code> and <code>sample()</code>;</li>
 <li>describe the <strong>sampling distribution</strong> of the mean, and know that its standard deviation is the <strong>standard error</strong>;</li>
 <li>compute a 95% <strong>confidence interval by hand</strong> using the mean, the standard error (<code>sd / sqrt(n)</code>), and the z-value <code>1.96</code>, and explain where the <code>1.96</code> comes from;</li>
+<li>compute confidence intervals for <strong>other confidence levels</strong> (such as 80% and 99%) with <code>qnorm()</code>, and explain why a higher level gives a wider interval;</li>
 <li>visualise, estimate, and interpret a confidence interval for your own variable;</li>
 <li>check whether an interval catches a known mean with a logical test;</li>
 <li>simulate many samples with <code>rnorm()</code> and <code>replicate()</code> and see that about 95% of the intervals catch the true mean.</li>
@@ -740,8 +835,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>m + 1.96 * se</code></td>
 </tr>
 <tr class="odd">
+<td>z-value for another level (here 80%)</td>
+<td><code>qnorm(0.90)</code></td>
+</tr>
+<tr class="even">
 <td>CI with the t-distribution</td>
 <td><code>t.test(df$x)$conf.int</code></td>
+</tr>
+<tr class="odd">
+<td>CI with the t-distribution, other level</td>
+<td><code>t.test(df$x, conf.level = 0.80)$conf.int</code></td>
 </tr>
 <tr class="even">
 <td>Is a value inside an interval?</td>
