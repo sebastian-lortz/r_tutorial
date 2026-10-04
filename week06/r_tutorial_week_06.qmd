@@ -1,0 +1,611 @@
+---
+title: "r_tutorial_week_06"
+subtitle: "Werkcollege 6"
+author: "Sebastian A. J. Lortz"
+date: today
+date-format: "D MMMM YYYY"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    theme: flatly
+  pdf:
+    toc: true
+    number-sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  prompt = FALSE
+)
+```
+
+```{=html}
+<style>
+.your-turn {
+  background-color: #eaf4f1;
+  border-left: 5px solid #18bc9c;
+  padding: 0.6em 1em 0.6em 1em;
+  margin: 1em 0 1em 0;
+  border-radius: 4px;
+}
+.your-turn h3 { margin-top: 0; }
+</style>
+```
+
+```{r}
+#| include: false
+# This hidden block rebuilds the cleaned Week 2 dataset so this document
+# renders on its own. Students already have this file from Week 2.
+set.seed(2026)
+n_people <- 30
+survey <- data.frame(
+  age           = sample(17:25, n_people, replace = TRUE),
+  self_efficacy = round(rnorm(n_people, mean = 32, sd = 6)),
+  study_hours   = pmax(round(rnorm(n_people, mean = 14, sd = 5)), 2),
+  program       = sample(1:3, n_people, replace = TRUE)
+)
+survey$study_per_day <- survey$study_hours / 7
+survey$program_name <- NA
+survey$program_name[survey$program == 1] <- "Pedagogy"
+survey$program_name[survey$program == 2] <- "Psychology"
+survey$program_name[survey$program == 3] <- "Sociology"
+survey$efficacy_level <- ifelse(survey$self_efficacy >= 32, "higher", "lower")
+write.csv(survey, "class_survey_clean.csv", row.names = FALSE)
+```
+
+# How to use this tutorial {.unnumbered}
+
+Welcome back! In Week 4 and Week 5 you learned to **test** differences and relations: with a t-test, and with simple regression.
+
+This week we ask a more critical question: **can we trust what we found?** Suppose two groups differ. Is the difference really caused by the thing we are interested in, or by **something else**? This is the question of **validity**. In the lecture you met the threats to validity. Today you learn how to **check** some of them in R.
+
+We work in three parts:
+
+1.  **A case study**: reading support for children. We use a simulated dataset, where we know the truth, to see how a third variable can fool us.
+2.  **Dropout**: who left the study, and does it matter?
+3.  **Your own research question**: you apply the same checks to the class data.
+
+Work through this page carefully, from top to bottom. Every short explanation is followed by a **Your turn** task to do yourself.
+
+General tips:
+
+-   Read each part slowly and in order. Each step builds on the one before it.
+-   Type the code yourself instead of copying and pasting it. You learn faster this way.
+-   Errors are normal. Read the message and try again.
+-   If you are stuck, ask a teacher or check the FAQ.
+-   Save your work often.
+
+------------------------------------------------------------------------
+
+# Start workflow
+
+We begin, as always, with the **start workflow**:
+
+1.  Open **RStudio**: click on the RStudio application.
+2.  Set the **working directory**: click *Session* \> *Set Working Directory* \> *Choose Directory*, and choose your `research_methods` folder.
+3.  Open a **new script**: click *File* \> *New File* \> *R Script*.
+4.  On the first line, write a comment with the title, for example: `# R tutorial - Week 6`.
+5.  Save the script as `week6.R` in your `research_methods` folder.
+6.  Load your cleaned data from Week 2 into an object called `survey`:
+
+```{r}
+survey <- read.csv("class_survey_clean.csv")
+```
+
+::: {.callout-warning title="Watch out"}
+If you see `Error: cannot open file ...`, R cannot find the file. Check that your working directory is `research_methods` (run `getwd()` to print it), and that `class_survey_clean.csv` really sits in that folder.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Complete the **start workflow** and load `survey`. Check that `survey` appears in the **Environment** pane (top-right).
+:::
+
+------------------------------------------------------------------------
+
+# Validity: a short refresher
+
+## Internal and external validity
+
+-   **Internal validity**: is the difference (or relation) we found really caused by the variable we study, and not by something else?
+-   **External validity**: do our results also hold for other people, places, and times, outside our own sample?
+
+## Designs and comparable groups
+
+The design of a study decides how well it protects internal validity.
+
+| Design | How are the groups formed? | Are the groups comparable? |
+|----|----|----|
+| **Experiment** with random assignment | By chance (for example, a coin flip) | Yes, on average: chance spreads all other differences evenly over the groups |
+| **Quasi-experiment** | The groups already exist (for example, two schools) | Not automatically: you have to check |
+| **Correlational / survey study** | People are only measured, nothing is assigned | Not automatically: you have to check |
+
+In orthopedagogy, random assignment is often not possible or not ethical: you cannot refuse help to a child who needs it. So we often work with groups that **already exist**. Then we must check whether the groups are **comparable**.
+
+## Third variables and confounding
+
+A **third variable** is a variable that is not the independent variable (x) or the dependent variable (y), but may still play a role. When a third variable is the real reason for a difference, we call it a **confounder**, and the problem **confounding**. In the lecture this was linked to the threat of **subject characteristics**: the groups differ in some characteristic of the people themselves (age, ability, motivation, ...).
+
+A third variable can only confound your result when it is related to **both**:
+
+1.  the **groups** (or x): the groups differ on the third variable, **and**
+2.  the **outcome** (y): the third variable is related to the outcome.
+
+If only one of the two is true, the third variable cannot explain your result. This gives us a **checklist** that we use for the rest of this tutorial.
+
+::: {.callout-note title="The confounding checklist"}
+1.  **Main question** -- look at and test the relation between the groups (x) and the outcome (y).
+2.  **Comparable groups?** -- do the groups differ on the third variable?
+3.  **Related to the outcome?** -- is the third variable related to the outcome?
+4.  **Look within subgroups** -- does the relation between x and y stay the same among people who are similar on the third variable?
+5.  **Answer and reflect** -- answer the research question, and say how much you trust the answer.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Think of your own research question. Which **design** does it use: experiment, quasi-experiment, or correlational? Write down **two possible third variables** that could confound your result, and explain in one sentence each why they could be related to both x and y.
+:::
+
+------------------------------------------------------------------------
+
+# Part 1 -- A case study: does reading support help?
+
+## The data
+
+A municipality offers extra **reading support** to children in primary school. Teachers decide which children get the support. At the end of the year, all children take a reading test. The question is: *do children with support read better at the end of the year?*
+
+This is **not** an experiment: the teachers chose who got support. So the groups may not be comparable.
+
+We **simulate** this dataset, as in Week 3. Because we make the data ourselves, we know the truth: in this simulation, the support **does help**, by 4 points. Let us see whether a simple comparison finds that. This code is to run and read; you do **not** need to write it yourself.
+
+```{r}
+set.seed(2026)
+n <- 120
+reading <- data.frame(
+  id      = 1:n,
+  age     = sample(7:11, n, replace = TRUE),       # age in years
+  pretest = round(rnorm(n, mean = 50, sd = 10))    # reading score at the START of the year
+)
+
+# Teachers give support mostly to children with a LOW start score
+reading$support <- ifelse(runif(n) < plogis(-(reading$pretest - 47) / 4), "yes", "no")
+
+# Reading score at the END of the year: the TRUE effect of support is +4 points
+reading$posttest <- round(8 + 0.9 * reading$pretest + 1.5 * (reading$age - 9) +
+                          4 * (reading$support == "yes") + rnorm(n, sd = 5))
+
+# Some children leave the study before the end (more often weak readers)
+dropped <- runif(n) < plogis(-(reading$pretest - 38) / 4)
+reading$posttest[dropped] <- NA
+
+head(reading)
+```
+
+The variables are:
+
+-   `support`: did the child get reading support (`"yes"` or `"no")? This is our **independent variable** (the groups).
+-   `posttest`: reading score at the end of the year. This is our **dependent variable** (the outcome).
+-   `pretest`: reading score at the start of the year, **before** the support. A possible **third variable**.
+-   `age`: age in years. Another possible **third variable**.
+
+## Missing values: `NA`
+
+Some children have `NA` for `posttest`. You met `NA` in Week 2: it means "not available". These children **left the study** before the end-of-year test. We look at them in Part 2. For now, you need to know one thing: many functions give `NA` as the answer when there is even one `NA` in the data.
+
+```{r}
+mean(reading$posttest)                  # NA, because some values are missing
+mean(reading$posttest, na.rm = TRUE)    # na.rm = TRUE: remove the NAs first
+```
+
+The argument `na.rm = TRUE` means "**r**e**m**ove the **NA**s before you compute". `t.test()` and `lm()` remove rows with `NA` automatically.
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Run the simulation code. Then use `table()` to count how many children got support. Compute the mean `pretest` and the mean `posttest` of all children (remember `na.rm = TRUE` for `posttest`).
+:::
+
+## Step 1 of the checklist -- The main question
+
+We look at the main question first, as we would without thinking about validity:
+
+```{r}
+boxplot(posttest ~ support,
+        data = reading,
+        main = "Reading score at the end of the year",
+        xlab = "reading support",
+        ylab = "posttest score")
+
+mean_no  <- mean(reading$posttest[reading$support == "no"],  na.rm = TRUE)
+mean_yes <- mean(reading$posttest[reading$support == "yes"], na.rm = TRUE)
+c(no_support = mean_no, support = mean_yes)
+mean_yes - mean_no    # raw difference: support minus no support
+
+t.test(posttest ~ support, data = reading)
+```
+
+The children **with** support score **lower** at the end of the year, by about `r round(abs(mean_yes - mean_no), 1)` points, and the t-test is significant. A quick conclusion would be: "reading support makes children read worse." But we know the truth is the opposite: support **helps** by 4 points. What went wrong?
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Run the boxplot, the group means, and the t-test. Write down the raw difference and the p-value. Before you read on: can you think of a reason why the supported children score lower, even though support helps?
+:::
+
+## Step 2 of the checklist -- Are the groups comparable?
+
+Teachers gave support to children who **needed** it. So maybe the two groups were already different **before** the support started. We check this on our two third variables.
+
+### A numeric third variable: boxplot and means
+
+For a numeric third variable, we compare the groups with a boxplot and the group means, exactly as for an outcome:
+
+```{r}
+boxplot(pretest ~ support,
+        data = reading,
+        main = "Reading score at the START of the year",
+        xlab = "reading support",
+        ylab = "pretest score")
+
+tapply(reading$pretest, reading$support, mean)
+```
+
+The function `tapply()` is new. It is a short way to compute something **per group**. Read `tapply(reading$pretest, reading$support, mean)` as: "take `pretest`, split it by `support`, and compute the `mean` for each group".
+
+The supported children already read much worse **at the start**. So the groups are **not comparable** on `pretest`.
+
+```{r}
+tapply(reading$age, reading$support, mean)
+```
+
+On `age`, the groups are very similar. So `age` cannot explain the difference between the groups.
+
+### A categorical third variable: cross tables
+
+When the third variable is a **category**, we compare the groups with a **cross table** (in Dutch: *kruistabel*). A cross table counts how often each **combination** of two categories appears. You make it with `table()`, now with **two** variables inside:
+
+First, we turn `pretest` into a category with `ifelse()` (from Week 2): a `"low"` or `"high"` start level.
+
+```{r}
+reading$pre_level <- ifelse(reading$pretest >= 50, "high", "low")
+
+table(reading$support, reading$pre_level)
+```
+
+The first variable gives the **rows**, the second the **columns**. Each cell counts the children with that combination, for example "support = yes **and** pre_level = low".
+
+Counts are hard to compare when the groups have different sizes. So we turn them into **proportions** per row with `prop.table()`:
+
+```{r}
+cross <- table(reading$support, reading$pre_level)
+round(prop.table(cross, margin = 1), 2)   # margin = 1: each ROW adds up to 1
+```
+
+`margin = 1` means: compute the proportions **within each row**. Now each row adds up to 1 (100%), and we can compare the rows directly. If the groups were comparable, the two rows would look about the same. Here, most supported children started at a `"low"` level, and most children without support started at a `"high"` level.
+
+::: {.callout-warning title="Watch out: margin = 1 or margin = 2?"}
+`margin = 1` makes each **row** add up to 1; `margin = 2` makes each **column** add up to 1. Choose the margin so that you compare **your groups**. Put your groups in the rows and use `margin = 1`, then you always read the table the same way.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+1.  Compare the two support groups on `pretest` and on `age`, with a boxplot and `tapply()`.
+2.  Make the cross table of `support` by `pre_level`, and the row proportions with `prop.table()`.
+3.  Write one sentence per third variable: are the groups comparable on it?
+:::
+
+## Step 3 of the checklist -- Is the third variable related to the outcome?
+
+A difference between the groups on `pretest` is only a problem when `pretest` is also related to the outcome. For two numeric variables, we use a **scatterplot** and a **regression**, as in Week 5:
+
+```{r}
+plot(posttest ~ pretest,
+     data = reading,
+     pch = 19, col = "steelblue",
+     main = "Start score and end score",
+     xlab = "pretest score",
+     ylab = "posttest score")
+
+model_pre <- lm(posttest ~ pretest, data = reading)
+abline(model_pre, col = "red", lwd = 2)
+coef(model_pre)
+```
+
+The relation is strong: for every extra point at the start, children score about `r round(coef(model_pre)[2], 1)` points higher at the end. This is not surprising: good readers at the start are usually still good readers at the end.
+
+With the categorical version, a boxplot and a t-test tell the same story:
+
+```{r}
+boxplot(posttest ~ pre_level,
+        data = reading,
+        main = "End score by start level",
+        xlab = "start level",
+        ylab = "posttest score")
+
+t.test(posttest ~ pre_level, data = reading)
+```
+
+So `pretest` is related to **both** the groups (Step 2) **and** the outcome (Step 3). That makes it a **confounder**. `age` is related to the outcome as well, but not to the groups, so it is **not** a confounder here.
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Make a scatterplot of `posttest` by `age`, add the regression line, and look at the slope. Is `age` related to the outcome? Combine this with your answer from Step 2: is `age` a confounder? Explain why or why not.
+:::
+
+## Step 4 of the checklist -- Look within subgroups
+
+If `pretest` is the problem, we should compare children who are **similar** on `pretest`. We split the data into **subgroups** by start level, and compare support and no support **within** each subgroup.
+
+```{r}
+low  <- reading[reading$pre_level == "low", ]    # only the children with a low start
+high <- reading[reading$pre_level == "high", ]   # only the children with a high start
+
+tapply(low$posttest,  low$support,  mean, na.rm = TRUE)
+tapply(high$posttest, high$support, mean, na.rm = TRUE)
+```
+
+Within **both** subgroups, the children with support now score **higher** than the children without support. The direction of the difference has **flipped**. The negative difference in Step 1 was caused by the confounder: the supported children simply started much lower.
+
+We can also look at this with **regression within subgroups**. We draw the scatterplot of `posttest` by `pretest` again, but give each support group its own colour and its own regression line:
+
+```{r}
+model_no  <- lm(posttest ~ pretest, data = reading[reading$support == "no", ])
+model_yes <- lm(posttest ~ pretest, data = reading[reading$support == "yes", ])
+
+plot(posttest ~ pretest,
+     data = reading,
+     pch = 19,
+     col = ifelse(reading$support == "yes", "darkorange", "steelblue"),
+     main = "End score by start score, per support group",
+     xlab = "pretest score",
+     ylab = "posttest score")
+abline(model_no,  col = "steelblue",  lwd = 2)
+abline(model_yes, col = "darkorange", lwd = 2)
+legend("topleft", bty = "n", pch = 19,
+       col = c("steelblue", "darkorange"),
+       legend = c("no support", "support"))
+```
+
+Compare children with the **same** start score: the orange line (support) lies **above** the blue line (no support). We can compute how far apart the two lines are, for example for a child with a start score of 45:
+
+```{r}
+pred_no  <- unname(coef(model_no)[1]  + coef(model_no)[2]  * 45)   # unname() only removes the label
+pred_yes <- unname(coef(model_yes)[1] + coef(model_yes)[2] * 45)
+c(no_support = pred_no, support = pred_yes)
+pred_yes - pred_no    # difference between children with the same start score
+```
+
+This difference is positive, and much closer to the true effect of 4 points than the raw difference of `r round(mean_yes - mean_no, 1)` in Step 1. It is not exactly 4, because our groups are small and every sample wobbles (Week 3).
+
+::: {.callout-note title="Subgroups are a rough tool"}
+Even inside a subgroup, the children are not exactly the same: in the `"low"` group, the supported children still started a bit lower. Also, the subgroups are small, so the tests within them have little power. Splitting into subgroups is a **first check**, not a perfect solution. In Year 2 you learn **multiple regression**, a better way to take a third variable into account.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+1.  Run a t-test of `posttest` by `support` **within** the `low` subgroup, and **within** the `high` subgroup. Write down the raw difference and the p-value for each.
+2.  Look at the group sizes with `table(low$support)` and `table(high$support)`. Why are the p-values so large, even though the differences point in the same direction?
+3.  Compute the difference between the two regression lines for a child with a start score of 55. Is it similar to the difference at 45?
+:::
+
+## Step 5 of the checklist -- Answer and reflect
+
+There is no button in R that gives you "the truth". The statistics are **tools**; you have to **interpret** them in context. A good answer combines the main result with what you learned from the checks.
+
+::: {.callout-note title="Example: an answer with reflection"}
+"Children with reading support scored on average `r round(abs(mean_yes - mean_no), 1)` points **lower** at the end of the year than children without support. However, the groups were not comparable: teachers gave support mainly to children who already read poorly at the start. The start score was strongly related to the end score, so it is a confounder. When we compared children with a similar start score, the supported children scored **higher**, by about `r round(pred_yes - pred_no, 1)` points. We therefore do **not** conclude that support is harmful. The data rather suggest that it helps, but because this is not an experiment and the subgroups are small, we cannot be sure. Other third variables that we did not measure (for example, motivation or support at home) could also play a role."
+:::
+
+Notice three things in this answer:
+
+1.  It reports the **raw differences**, in points on the reading test.
+2.  It names the **confounder** and explains **why** it matters (related to both the groups and the outcome).
+3.  It is **careful**: it says how strong the evidence is, and which third variables could still play a role.
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Without looking at the example, write your own answer of four to six sentences to the question *do children with reading support read better at the end of the year?* Use the results of Steps 1 to 4.
+:::
+
+------------------------------------------------------------------------
+
+# Part 2 -- Dropout: who left the study?
+
+In the lecture you met **mortality** (also called **dropout** or **attrition**): people leave a study before it ends. Dropout is a threat to validity when the people who leave are **different** from the people who stay.
+
+## How many children left, and from which group?
+
+The function `is.na()` gives `TRUE` for every missing value. We use it to make a new variable that tells us who left:
+
+```{r}
+reading$dropped_out <- ifelse(is.na(reading$posttest), "yes", "no")
+
+table(reading$dropped_out)
+```
+
+Did dropout happen equally often in both groups? We use a cross table again:
+
+```{r}
+cross_drop <- table(reading$support, reading$dropped_out)
+cross_drop
+round(prop.table(cross_drop, margin = 1), 2)
+```
+
+A much larger share of the supported children left the study.
+
+## Are the dropouts different?
+
+The useful thing about a **pretest** is that we have it for **everybody**, also for the children who left. So we can compare the dropouts with the children who stayed:
+
+```{r}
+boxplot(pretest ~ dropped_out,
+        data = reading,
+        main = "Start score of children who stayed or left",
+        xlab = "dropped out",
+        ylab = "pretest score")
+
+tapply(reading$pretest, reading$dropped_out, mean)
+t.test(pretest ~ dropped_out, data = reading)
+```
+
+The children who left were **weaker readers** at the start.
+
+## Why does this matter?
+
+Think about what this does to our results:
+
+-   The **weakest** readers are missing from the end-of-year scores. So the mean `posttest` of the children who stayed is **higher** than it would be for all children. We overestimate how well children read at the end.
+-   Most dropouts came from the **support** group. So the support group at the end is no longer the same group that started: its weakest members are gone. This changes the comparison between the groups.
+
+::: {.callout-important title="Always check dropout"}
+Whenever people are missing at the end of a study, check (1) **how many** left, (2) **from which group**, and (3) whether they **differed** at the start. Report this in your conclusion, even if you cannot fix it.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+1.  Make the variable `dropped_out` and the cross table with `support`. Which group lost more children, in proportions?
+2.  Compare the dropouts and the stayers on `age` with a boxplot and `tapply()`. Do they differ?
+3.  Write two sentences: how could dropout change the conclusion of Part 1?
+:::
+
+------------------------------------------------------------------------
+
+# Part 3 -- Your own research question
+
+Now you apply the checklist to the class data. Below we show the code with an example question: *do students with a higher self-efficacy study more hours?* Here `efficacy_level` (`"higher"` / `"lower"`, from Week 2) is the group, and `study_hours` is the outcome. We check two possible third variables: `program_name` (a category) and `age` (a number).
+
+The class data are real data, not a simulation. So we do **not** know the truth, and we cannot say in advance what you will find. That is exactly the situation of a real researcher.
+
+**Step 1 -- Main question.**
+
+```{r}
+boxplot(study_hours ~ efficacy_level, data = survey,
+        main = "Study hours by self-efficacy level",
+        ylab = "study hours per week")
+tapply(survey$study_hours, survey$efficacy_level, mean)
+t.test(study_hours ~ efficacy_level, data = survey)
+```
+
+**Step 2 -- Comparable groups?**
+
+```{r}
+# a categorical third variable: cross table with row proportions
+cross_prog <- table(survey$efficacy_level, survey$program_name)
+cross_prog
+round(prop.table(cross_prog, margin = 1), 2)
+
+# a numeric third variable: boxplot and means
+boxplot(age ~ efficacy_level, data = survey,
+        main = "Age by self-efficacy level", ylab = "age (years)")
+tapply(survey$age, survey$efficacy_level, mean)
+```
+
+**Step 3 -- Related to the outcome?**
+
+```{r}
+# categorical third variable
+boxplot(study_hours ~ program_name, data = survey,
+        main = "Study hours by programme", ylab = "study hours per week")
+
+# numeric third variable
+plot(study_hours ~ age, data = survey, pch = 19, col = "steelblue",
+     main = "Study hours by age", xlab = "age (years)", ylab = "study hours per week")
+abline(lm(study_hours ~ age, data = survey), col = "red", lwd = 2)
+```
+
+**Step 4 -- Within subgroups** (only needed when a third variable is related to **both** the groups and the outcome). Make subgroups of the third variable and compare the groups inside each subgroup, for example:
+
+```{r}
+survey$age_group <- ifelse(survey$age >= 21, "older", "younger")
+younger <- survey[survey$age_group == "younger", ]
+older   <- survey[survey$age_group == "older", ]
+
+tapply(younger$study_hours, younger$efficacy_level, mean)
+tapply(older$study_hours,   older$efficacy_level,   mean)
+```
+
+::: {.callout-warning title="Watch out: very small subgroups"}
+Our class has only about 30 students. When you split them into subgroups, some cells may hold only two or three people. Check the group sizes with `table()` before you interpret a mean. A mean of two people says very little.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+For **your own** research question:
+
+1.  **Main question:** make a boxplot (or scatterplot), compute the raw difference (or slope), and run the test. Use the five steps of a test from Week 4 and 5.
+2.  **Comparable groups?** Choose at least **one categorical** and **one numeric** third variable. Compare your groups on them with a cross table (`table()` and `prop.table()`) and with a boxplot and `tapply()`.
+3.  **Related to the outcome?** Check each third variable with a boxplot, scatterplot, t-test, or regression.
+4.  **Within subgroups:** if a third variable is related to both, compare your groups within subgroups of that variable. Check the subgroup sizes first.
+5.  **Answer and reflect:** write an answer of four to six sentences. Name the possible confounders, say what your checks showed, and say how much you trust your answer.
+:::
+
+------------------------------------------------------------------------
+
+# External validity: who is in the sample?
+
+So far we looked at **internal** validity. **External** validity asks whether the results also hold **outside** the sample. A first check is to describe **who** is in your sample, and compare that with the population you want to say something about (Week 3).
+
+```{r}
+round(prop.table(table(survey$program_name)), 2)   # shares of each programme
+summary(survey$age)
+```
+
+If, for example, your population is "all first-year students in the Netherlands", ask: is the share of each programme, the age range, or the share of men and women in our class similar to that population? If not, the results may not **generalise**.
+
+::: {.callout-note title="Example: a threat to external validity"}
+The reading-support study from Part 1 took place in one municipality, with support chosen by its own teachers. Children in another municipality, with other teachers and another kind of support, may react differently. The result may hold in this municipality, but we cannot simply assume it holds everywhere.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Describe your sample with `table()`, `prop.table()`, and `summary()`. Then write two or three sentences: to which **population** can you generalise your result, and to which population can you **not**? Why?
+:::
+
+------------------------------------------------------------------------
+
+# Recap: what you can now do
+
+Last week you learned to test relations. This week you learned to ask whether you can **trust** them. You can now:
+
+-   explain **internal** and **external validity**, and how the **design** of a study affects them;
+-   explain when a **third variable** is a **confounder**: when it is related to both the groups and the outcome;
+-   follow the **confounding checklist**: main question, comparable groups, relation with the outcome, subgroups, answer and reflect;
+-   compare groups on a numeric third variable with `boxplot()` and `tapply()`;
+-   compare groups on a categorical third variable with a **cross table**, using `table()` and `prop.table()`;
+-   compare groups **within subgroups**, and draw a regression line per subgroup;
+-   handle missing values with `na.rm = TRUE` and `is.na()`;
+-   check **dropout**: how many left, from which group, and whether they differed at the start;
+-   write an answer to a research question that is **careful** about confounding, dropout, and generalisation.
+
+A small cheat sheet to keep:
+
+| You want to... | You write... |
+|----|----|
+| Mean, ignoring missing values | `mean(df$y, na.rm = TRUE)` |
+| Which values are missing? | `is.na(df$y)` |
+| Mean per group | `tapply(df$y, df$group, mean)` |
+| Cross table (counts) | `table(df$group, df$third)` |
+| Cross table (row proportions) | `prop.table(table(df$group, df$third), margin = 1)` |
+| Turn a number into two categories | `ifelse(df$x >= 50, "high", "low")` |
+| Keep one subgroup | `df[df$third == "low", ]` |
+| Regression in one subgroup | `lm(y ~ x, data = df[df$group == "yes", ])` |
+| Points coloured by group | `plot(y ~ x, data = df, col = ifelse(df$group == "yes", "darkorange", "steelblue"))` |
+| Add a legend | `legend("topleft", legend = c("a", "b"), col = c(..., ...), pch = 19)` |
+
+Well done. Keep your materials in the `research_methods` folder, we build directly on them next week.
+
+------------------------------------------------------------------------

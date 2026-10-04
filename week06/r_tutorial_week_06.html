@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sebastian A. J. Lortz">
+<meta name="dcterms.date" content="2026-10-04">
+
+<title>r_tutorial_week_06</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="r_tutorial_week_06_files/libs/clipboard/clipboard.min.js"></script>
+<script src="r_tutorial_week_06_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="r_tutorial_week_06_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="r_tutorial_week_06_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="r_tutorial_week_06_files/libs/quarto-html/popper.min.js"></script>
+<script src="r_tutorial_week_06_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="r_tutorial_week_06_files/libs/quarto-html/anchor.min.js"></script>
+<link href="r_tutorial_week_06_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="r_tutorial_week_06_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="r_tutorial_week_06_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="r_tutorial_week_06_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="r_tutorial_week_06_files/libs/bootstrap/bootstrap-82a8e0681529fff444bbc39736ff6b3a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#how-to-use-this-tutorial" id="toc-how-to-use-this-tutorial" class="nav-link active" data-scroll-target="#how-to-use-this-tutorial">How to use this tutorial</a></li>
+  <li><a href="#start-workflow" id="toc-start-workflow" class="nav-link" data-scroll-target="#start-workflow"><span class="header-section-number">1</span> Start workflow</a></li>
+  <li><a href="#validity-a-short-refresher" id="toc-validity-a-short-refresher" class="nav-link" data-scroll-target="#validity-a-short-refresher"><span class="header-section-number">2</span> Validity: a short refresher</a>
+  <ul class="collapse">
+  <li><a href="#internal-and-external-validity" id="toc-internal-and-external-validity" class="nav-link" data-scroll-target="#internal-and-external-validity"><span class="header-section-number">2.1</span> Internal and external validity</a></li>
+  <li><a href="#designs-and-comparable-groups" id="toc-designs-and-comparable-groups" class="nav-link" data-scroll-target="#designs-and-comparable-groups"><span class="header-section-number">2.2</span> Designs and comparable groups</a></li>
+  <li><a href="#third-variables-and-confounding" id="toc-third-variables-and-confounding" class="nav-link" data-scroll-target="#third-variables-and-confounding"><span class="header-section-number">2.3</span> Third variables and confounding</a></li>
+  </ul></li>
+  <li><a href="#part-1-a-case-study-does-reading-support-help" id="toc-part-1-a-case-study-does-reading-support-help" class="nav-link" data-scroll-target="#part-1-a-case-study-does-reading-support-help"><span class="header-section-number">3</span> Part 1 – A case study: does reading support help?</a>
+  <ul class="collapse">
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">3.1</span> The data</a></li>
+  <li><a href="#missing-values-na" id="toc-missing-values-na" class="nav-link" data-scroll-target="#missing-values-na"><span class="header-section-number">3.2</span> Missing values: <code>NA</code></a></li>
+  <li><a href="#step-1-of-the-checklist-the-main-question" id="toc-step-1-of-the-checklist-the-main-question" class="nav-link" data-scroll-target="#step-1-of-the-checklist-the-main-question"><span class="header-section-number">3.3</span> Step 1 of the checklist – The main question</a></li>
+  <li><a href="#step-2-of-the-checklist-are-the-groups-comparable" id="toc-step-2-of-the-checklist-are-the-groups-comparable" class="nav-link" data-scroll-target="#step-2-of-the-checklist-are-the-groups-comparable"><span class="header-section-number">3.4</span> Step 2 of the checklist – Are the groups comparable?</a></li>
+  <li><a href="#step-3-of-the-checklist-is-the-third-variable-related-to-the-outcome" id="toc-step-3-of-the-checklist-is-the-third-variable-related-to-the-outcome" class="nav-link" data-scroll-target="#step-3-of-the-checklist-is-the-third-variable-related-to-the-outcome"><span class="header-section-number">3.5</span> Step 3 of the checklist – Is the third variable related to the outcome?</a></li>
+  <li><a href="#step-4-of-the-checklist-look-within-subgroups" id="toc-step-4-of-the-checklist-look-within-subgroups" class="nav-link" data-scroll-target="#step-4-of-the-checklist-look-within-subgroups"><span class="header-section-number">3.6</span> Step 4 of the checklist – Look within subgroups</a></li>
+  <li><a href="#step-5-of-the-checklist-answer-and-reflect" id="toc-step-5-of-the-checklist-answer-and-reflect" class="nav-link" data-scroll-target="#step-5-of-the-checklist-answer-and-reflect"><span class="header-section-number">3.7</span> Step 5 of the checklist – Answer and reflect</a></li>
+  </ul></li>
+  <li><a href="#part-2-dropout-who-left-the-study" id="toc-part-2-dropout-who-left-the-study" class="nav-link" data-scroll-target="#part-2-dropout-who-left-the-study"><span class="header-section-number">4</span> Part 2 – Dropout: who left the study?</a>
+  <ul class="collapse">
+  <li><a href="#how-many-children-left-and-from-which-group" id="toc-how-many-children-left-and-from-which-group" class="nav-link" data-scroll-target="#how-many-children-left-and-from-which-group"><span class="header-section-number">4.1</span> How many children left, and from which group?</a></li>
+  <li><a href="#are-the-dropouts-different" id="toc-are-the-dropouts-different" class="nav-link" data-scroll-target="#are-the-dropouts-different"><span class="header-section-number">4.2</span> Are the dropouts different?</a></li>
+  <li><a href="#why-does-this-matter" id="toc-why-does-this-matter" class="nav-link" data-scroll-target="#why-does-this-matter"><span class="header-section-number">4.3</span> Why does this matter?</a></li>
+  </ul></li>
+  <li><a href="#part-3-your-own-research-question" id="toc-part-3-your-own-research-question" class="nav-link" data-scroll-target="#part-3-your-own-research-question"><span class="header-section-number">5</span> Part 3 – Your own research question</a></li>
+  <li><a href="#external-validity-who-is-in-the-sample" id="toc-external-validity-who-is-in-the-sample" class="nav-link" data-scroll-target="#external-validity-who-is-in-the-sample"><span class="header-section-number">6</span> External validity: who is in the sample?</a></li>
+  <li><a href="#recap-what-you-can-now-do" id="toc-recap-what-you-can-now-do" class="nav-link" data-scroll-target="#recap-what-you-can-now-do"><span class="header-section-number">7</span> Recap: what you can now do</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="r_tutorial_week_06.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">r_tutorial_week_06</h1>
+<p class="subtitle lead">Werkcollege 6</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sebastian A. J. Lortz </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">4 October 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+.your-turn {
+  background-color: #eaf4f1;
+  border-left: 5px solid #18bc9c;
+  padding: 0.6em 1em 0.6em 1em;
+  margin: 1em 0 1em 0;
+  border-radius: 4px;
+}
+.your-turn h3 { margin-top: 0; }
+</style>
+<section id="how-to-use-this-tutorial" class="level1 unnumbered">
+<h1 class="unnumbered">How to use this tutorial</h1>
+<p>Welcome back! In Week 4 and Week 5 you learned to <strong>test</strong> differences and relations: with a t-test, and with simple regression.</p>
+<p>This week we ask a more critical question: <strong>can we trust what we found?</strong> Suppose two groups differ. Is the difference really caused by the thing we are interested in, or by <strong>something else</strong>? This is the question of <strong>validity</strong>. In the lecture you met the threats to validity. Today you learn how to <strong>check</strong> some of them in R.</p>
+<p>We work in three parts:</p>
+<ol type="1">
+<li><strong>A case study</strong>: reading support for children. We use a simulated dataset, where we know the truth, to see how a third variable can fool us.</li>
+<li><strong>Dropout</strong>: who left the study, and does it matter?</li>
+<li><strong>Your own research question</strong>: you apply the same checks to the class data.</li>
+</ol>
+<p>Work through this page carefully, from top to bottom. Every short explanation is followed by a <strong>Your turn</strong> task to do yourself.</p>
+<p>General tips:</p>
+<ul>
+<li>Read each part slowly and in order. Each step builds on the one before it.</li>
+<li>Type the code yourself instead of copying and pasting it. You learn faster this way.</li>
+<li>Errors are normal. Read the message and try again.</li>
+<li>If you are stuck, ask a teacher or check the FAQ.</li>
+<li>Save your work often.</li>
+</ul>
+<hr>
+</section>
+<section id="start-workflow" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Start workflow</h1>
+<p>We begin, as always, with the <strong>start workflow</strong>:</p>
+<ol type="1">
+<li>Open <strong>RStudio</strong>: click on the RStudio application.</li>
+<li>Set the <strong>working directory</strong>: click <em>Session</em> &gt; <em>Set Working Directory</em> &gt; <em>Choose Directory</em>, and choose your <code>research_methods</code> folder.</li>
+<li>Open a <strong>new script</strong>: click <em>File</em> &gt; <em>New File</em> &gt; <em>R Script</em>.</li>
+<li>On the first line, write a comment with the title, for example: <code># R tutorial - Week 6</code>.</li>
+<li>Save the script as <code>week6.R</code> in your <code>research_methods</code> folder.</li>
+<li>Load your cleaned data from Week 2 into an object called <code>survey</code>:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"class_survey_clean.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch out
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you see <code>Error: cannot open file ...</code>, R cannot find the file. Check that your working directory is <code>research_methods</code> (run <code>getwd()</code> to print it), and that <code>class_survey_clean.csv</code> really sits in that folder.</p>
+</div>
+</div>
+<section id="your-turn" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn">Your turn</h3>
+<p>Complete the <strong>start workflow</strong> and load <code>survey</code>. Check that <code>survey</code> appears in the <strong>Environment</strong> pane (top-right).</p>
+</section>
+<hr>
+</section>
+<section id="validity-a-short-refresher" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Validity: a short refresher</h1>
+<section id="internal-and-external-validity" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="internal-and-external-validity"><span class="header-section-number">2.1</span> Internal and external validity</h2>
+<ul>
+<li><strong>Internal validity</strong>: is the difference (or relation) we found really caused by the variable we study, and not by something else?</li>
+<li><strong>External validity</strong>: do our results also hold for other people, places, and times, outside our own sample?</li>
+</ul>
+</section>
+<section id="designs-and-comparable-groups" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="designs-and-comparable-groups"><span class="header-section-number">2.2</span> Designs and comparable groups</h2>
+<p>The design of a study decides how well it protects internal validity.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Design</th>
+<th>How are the groups formed?</th>
+<th>Are the groups comparable?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Experiment</strong> with random assignment</td>
+<td>By chance (for example, a coin flip)</td>
+<td>Yes, on average: chance spreads all other differences evenly over the groups</td>
+</tr>
+<tr class="even">
+<td><strong>Quasi-experiment</strong></td>
+<td>The groups already exist (for example, two schools)</td>
+<td>Not automatically: you have to check</td>
+</tr>
+<tr class="odd">
+<td><strong>Correlational / survey study</strong></td>
+<td>People are only measured, nothing is assigned</td>
+<td>Not automatically: you have to check</td>
+</tr>
+</tbody>
+</table>
+<p>In orthopedagogy, random assignment is often not possible or not ethical: you cannot refuse help to a child who needs it. So we often work with groups that <strong>already exist</strong>. Then we must check whether the groups are <strong>comparable</strong>.</p>
+</section>
+<section id="third-variables-and-confounding" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="third-variables-and-confounding"><span class="header-section-number">2.3</span> Third variables and confounding</h2>
+<p>A <strong>third variable</strong> is a variable that is not the independent variable (x) or the dependent variable (y), but may still play a role. When a third variable is the real reason for a difference, we call it a <strong>confounder</strong>, and the problem <strong>confounding</strong>. In the lecture this was linked to the threat of <strong>subject characteristics</strong>: the groups differ in some characteristic of the people themselves (age, ability, motivation, …).</p>
+<p>A third variable can only confound your result when it is related to <strong>both</strong>:</p>
+<ol type="1">
+<li>the <strong>groups</strong> (or x): the groups differ on the third variable, <strong>and</strong></li>
+<li>the <strong>outcome</strong> (y): the third variable is related to the outcome.</li>
+</ol>
+<p>If only one of the two is true, the third variable cannot explain your result. This gives us a <strong>checklist</strong> that we use for the rest of this tutorial.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="The confounding checklist">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The confounding checklist
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Main question</strong> – look at and test the relation between the groups (x) and the outcome (y).</li>
+<li><strong>Comparable groups?</strong> – do the groups differ on the third variable?</li>
+<li><strong>Related to the outcome?</strong> – is the third variable related to the outcome?</li>
+<li><strong>Look within subgroups</strong> – does the relation between x and y stay the same among people who are similar on the third variable?</li>
+<li><strong>Answer and reflect</strong> – answer the research question, and say how much you trust the answer.</li>
+</ol>
+</div>
+</div>
+<section id="your-turn-1" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-1">Your turn</h3>
+<p>Think of your own research question. Which <strong>design</strong> does it use: experiment, quasi-experiment, or correlational? Write down <strong>two possible third variables</strong> that could confound your result, and explain in one sentence each why they could be related to both x and y.</p>
+</section>
+<hr>
+</section>
+</section>
+<section id="part-1-a-case-study-does-reading-support-help" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part 1 – A case study: does reading support help?</h1>
+<section id="the-data" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="the-data"><span class="header-section-number">3.1</span> The data</h2>
+<p>A municipality offers extra <strong>reading support</strong> to children in primary school. Teachers decide which children get the support. At the end of the year, all children take a reading test. The question is: <em>do children with support read better at the end of the year?</em></p>
+<p>This is <strong>not</strong> an experiment: the teachers chose who got support. So the groups may not be comparable.</p>
+<p>We <strong>simulate</strong> this dataset, as in Week 3. Because we make the data ourselves, we know the truth: in this simulation, the support <strong>does help</strong>, by 4 points. Let us see whether a simple comparison finds that. This code is to run and read; you do <strong>not</strong> need to write it yourself.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">120</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>reading <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">id      =</span> <span class="dv">1</span><span class="sc">:</span>n,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">age     =</span> <span class="fu">sample</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">11</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>),       <span class="co"># age in years</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pretest =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>))    <span class="co"># reading score at the START of the year</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Teachers give support mostly to children with a LOW start score</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>reading<span class="sc">$</span>support <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">runif</span>(n) <span class="sc">&lt;</span> <span class="fu">plogis</span>(<span class="sc">-</span>(reading<span class="sc">$</span>pretest <span class="sc">-</span> <span class="dv">47</span>) <span class="sc">/</span> <span class="dv">4</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading score at the </span><span class="re">END</span><span class="co"> of the year: the TRUE effect of support is +4 points</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>reading<span class="sc">$</span>posttest <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">8</span> <span class="sc">+</span> <span class="fl">0.9</span> <span class="sc">*</span> reading<span class="sc">$</span>pretest <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> (reading<span class="sc">$</span>age <span class="sc">-</span> <span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                          <span class="dv">4</span> <span class="sc">*</span> (reading<span class="sc">$</span>support <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">5</span>))</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Some children leave the study before the end (more often weak readers)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>dropped <span class="ot">&lt;-</span> <span class="fu">runif</span>(n) <span class="sc">&lt;</span> <span class="fu">plogis</span>(<span class="sc">-</span>(reading<span class="sc">$</span>pretest <span class="sc">-</span> <span class="dv">38</span>) <span class="sc">/</span> <span class="dv">4</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>reading<span class="sc">$</span>posttest[dropped] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(reading)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id age pretest support posttest</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1  11      38     yes       53</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2   7      47     yes       55</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3   7      49     yes       50</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  4  11      37     yes       47</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  5   9      56      no       55</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  6  10      58      no       54</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The variables are:</p>
+<ul>
+<li><code>support</code>: did the child get reading support (<code>"yes"</code> or `“no”)? This is our <strong>independent variable</strong> (the groups).</li>
+<li><code>posttest</code>: reading score at the end of the year. This is our <strong>dependent variable</strong> (the outcome).</li>
+<li><code>pretest</code>: reading score at the start of the year, <strong>before</strong> the support. A possible <strong>third variable</strong>.</li>
+<li><code>age</code>: age in years. Another possible <strong>third variable</strong>.</li>
+</ul>
+</section>
+<section id="missing-values-na" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="missing-values-na"><span class="header-section-number">3.2</span> Missing values: <code>NA</code></h2>
+<p>Some children have <code>NA</code> for <code>posttest</code>. You met <code>NA</code> in Week 2: it means “not available”. These children <strong>left the study</strong> before the end-of-year test. We look at them in Part 2. For now, you need to know one thing: many functions give <code>NA</code> as the answer when there is even one <code>NA</code> in the data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(reading<span class="sc">$</span>posttest)                  <span class="co"># NA, because some values are missing</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(reading<span class="sc">$</span>posttest, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)    <span class="co"># na.rm = TRUE: remove the NAs first</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 55.50962</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The argument <code>na.rm = TRUE</code> means “<strong>r</strong>e<strong>m</strong>ove the <strong>NA</strong>s before you compute”. <code>t.test()</code> and <code>lm()</code> remove rows with <code>NA</code> automatically.</p>
+<section id="your-turn-2" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-2">Your turn</h3>
+<p>Run the simulation code. Then use <code>table()</code> to count how many children got support. Compute the mean <code>pretest</code> and the mean <code>posttest</code> of all children (remember <code>na.rm = TRUE</code> for <code>posttest</code>).</p>
+</section>
+</section>
+<section id="step-1-of-the-checklist-the-main-question" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="step-1-of-the-checklist-the-main-question"><span class="header-section-number">3.3</span> Step 1 of the checklist – The main question</h2>
+<p>We look at the main question first, as we would without thinking about validity:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(posttest <span class="sc">~</span> support,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> reading,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Reading score at the end of the year"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"reading support"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"posttest score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mean_no  <span class="ot">&lt;-</span> <span class="fu">mean</span>(reading<span class="sc">$</span>posttest[reading<span class="sc">$</span>support <span class="sc">==</span> <span class="st">"no"</span>],  <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mean_yes <span class="ot">&lt;-</span> <span class="fu">mean</span>(reading<span class="sc">$</span>posttest[reading<span class="sc">$</span>support <span class="sc">==</span> <span class="st">"yes"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">no_support =</span> mean_no, <span class="at">support =</span> mean_yes)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; no_support    support </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   56.79730   52.33333</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>mean_yes <span class="sc">-</span> mean_no    <span class="co"># raw difference: support minus no support</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -4.463964</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(posttest <span class="sc">~</span> support, <span class="at">data =</span> reading)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  posttest by support</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 2.9367, df = 66.037, p-value = 0.004562</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group no and group yes is not equal to 0</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1.429130 7.498797</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  mean in group no mean in group yes </span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          56.79730          52.33333</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The children <strong>with</strong> support score <strong>lower</strong> at the end of the year, by about 4.5 points, and the t-test is significant. A quick conclusion would be: “reading support makes children read worse.” But we know the truth is the opposite: support <strong>helps</strong> by 4 points. What went wrong?</p>
+<section id="your-turn-3" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-3">Your turn</h3>
+<p>Run the boxplot, the group means, and the t-test. Write down the raw difference and the p-value. Before you read on: can you think of a reason why the supported children score lower, even though support helps?</p>
+</section>
+</section>
+<section id="step-2-of-the-checklist-are-the-groups-comparable" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="step-2-of-the-checklist-are-the-groups-comparable"><span class="header-section-number">3.4</span> Step 2 of the checklist – Are the groups comparable?</h2>
+<p>Teachers gave support to children who <strong>needed</strong> it. So maybe the two groups were already different <strong>before</strong> the support started. We check this on our two third variables.</p>
+<section id="a-numeric-third-variable-boxplot-and-means" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="a-numeric-third-variable-boxplot-and-means"><span class="header-section-number">3.4.1</span> A numeric third variable: boxplot and means</h3>
+<p>For a numeric third variable, we compare the groups with a boxplot and the group means, exactly as for an outcome:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(pretest <span class="sc">~</span> support,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> reading,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Reading score at the START of the year"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"reading support"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"pretest score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(reading<span class="sc">$</span>pretest, reading<span class="sc">$</span>support, mean)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       no      yes </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 54.75325 41.25581</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The function <code>tapply()</code> is new. It is a short way to compute something <strong>per group</strong>. Read <code>tapply(reading$pretest, reading$support, mean)</code> as: “take <code>pretest</code>, split it by <code>support</code>, and compute the <code>mean</code> for each group”.</p>
+<p>The supported children already read much worse <strong>at the start</strong>. So the groups are <strong>not comparable</strong> on <code>pretest</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(reading<span class="sc">$</span>age, reading<span class="sc">$</span>support, mean)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       no      yes </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9.090909 9.255814</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>On <code>age</code>, the groups are very similar. So <code>age</code> cannot explain the difference between the groups.</p>
+</section>
+<section id="a-categorical-third-variable-cross-tables" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="a-categorical-third-variable-cross-tables"><span class="header-section-number">3.4.2</span> A categorical third variable: cross tables</h3>
+<p>When the third variable is a <strong>category</strong>, we compare the groups with a <strong>cross table</strong> (in Dutch: <em>kruistabel</em>). A cross table counts how often each <strong>combination</strong> of two categories appears. You make it with <code>table()</code>, now with <strong>two</strong> variables inside:</p>
+<p>First, we turn <code>pretest</code> into a category with <code>ifelse()</code> (from Week 2): a <code>"low"</code> or <code>"high"</code> start level.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>reading<span class="sc">$</span>pre_level <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(reading<span class="sc">$</span>pretest <span class="sc">&gt;=</span> <span class="dv">50</span>, <span class="st">"high"</span>, <span class="st">"low"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(reading<span class="sc">$</span>support, reading<span class="sc">$</span>pre_level)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       high low</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   no    64  13</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   yes    5  38</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The first variable gives the <strong>rows</strong>, the second the <strong>columns</strong>. Each cell counts the children with that combination, for example “support = yes <strong>and</strong> pre_level = low”.</p>
+<p>Counts are hard to compare when the groups have different sizes. So we turn them into <strong>proportions</strong> per row with <code>prop.table()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cross <span class="ot">&lt;-</span> <span class="fu">table</span>(reading<span class="sc">$</span>support, reading<span class="sc">$</span>pre_level)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(cross, <span class="at">margin =</span> <span class="dv">1</span>), <span class="dv">2</span>)   <span class="co"># margin = 1: each ROW adds up to 1</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       high  low</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   no  0.83 0.17</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   yes 0.12 0.88</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>margin = 1</code> means: compute the proportions <strong>within each row</strong>. Now each row adds up to 1 (100%), and we can compare the rows directly. If the groups were comparable, the two rows would look about the same. Here, most supported children started at a <code>"low"</code> level, and most children without support started at a <code>"high"</code> level.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Watch out: margin = 1 or margin = 2?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch out: margin = 1 or margin = 2?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>margin = 1</code> makes each <strong>row</strong> add up to 1; <code>margin = 2</code> makes each <strong>column</strong> add up to 1. Choose the margin so that you compare <strong>your groups</strong>. Put your groups in the rows and use <code>margin = 1</code>, then you always read the table the same way.</p>
+</div>
+</div>
+</section>
+<section id="your-turn-4" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-4">Your turn</h3>
+<ol type="1">
+<li>Compare the two support groups on <code>pretest</code> and on <code>age</code>, with a boxplot and <code>tapply()</code>.</li>
+<li>Make the cross table of <code>support</code> by <code>pre_level</code>, and the row proportions with <code>prop.table()</code>.</li>
+<li>Write one sentence per third variable: are the groups comparable on it?</li>
+</ol>
+</section>
+</section>
+<section id="step-3-of-the-checklist-is-the-third-variable-related-to-the-outcome" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="step-3-of-the-checklist-is-the-third-variable-related-to-the-outcome"><span class="header-section-number">3.5</span> Step 3 of the checklist – Is the third variable related to the outcome?</h2>
+<p>A difference between the groups on <code>pretest</code> is only a problem when <code>pretest</code> is also related to the outcome. For two numeric variables, we use a <strong>scatterplot</strong> and a <strong>regression</strong>, as in Week 5:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(posttest <span class="sc">~</span> pretest,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> reading,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Start score and end score"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"pretest score"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"posttest score"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>model_pre <span class="ot">&lt;-</span> <span class="fu">lm</span>(posttest <span class="sc">~</span> pretest, <span class="at">data =</span> reading)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_pre, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model_pre)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)     pretest </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   21.983658    0.647965</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The relation is strong: for every extra point at the start, children score about 0.6 points higher at the end. This is not surprising: good readers at the start are usually still good readers at the end.</p>
+<p>With the categorical version, a boxplot and a t-test tell the same story:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(posttest <span class="sc">~</span> pre_level,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> reading,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"End score by start level"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"start level"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"posttest score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(posttest <span class="sc">~</span> pre_level, <span class="at">data =</span> reading)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  posttest by pre_level</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 6.1222, df = 96.977, p-value = 1.962e-08</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group high and group low is not equal to 0</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   5.32611 10.43589</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean in group high  mean in group low </span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           58.31343           50.43243</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>So <code>pretest</code> is related to <strong>both</strong> the groups (Step 2) <strong>and</strong> the outcome (Step 3). That makes it a <strong>confounder</strong>. <code>age</code> is related to the outcome as well, but not to the groups, so it is <strong>not</strong> a confounder here.</p>
+<section id="your-turn-5" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-5">Your turn</h3>
+<p>Make a scatterplot of <code>posttest</code> by <code>age</code>, add the regression line, and look at the slope. Is <code>age</code> related to the outcome? Combine this with your answer from Step 2: is <code>age</code> a confounder? Explain why or why not.</p>
+</section>
+</section>
+<section id="step-4-of-the-checklist-look-within-subgroups" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="step-4-of-the-checklist-look-within-subgroups"><span class="header-section-number">3.6</span> Step 4 of the checklist – Look within subgroups</h2>
+<p>If <code>pretest</code> is the problem, we should compare children who are <strong>similar</strong> on <code>pretest</code>. We split the data into <strong>subgroups</strong> by start level, and compare support and no support <strong>within</strong> each subgroup.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>low  <span class="ot">&lt;-</span> reading[reading<span class="sc">$</span>pre_level <span class="sc">==</span> <span class="st">"low"</span>, ]    <span class="co"># only the children with a low start</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>high <span class="ot">&lt;-</span> reading[reading<span class="sc">$</span>pre_level <span class="sc">==</span> <span class="st">"high"</span>, ]   <span class="co"># only the children with a high start</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(low<span class="sc">$</span>posttest,  low<span class="sc">$</span>support,  mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       no      yes </span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 49.27273 50.92308</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(high<span class="sc">$</span>posttest, high<span class="sc">$</span>support, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       no      yes </span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 58.11111 61.50000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Within <strong>both</strong> subgroups, the children with support now score <strong>higher</strong> than the children without support. The direction of the difference has <strong>flipped</strong>. The negative difference in Step 1 was caused by the confounder: the supported children simply started much lower.</p>
+<p>We can also look at this with <strong>regression within subgroups</strong>. We draw the scatterplot of <code>posttest</code> by <code>pretest</code> again, but give each support group its own colour and its own regression line:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model_no  <span class="ot">&lt;-</span> <span class="fu">lm</span>(posttest <span class="sc">~</span> pretest, <span class="at">data =</span> reading[reading<span class="sc">$</span>support <span class="sc">==</span> <span class="st">"no"</span>, ])</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>model_yes <span class="ot">&lt;-</span> <span class="fu">lm</span>(posttest <span class="sc">~</span> pretest, <span class="at">data =</span> reading[reading<span class="sc">$</span>support <span class="sc">==</span> <span class="st">"yes"</span>, ])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(posttest <span class="sc">~</span> pretest,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">data =</span> reading,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">ifelse</span>(reading<span class="sc">$</span>support <span class="sc">==</span> <span class="st">"yes"</span>, <span class="st">"darkorange"</span>, <span class="st">"steelblue"</span>),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"End score by start score, per support group"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"pretest score"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"posttest score"</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_no,  <span class="at">col =</span> <span class="st">"steelblue"</span>,  <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model_yes, <span class="at">col =</span> <span class="st">"darkorange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"darkorange"</span>),</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"no support"</span>, <span class="st">"support"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Compare children with the <strong>same</strong> start score: the orange line (support) lies <strong>above</strong> the blue line (no support). We can compute how far apart the two lines are, for example for a child with a start score of 45:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pred_no  <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(model_no)[<span class="dv">1</span>]  <span class="sc">+</span> <span class="fu">coef</span>(model_no)[<span class="dv">2</span>]  <span class="sc">*</span> <span class="dv">45</span>)   <span class="co"># unname() only removes the label</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pred_yes <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(model_yes)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(model_yes)[<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">45</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">no_support =</span> pred_no, <span class="at">support =</span> pred_yes)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; no_support    support </span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   47.40055   54.04807</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>pred_yes <span class="sc">-</span> pred_no    <span class="co"># difference between children with the same start score</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6.647518</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This difference is positive, and much closer to the true effect of 4 points than the raw difference of -4.5 in Step 1. It is not exactly 4, because our groups are small and every sample wobbles (Week 3).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Subgroups are a rough tool">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Subgroups are a rough tool
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Even inside a subgroup, the children are not exactly the same: in the <code>"low"</code> group, the supported children still started a bit lower. Also, the subgroups are small, so the tests within them have little power. Splitting into subgroups is a <strong>first check</strong>, not a perfect solution. In Year 2 you learn <strong>multiple regression</strong>, a better way to take a third variable into account.</p>
+</div>
+</div>
+<section id="your-turn-6" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-6">Your turn</h3>
+<ol type="1">
+<li>Run a t-test of <code>posttest</code> by <code>support</code> <strong>within</strong> the <code>low</code> subgroup, and <strong>within</strong> the <code>high</code> subgroup. Write down the raw difference and the p-value for each.</li>
+<li>Look at the group sizes with <code>table(low$support)</code> and <code>table(high$support)</code>. Why are the p-values so large, even though the differences point in the same direction?</li>
+<li>Compute the difference between the two regression lines for a child with a start score of 55. Is it similar to the difference at 45?</li>
+</ol>
+</section>
+</section>
+<section id="step-5-of-the-checklist-answer-and-reflect" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="step-5-of-the-checklist-answer-and-reflect"><span class="header-section-number">3.7</span> Step 5 of the checklist – Answer and reflect</h2>
+<p>There is no button in R that gives you “the truth”. The statistics are <strong>tools</strong>; you have to <strong>interpret</strong> them in context. A good answer combines the main result with what you learned from the checks.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Example: an answer with reflection">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example: an answer with reflection
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Children with reading support scored on average 4.5 points <strong>lower</strong> at the end of the year than children without support. However, the groups were not comparable: teachers gave support mainly to children who already read poorly at the start. The start score was strongly related to the end score, so it is a confounder. When we compared children with a similar start score, the supported children scored <strong>higher</strong>, by about 6.6 points. We therefore do <strong>not</strong> conclude that support is harmful. The data rather suggest that it helps, but because this is not an experiment and the subgroups are small, we cannot be sure. Other third variables that we did not measure (for example, motivation or support at home) could also play a role.”</p>
+</div>
+</div>
+<p>Notice three things in this answer:</p>
+<ol type="1">
+<li>It reports the <strong>raw differences</strong>, in points on the reading test.</li>
+<li>It names the <strong>confounder</strong> and explains <strong>why</strong> it matters (related to both the groups and the outcome).</li>
+<li>It is <strong>careful</strong>: it says how strong the evidence is, and which third variables could still play a role.</li>
+</ol>
+<section id="your-turn-7" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
+<p>Without looking at the example, write your own answer of four to six sentences to the question <em>do children with reading support read better at the end of the year?</em> Use the results of Steps 1 to 4.</p>
+</section>
+<hr>
+</section>
+</section>
+<section id="part-2-dropout-who-left-the-study" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part 2 – Dropout: who left the study?</h1>
+<p>In the lecture you met <strong>mortality</strong> (also called <strong>dropout</strong> or <strong>attrition</strong>): people leave a study before it ends. Dropout is a threat to validity when the people who leave are <strong>different</strong> from the people who stay.</p>
+<section id="how-many-children-left-and-from-which-group" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="how-many-children-left-and-from-which-group"><span class="header-section-number">4.1</span> How many children left, and from which group?</h2>
+<p>The function <code>is.na()</code> gives <code>TRUE</code> for every missing value. We use it to make a new variable that tells us who left:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>reading<span class="sc">$</span>dropped_out <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(reading<span class="sc">$</span>posttest), <span class="st">"yes"</span>, <span class="st">"no"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(reading<span class="sc">$</span>dropped_out)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  no yes </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 104  16</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Did dropout happen equally often in both groups? We use a cross table again:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cross_drop <span class="ot">&lt;-</span> <span class="fu">table</span>(reading<span class="sc">$</span>support, reading<span class="sc">$</span>dropped_out)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cross_drop</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      </span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       no yes</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   no  74   3</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   yes 30  13</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(cross_drop, <span class="at">margin =</span> <span class="dv">1</span>), <span class="dv">2</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      </span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         no  yes</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   no  0.96 0.04</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   yes 0.70 0.30</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A much larger share of the supported children left the study.</p>
+</section>
+<section id="are-the-dropouts-different" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="are-the-dropouts-different"><span class="header-section-number">4.2</span> Are the dropouts different?</h2>
+<p>The useful thing about a <strong>pretest</strong> is that we have it for <strong>everybody</strong>, also for the children who left. So we can compare the dropouts with the children who stayed:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(pretest <span class="sc">~</span> dropped_out,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> reading,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Start score of children who stayed or left"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"dropped out"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"pretest score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(reading<span class="sc">$</span>pretest, reading<span class="sc">$</span>dropped_out, mean)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       no      yes </span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 51.74038 38.06250</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(pretest <span class="sc">~</span> dropped_out, <span class="at">data =</span> reading)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  pretest by dropped_out</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 8.0496, df = 25.031, p-value = 2.08e-08</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group no and group yes is not equal to 0</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  10.17853 17.17724</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  mean in group no mean in group yes </span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          51.74038          38.06250</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The children who left were <strong>weaker readers</strong> at the start.</p>
+</section>
+<section id="why-does-this-matter" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="why-does-this-matter"><span class="header-section-number">4.3</span> Why does this matter?</h2>
+<p>Think about what this does to our results:</p>
+<ul>
+<li>The <strong>weakest</strong> readers are missing from the end-of-year scores. So the mean <code>posttest</code> of the children who stayed is <strong>higher</strong> than it would be for all children. We overestimate how well children read at the end.</li>
+<li>Most dropouts came from the <strong>support</strong> group. So the support group at the end is no longer the same group that started: its weakest members are gone. This changes the comparison between the groups.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="Always check dropout">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Always check dropout
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Whenever people are missing at the end of a study, check (1) <strong>how many</strong> left, (2) <strong>from which group</strong>, and (3) whether they <strong>differed</strong> at the start. Report this in your conclusion, even if you cannot fix it.</p>
+</div>
+</div>
+<section id="your-turn-8" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
+<ol type="1">
+<li>Make the variable <code>dropped_out</code> and the cross table with <code>support</code>. Which group lost more children, in proportions?</li>
+<li>Compare the dropouts and the stayers on <code>age</code> with a boxplot and <code>tapply()</code>. Do they differ?</li>
+<li>Write two sentences: how could dropout change the conclusion of Part 1?</li>
+</ol>
+</section>
+<hr>
+</section>
+</section>
+<section id="part-3-your-own-research-question" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Part 3 – Your own research question</h1>
+<p>Now you apply the checklist to the class data. Below we show the code with an example question: <em>do students with a higher self-efficacy study more hours?</em> Here <code>efficacy_level</code> (<code>"higher"</code> / <code>"lower"</code>, from Week 2) is the group, and <code>study_hours</code> is the outcome. We check two possible third variables: <code>program_name</code> (a category) and <code>age</code> (a number).</p>
+<p>The class data are real data, not a simulation. So we do <strong>not</strong> know the truth, and we cannot say in advance what you will find. That is exactly the situation of a real researcher.</p>
+<p><strong>Step 1 – Main question.</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(study_hours <span class="sc">~</span> efficacy_level, <span class="at">data =</span> survey,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Study hours by self-efficacy level"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"study hours per week"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(survey<span class="sc">$</span>study_hours, survey<span class="sc">$</span>efficacy_level, mean)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   higher    lower </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11.12500 13.35714</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(study_hours <span class="sc">~</span> efficacy_level, <span class="at">data =</span> survey)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  study_hours by efficacy_level</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = -1.2378, df = 24.778, p-value = 0.2274</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group higher and group lower is not equal to 0</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  -5.947785  1.483500</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean in group higher  mean in group lower </span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             11.12500             13.35714</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 2 – Comparable groups?</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a categorical third variable: cross table with row proportions</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>cross_prog <span class="ot">&lt;-</span> <span class="fu">table</span>(survey<span class="sc">$</span>efficacy_level, survey<span class="sc">$</span>program_name)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>cross_prog</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Pedagogy Psychology Sociology</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   higher        6          5         5</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   lower         4          4         6</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(cross_prog, <span class="at">margin =</span> <span class="dv">1</span>), <span class="dv">2</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         </span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Pedagogy Psychology Sociology</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   higher     0.38       0.31      0.31</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   lower      0.29       0.29      0.43</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># a numeric third variable: boxplot and means</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(age <span class="sc">~</span> efficacy_level, <span class="at">data =</span> survey,</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Age by self-efficacy level"</span>, <span class="at">ylab =</span> <span class="st">"age (years)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(survey<span class="sc">$</span>age, survey<span class="sc">$</span>efficacy_level, mean)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   higher    lower </span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20.68750 20.64286</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Step 3 – Related to the outcome?</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># categorical third variable</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(study_hours <span class="sc">~</span> program_name, <span class="at">data =</span> survey,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Study hours by programme"</span>, <span class="at">ylab =</span> <span class="st">"study hours per week"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># numeric third variable</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(study_hours <span class="sc">~</span> age, <span class="at">data =</span> survey, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Study hours by age"</span>, <span class="at">xlab =</span> <span class="st">"age (years)"</span>, <span class="at">ylab =</span> <span class="st">"study hours per week"</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(study_hours <span class="sc">~</span> age, <span class="at">data =</span> survey), <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="r_tutorial_week_06_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Step 4 – Within subgroups</strong> (only needed when a third variable is related to <strong>both</strong> the groups and the outcome). Make subgroups of the third variable and compare the groups inside each subgroup, for example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>survey<span class="sc">$</span>age_group <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(survey<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">21</span>, <span class="st">"older"</span>, <span class="st">"younger"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>younger <span class="ot">&lt;-</span> survey[survey<span class="sc">$</span>age_group <span class="sc">==</span> <span class="st">"younger"</span>, ]</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>older   <span class="ot">&lt;-</span> survey[survey<span class="sc">$</span>age_group <span class="sc">==</span> <span class="st">"older"</span>, ]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(younger<span class="sc">$</span>study_hours, younger<span class="sc">$</span>efficacy_level, mean)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   higher    lower </span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11.42857 15.75000</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(older<span class="sc">$</span>study_hours,   older<span class="sc">$</span>efficacy_level,   mean)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   higher    lower </span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10.88889 10.16667</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Watch out: very small subgroups">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch out: very small subgroups
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Our class has only about 30 students. When you split them into subgroups, some cells may hold only two or three people. Check the group sizes with <code>table()</code> before you interpret a mean. A mean of two people says very little.</p>
+</div>
+</div>
+<section id="your-turn-9" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-9">Your turn</h3>
+<p>For <strong>your own</strong> research question:</p>
+<ol type="1">
+<li><strong>Main question:</strong> make a boxplot (or scatterplot), compute the raw difference (or slope), and run the test. Use the five steps of a test from Week 4 and 5.</li>
+<li><strong>Comparable groups?</strong> Choose at least <strong>one categorical</strong> and <strong>one numeric</strong> third variable. Compare your groups on them with a cross table (<code>table()</code> and <code>prop.table()</code>) and with a boxplot and <code>tapply()</code>.</li>
+<li><strong>Related to the outcome?</strong> Check each third variable with a boxplot, scatterplot, t-test, or regression.</li>
+<li><strong>Within subgroups:</strong> if a third variable is related to both, compare your groups within subgroups of that variable. Check the subgroup sizes first.</li>
+<li><strong>Answer and reflect:</strong> write an answer of four to six sentences. Name the possible confounders, say what your checks showed, and say how much you trust your answer.</li>
+</ol>
+</section>
+<hr>
+</section>
+<section id="external-validity-who-is-in-the-sample" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> External validity: who is in the sample?</h1>
+<p>So far we looked at <strong>internal</strong> validity. <strong>External</strong> validity asks whether the results also hold <strong>outside</strong> the sample. A first check is to describe <strong>who</strong> is in your sample, and compare that with the population you want to say something about (Week 3).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(survey<span class="sc">$</span>program_name)), <span class="dv">2</span>)   <span class="co"># shares of each programme</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Pedagogy Psychology  Sociology </span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0.33       0.30       0.37</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(survey<span class="sc">$</span>age)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   17.00   18.00   20.50   20.67   22.75   25.00</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If, for example, your population is “all first-year students in the Netherlands”, ask: is the share of each programme, the age range, or the share of men and women in our class similar to that population? If not, the results may not <strong>generalise</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Example: a threat to external validity">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Example: a threat to external validity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The reading-support study from Part 1 took place in one municipality, with support chosen by its own teachers. Children in another municipality, with other teachers and another kind of support, may react differently. The result may hold in this municipality, but we cannot simply assume it holds everywhere.</p>
+</div>
+</div>
+<section id="your-turn-10" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
+<p>Describe your sample with <code>table()</code>, <code>prop.table()</code>, and <code>summary()</code>. Then write two or three sentences: to which <strong>population</strong> can you generalise your result, and to which population can you <strong>not</strong>? Why?</p>
+</section>
+<hr>
+</section>
+<section id="recap-what-you-can-now-do" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Recap: what you can now do</h1>
+<p>Last week you learned to test relations. This week you learned to ask whether you can <strong>trust</strong> them. You can now:</p>
+<ul>
+<li>explain <strong>internal</strong> and <strong>external validity</strong>, and how the <strong>design</strong> of a study affects them;</li>
+<li>explain when a <strong>third variable</strong> is a <strong>confounder</strong>: when it is related to both the groups and the outcome;</li>
+<li>follow the <strong>confounding checklist</strong>: main question, comparable groups, relation with the outcome, subgroups, answer and reflect;</li>
+<li>compare groups on a numeric third variable with <code>boxplot()</code> and <code>tapply()</code>;</li>
+<li>compare groups on a categorical third variable with a <strong>cross table</strong>, using <code>table()</code> and <code>prop.table()</code>;</li>
+<li>compare groups <strong>within subgroups</strong>, and draw a regression line per subgroup;</li>
+<li>handle missing values with <code>na.rm = TRUE</code> and <code>is.na()</code>;</li>
+<li>check <strong>dropout</strong>: how many left, from which group, and whether they differed at the start;</li>
+<li>write an answer to a research question that is <strong>careful</strong> about confounding, dropout, and generalisation.</li>
+</ul>
+<p>A small cheat sheet to keep:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>You want to…</th>
+<th>You write…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean, ignoring missing values</td>
+<td><code>mean(df$y, na.rm = TRUE)</code></td>
+</tr>
+<tr class="even">
+<td>Which values are missing?</td>
+<td><code>is.na(df$y)</code></td>
+</tr>
+<tr class="odd">
+<td>Mean per group</td>
+<td><code>tapply(df$y, df$group, mean)</code></td>
+</tr>
+<tr class="even">
+<td>Cross table (counts)</td>
+<td><code>table(df$group, df$third)</code></td>
+</tr>
+<tr class="odd">
+<td>Cross table (row proportions)</td>
+<td><code>prop.table(table(df$group, df$third), margin = 1)</code></td>
+</tr>
+<tr class="even">
+<td>Turn a number into two categories</td>
+<td><code>ifelse(df$x &gt;= 50, "high", "low")</code></td>
+</tr>
+<tr class="odd">
+<td>Keep one subgroup</td>
+<td><code>df[df$third == "low", ]</code></td>
+</tr>
+<tr class="even">
+<td>Regression in one subgroup</td>
+<td><code>lm(y ~ x, data = df[df$group == "yes", ])</code></td>
+</tr>
+<tr class="odd">
+<td>Points coloured by group</td>
+<td><code>plot(y ~ x, data = df, col = ifelse(df$group == "yes", "darkorange", "steelblue"))</code></td>
+</tr>
+<tr class="even">
+<td>Add a legend</td>
+<td><code>legend("topleft", legend = c("a", "b"), col = c(..., ...), pch = 19)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Well done. Keep your materials in the <code>research_methods</code> folder, we build directly on them next week.</p>
+<hr>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
