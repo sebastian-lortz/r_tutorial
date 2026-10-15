@@ -77,7 +77,7 @@ General tips:
 -   Read each part slowly and in order. Each step builds on the one before it.
 -   Type the code yourself instead of copying and pasting it. You learn faster this way.
 -   Errors are normal. Read the message and try again.
--   If you are stuck, ask a teacher or check the FAQ.
+-   If you are stuck, check the FAQ or ask a teacher.
 -   Save your work often.
 
 ------------------------------------------------------------------------
@@ -606,6 +606,9 @@ A small cheat sheet to keep:
 | Points coloured by group | `plot(y ~ x, data = df, col = ifelse(df$group == "yes", "darkorange", "steelblue"))` |
 | Add a legend | `legend("topleft", legend = c("a", "b"), col = c(..., ...), pch = 19)` |
 
-Well done. Keep your materials in the `research_methods` folder, we build directly on them next week.
+Keep your materials in the `research_methods` folder, so you can look up what you need.
+
+
+Congratulations, you made it to the end of Week 6 and therefore to the end of the R tutorial!
 
 ------------------------------------------------------------------------
