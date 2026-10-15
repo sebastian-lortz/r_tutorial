@@ -48,7 +48,7 @@ General tips:
 -   Read each part slowly and in order. Each step builds on the one before it.
 -   Type the code yourself instead of copying and pasting it. You learn faster this way.
 -   Errors are normal. Read the message and try again.
--   If you are stuck, ask a teacher.
+-   If you are stuck, check the FAQ or ask a teacher.
 -   Save your work often.
 
 ------------------------------------------------------------------------
