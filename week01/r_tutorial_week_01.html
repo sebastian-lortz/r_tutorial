@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sebastian A. J. Lortz">
-<meta name="dcterms.date" content="2026-10-11">
+<meta name="dcterms.date" content="2026-10-15">
 
 <title>r_tutorial_week_01</title>
 <style>
@@ -92,7 +92,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"><span class="header-section-number">3</span> Working directory</a></li>
   <li><a href="#r-scripts" id="toc-r-scripts" class="nav-link" data-scroll-target="#r-scripts"><span class="header-section-number">4</span> R scripts</a></li>
-  <li><a href="#r-as-a-calculator" id="toc-r-as-a-calculator" class="nav-link" data-scroll-target="#r-as-a-calculator"><span class="header-section-number">5</span> R as a calculator</a></li>
+  <li><a href="#r-as-a-calculator" id="toc-r-as-a-calculator" class="nav-link" data-scroll-target="#r-as-a-calculator"><span class="header-section-number">5</span> R as a calculator</a>
+  <ul class="collapse">
+  <li><a href="#checking-your-working-directory" id="toc-checking-your-working-directory" class="nav-link" data-scroll-target="#checking-your-working-directory"><span class="header-section-number">5.1</span> Checking your working directory</a></li>
+  </ul></li>
   <li><a href="#objects-storing-values-for-later" id="toc-objects-storing-values-for-later" class="nav-link" data-scroll-target="#objects-storing-values-for-later"><span class="header-section-number">6</span> Objects: storing values for later</a></li>
   <li><a href="#comparison-operators" id="toc-comparison-operators" class="nav-link" data-scroll-target="#comparison-operators"><span class="header-section-number">7</span> Comparison operators</a></li>
   <li><a href="#vectors-working-with-many-values-at-once" id="toc-vectors-working-with-many-values-at-once" class="nav-link" data-scroll-target="#vectors-working-with-many-values-at-once"><span class="header-section-number">8</span> Vectors: working with many values at once</a></li>
@@ -126,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">11 October 2026</p>
+      <p class="date">15 October 2026</p>
     </div>
   </div>
   
@@ -182,17 +185,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [screenshot from UWP]</code></pre>
 </div>
 </div>
-<p>At the root of this structure is a <strong>Drive</strong>. A drive is the storage of your computer. On a personal computer you usually have only one drive. Inside the drive, every computer has some common <strong>base folders</strong>, such as the <strong>Desktop</strong> (the screen you see when your computer starts), <strong>Documents</strong> (where files are usually stored), and <strong>Downloads</strong> (where files you download are saved).</p>
-<p>It is important to keep this structure tidy. Work inside Documents, make one folder for your first-year studies. Inside that folder, make a folder for each course. Inside each course folder, you can sort your material further.</p>
+<p>At the root of this structure is a <strong>drive</strong>. A drive is the storage of your computer. On a personal computer you usually have only one drive. Inside the drive, every computer has some common <strong>base folders</strong>, such as the <strong>Desktop</strong> (the screen you see when your computer starts), <strong>Documents</strong> (where files are usually stored), and <strong>Downloads</strong> (where files you download are saved).</p>
+<p>It is important to keep this structure tidy. Work inside <em>Documents</em> and make one folder for your first-year studies. Inside that folder, make a folder for each course. Inside each course folder, you can sort your material further.</p>
 <p>Do <strong>not</strong> build your folder structure inside the <em>Downloads</em> folder. Everything you download lands there automatically, so it quickly becomes messy.</p>
 <section id="your-turn" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn">Your turn</h3>
 <p>Create one folder for this whole course, so everything stays in one place.</p>
 <ol type="1">
 <li>Open your file explorer (<em>File Explorer</em> on Windows, <em>Finder</em> on Mac).</li>
-<li>Go to your Documents folder.</li>
+<li>Go to your <em>Documents</em> folder.</li>
 <li>If it is not there already, create a folder for your studies and name it <code>first_year</code>.</li>
-<li>Inside <code>first_year</code>, create a <strong>new folder</strong> and name it <code>research_methods</code>.</li>
+<li>Inside <code>first_year</code>, create a new folder and name it <code>research_methods</code>.</li>
 </ol>
 </section>
 <div class="callout callout-style-default callout-tip callout-titled" title="Good names for files and folders">
@@ -217,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="opening-rstudio" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Opening RStudio</h1>
-<p><strong>R</strong> is the engine that does the calculations. <strong>RStudio</strong> is the user interface you use to talk to that engine comfortably. You installed both before class (see the Brightspace instructions). We always open <strong>RStudio</strong> only and <strong>never</strong> open <strong>R</strong> itself.</p>
+<p><strong>R</strong> is the engine that does the computations. <strong>RStudio</strong> is the user interface you use to talk to that engine comfortably. You installed both before class (see the Brightspace instructions). We always open RStudio only and <strong>never</strong> open R itself.</p>
 <section id="your-turn-1" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-1">Your turn</h3>
 <p>Open the <strong>RStudio</strong> program (not plain “R”). We work with RStudio version […] running R version […].</p>
@@ -277,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the <em>Console</em> you now see:</p>
 <p><code>&gt; setwd("path_to_your_research_methods_folder")</code></p>
 </blockquote>
-<p>The exact path is different on every computer, so yours will not look the same.</p>
+<p>The exact path is different on every computer, so yours will look different from others.</p>
 <hr>
 </section>
 <section id="r-scripts" class="level1" data-number="4">
@@ -305,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">4</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">*</span><span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>A <strong>tidy script</strong> has a title, a short <strong>comment</strong> for each step, and only the lines that work. A comment starts with <code>#</code>: R skips it, it is a note for you.</p>
+<p>A <strong>tidy script</strong> has a title, a short comment for each step, and only the lines that work.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R tutorial - Week 1</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Name: ...</span></span>
@@ -323,7 +326,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is important for <strong>reproducibility</strong>: you can give your tidy script to another person, and they get the same output. We never type our code straight into the console.</p>
 <section id="your-turn-3" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-3">Your turn</h3>
-<p>Create a new R script: click <em>File</em> &gt; <em>New File</em> &gt; <em>R Script</em>.</p>
+<ol type="1">
+<li>Create a new R script: click <em>File</em> &gt; <em>New File</em> &gt; <em>R Script</em>.</li>
+<li>Save it right away: press <em>Ctrl</em> + <em>S</em> on Windows (<em>Cmd</em> + <em>S</em> on Mac), or click <em>File</em> &gt; <em>Save</em>.</li>
+<li>RStudio asks where to save the script. Choose your <code>research_methods</code> folder and name the file <code>week1.R</code>.</li>
+<li>Click <em>Save</em>. The name <code>week1.R</code> now appears on the tab at the top of the <em>Editor</em>.</li>
+</ol>
 </section>
 <p>In a script, we write notes with a <code>#</code> (hash) at the start of a line. A line that starts with <code>#</code> is called a <strong>comment</strong>. R does not run a comment as code; it skips it. Comments help you and others understand what your code does.</p>
 <section id="your-turn-4" class="level3 unnumbered your-turn">
@@ -368,31 +376,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the square root of 9</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">9</span>) </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># sqrt() is a function; you learn more about functions later.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Note that <code>sqrt()</code> is a function; you learn more about functions later.</p>
 <p>Remember: anything after a <code>#</code> is a <strong>comment</strong>: a note for humans that R ignores. Use comments to remind yourself what code does.</p>
 <section id="your-turn-7" class="level3 unnumbered your-turn">
 <h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
 <p>In your script, work out:</p>
 <ol type="1">
-<li><code>144</code> divided by <code>12</code>, and</li>
+<li><code>144</code> divided by <code>12</code>.</li>
 <li><code>15</code> times <code>4</code>.</li>
 </ol>
 </section>
+<section id="checking-your-working-directory" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="checking-your-working-directory"><span class="header-section-number">5.1</span> Checking your working directory</h2>
+<p>Earlier you set the working directory with the menu. You can check which folder it is with the function <code>getwd()</code> (<strong>get</strong> <strong>w</strong>orking <strong>d</strong>irectory):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># which folder is my working directory?</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>R prints the path of the folder, for example <code>"C:/Users/you/Documents/first_year/research_methods"</code>. Your path will look different, but it should end with <code>research_methods</code>.</p>
+<section id="your-turn-8" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
+<ol type="1">
+<li>Type <code>getwd()</code> in your script, with a comment above it, and run the line.</li>
+<li>Does the path end with <code>research_methods</code>?</li>
+<li>If not, set the working directory again: <em>Session</em> &gt; <em>Set Working Directory</em> &gt; <em>Choose Directory</em>.</li>
+</ol>
+</section>
 <hr>
+</section>
 </section>
 <section id="objects-storing-values-for-later" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Objects: storing values for later</h1>
 <p>Re-typing numbers every time is tedious. Instead we store a value in an <strong>object</strong> and give it a name. We do this with the <strong>assignment arrow</strong> <code>&lt;-</code>, which you read as “gets.”</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="dv">19</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="dv">19</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Read that as: “the object <code>age</code> gets the value 19.” Notice nothing was printed. The value is now stored in the environment. To see it, type the name on its own:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>age</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 19</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>age</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 19</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Shortcut for the assignment arrow">
 <div class="callout-header d-flex align-content-center">
@@ -409,21 +433,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Once stored, an object can be used in calculations just like the number itself:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a score on the self-efficacy scale we will collect</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>self_efficacy <span class="ot">&lt;-</span> <span class="dv">32</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 32 + 8 = 40</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>self_efficacy <span class="sc">+</span> <span class="dv">8</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 40</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a score on the self-efficacy scale we will collect</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>self_efficacy <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 32 + 8 = 40</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>self_efficacy <span class="sc">+</span> <span class="dv">8</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 40</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can also <strong>overwrite</strong> an object by assigning a new value to the same name:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># age is now 20, the old value (19) is gone</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># print the new value</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>age</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># age is now 20, the old value (19) is gone</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># print the new value</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>age</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Check the <em>Environment</em> pane (top-right): <code>age</code> and <code>self_efficacy</code> now appear there. That pane is your live list of stored objects.</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="Watch out: naming rules">
@@ -444,10 +468,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we never created "Age" with a capital A, so R complains</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Age</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error:</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! object 'Age' not found</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we never created "Age" with a capital A, so R complains</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Age</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error:</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! object 'Age' not found</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled" title="Watch out: errors">
 <div class="callout-header d-flex align-content-center">
@@ -459,18 +483,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>That red message is called an <strong>error</strong>. The message starts with the word <code>Error</code>. An error means R stopped: the code did not work. Here it simply means “I do not know an object called <code>Age</code>.” Do not panic when you see an error: read it as a hint about what went wrong.</p>
+<p>In RStudio, this message appears in red. It is called an <strong>error</strong>: the message starts with the word <code>Error</code>. An error means R stopped: the code did not work. Here it simply means “I do not know an object called <code>Age</code>.” Do not panic when you see an error: read it as a hint about what went wrong.</p>
 </div>
 </div>
-<section id="your-turn-8" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
+<section id="your-turn-9" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-9">Your turn</h3>
 <p>Create an object called <code>study_hours</code> and give it the value 12. Then create <code>study_hours_per_day</code> equal to <code>study_hours / 7</code> and print it.</p>
 </section>
 <hr>
 </section>
 <section id="comparison-operators" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Comparison operators</h1>
-<p><strong>Operators</strong> are used to compare objects or numbers. They give back one or more <strong>logical</strong> values: either <code>TRUE</code> or <code>FALSE</code>.</p>
+<p><strong>Comparison operators</strong> are used to compare objects or numbers. They give back one or more <strong>logical</strong> values: either <code>TRUE</code> or <code>FALSE</code>.</p>
 <p>These are the most common comparison operators:</p>
 <table class="caption-top table">
 <thead>
@@ -508,17 +532,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>For example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># is 10 greater than 5?</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">&gt;</span> <span class="dv">5</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># is 10 smaller than 5?</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">&lt;</span> <span class="dv">5</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># is 10 equal to 10?</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">==</span> <span class="dv">10</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># is 10 greater than 5?</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">&gt;</span> <span class="dv">5</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># is 10 smaller than 5?</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">&lt;</span> <span class="dv">5</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># is 10 equal to 10?</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">==</span> <span class="dv">10</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
 <div class="callout-header d-flex align-content-center">
@@ -533,8 +557,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To ask “is it equal?” you must use <strong>two</strong> equals signs <code>==</code>. A single <code>=</code> means something different and will not work here.</p>
 </div>
 </div>
-<section id="your-turn-9" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-9">Your turn</h3>
+<section id="your-turn-10" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
 <p>In your script, check whether:</p>
 <ol type="1">
 <li><code>7</code> is greater than <code>3</code>, and</li>
@@ -548,29 +572,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="8"><span class="header-section-number">8</span> Vectors: working with many values at once</h1>
 <p>In research we rarely have one number; we have many (one score per participant). A <strong>vector</strong> is an ordered collection of values. We build one with <code>c()</code>, which stands for combine or concatenate. Put the values inside, separated by commas.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">35</span>, <span class="dv">31</span>, <span class="dv">40</span>, <span class="dv">22</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>scores</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 28 35 31 40 22</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">35</span>, <span class="dv">31</span>, <span class="dv">40</span>, <span class="dv">22</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>scores</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 28 35 31 40 22</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>scores</code> now holds five values in one object.</p>
 <p>A powerful feature: when you do arithmetic on a vector, it applies to <strong>every element at once</strong>. You do not have to do it by hand for every value.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add 10 to each score</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">+</span> <span class="dv">10</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 38 45 41 50 32</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># double each score</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 56 70 62 80 44</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add 10 to each score</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 38 45 41 50 32</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># double each score</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 56 70 62 80 44</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Vectors do not have to be numbers. A <strong>character</strong> vector holds text (each piece in quotes), and a <strong>logical</strong> vector holds <code>TRUE</code>/<code>FALSE</code> values:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>first_names  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Sanne"</span>, <span class="st">"Tim"</span>, <span class="st">"Noor"</span>, <span class="st">"Mees"</span>, <span class="st">"Lotte"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>passed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>first_names</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Sanne" "Tim"   "Noor"  "Mees"  "Lotte"</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>passed</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE  TRUE  TRUE FALSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>first_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Sanne"</span>, <span class="st">"Tim"</span>, <span class="st">"Noor"</span>, <span class="st">"Mees"</span>, <span class="st">"Lotte"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>passed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>first_names</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Sanne" "Tim"   "Noor"  "Mees"  "Lotte"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>passed</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  TRUE FALSE  TRUE  TRUE FALSE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
 <div class="callout-header d-flex align-content-center">
@@ -585,12 +609,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Every value needs its own comma, and text needs quotes. <code>c("Sanne" "Tim")</code> (missing comma) gives an error; so does <code>c(Sanne, Tim)</code> (missing quotes – R would look for objects named Sanne and Tim).</p>
 </div>
 </div>
-<section id="your-turn-10" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
+<section id="your-turn-11" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-11">Your turn</h3>
 <ol type="1">
 <li>Create a vector <code>engagement</code> with the values 4, 5, 3, 5, 2 (imagine these are study-engagement ratings).</li>
-<li>Then add <code>1</code> to every value at once, and</li>
-<li>multiply every value by <code>2</code>.</li>
+<li>Then add <code>1</code> to every value at once.</li>
+<li>Multiply every value by <code>2</code>.</li>
 </ol>
 </section>
 <hr>
@@ -599,35 +623,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="9"><span class="header-section-number">9</span> Picking out values (indexing)</h1>
 <p>Often you want just one value, or a few, out of a vector. You do this with <strong>square brackets</strong> <code>[ ]</code> and a position number. <strong>R counts from 1</strong>, so the first element is position 1.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the first score</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>scores[<span class="dv">1</span>]</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 28</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the third score</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>scores[<span class="dv">3</span>]</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the first score</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>scores[<span class="dv">1</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 28</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the third score</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>scores[<span class="dv">3</span>]</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Pick several at once by putting a vector of positions inside:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the first and second scores</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>scores[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 28 35</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the first and second scores</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>scores[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 28 35</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A <strong>minus</strong> sign means “everything except”:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all scores except the first</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>scores[<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 35 31 40 22</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all scores except the first</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>scores[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 35 31 40 22</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Most powerful of all: put a <strong>condition</strong> inside the brackets to keep only the values that match. This is how you <strong>filter</strong> data.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE/FALSE for each score</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">&gt;</span> <span class="dv">30</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE  TRUE  TRUE FALSE</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># keep only the scores above 30</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>scores[scores <span class="sc">&gt;</span> <span class="dv">30</span>]</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 35 31 40</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE/FALSE for each score</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">&gt;</span> <span class="dv">30</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE  TRUE  TRUE  TRUE FALSE</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># keep only the scores above 30</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>scores[scores <span class="sc">&gt;</span> <span class="dv">30</span>]</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 35 31 40</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Read the last line as: “give me the elements of <code>scores</code> where <code>scores</code> is greater than 30.”</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Going further (optional): combining conditions">
@@ -646,47 +670,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="your-turn-11" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-11">Your turn</h3>
+<section id="your-turn-12" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-12">Your turn</h3>
 <ol type="1">
 <li>From <code>scores</code>, print the last value using its position number.</li>
 <li>Keep only the scores below 30.</li>
 </ol>
-<p><em>(Hint for 1.: <code>scores</code> has 5 values.)</em></p>
+<p><em>(Hint for 1: <code>scores</code> has 5 values.)</em></p>
 </section>
 <hr>
 </section>
 <section id="functions" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> Functions</h1>
 <p>A <strong>function</strong> is a ready-made command. It takes an input, does something with it, and gives back an output. You do not see the work inside; you only give the input and read the output.</p>
-<p>A function has the form <code>function_name(function_input)</code>: you write the name of the function, and put the input in round brackets <code>( )</code>. The input in the brackets is called an <strong>argument</strong>. Many useful functions take a vector and summarise it:</p>
+<p>A function has the form <code>function_name(argument)</code>: you write the name of the function, and put the input in round brackets <code>( )</code>. The input in the brackets is called an <strong>argument</strong>. Many useful functions take a vector and summarise it:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># how many values?</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add them all up</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(scores)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 156</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># the average</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(scores)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.2</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the smallest</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(scores)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 22</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># the largest</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(scores)</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 40</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co"># round to two decimal places</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">3.14159</span>, <span class="dv">2</span>)</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># how many values?</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 5</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add them all up</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(scores)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 156</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># the average</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(scores)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 31.2</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the smallest</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(scores)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 22</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># the largest</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(scores)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 40</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="your-turn-12" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-12">Your turn</h3>
+<p>Some functions need more than one argument. You separate the arguments with a comma:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># round 3.14159 to two decimal places</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">3.14159</span>, <span class="dv">2</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="your-turn-13" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-13">Your turn</h3>
 <p>Use the <code>engagement</code> vector you made earlier. Work out its average yourself: divide its <code>sum()</code> by its <code>length()</code>. Then compare your answer with <code>mean(engagement)</code>. You should get the same number.</p>
 </section>
 <hr>
@@ -711,13 +737,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Installing a package is like buying a new set of kitchen tools (<strong>functions</strong>) once and putting it in your cupboard. <code>library()</code> is taking that set out of the cupboard each time you start cooking. Buying it again every day would be silly; so is re-installing.</p>
 </div>
 </div>
-<p>The syntax (you do not need to run this today – we will install specific packages when the course needs them):</p>
+<p>The two lines look like this. You try them yourself in a moment:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download once (note: name in quotes)</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"psych"</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># switch on each session (no quotes here)</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download once (note: name in quotes)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"psych"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># switch on each session (no quotes here)</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
 <div class="callout-header d-flex align-content-center">
@@ -732,12 +758,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>install.packages()</code> needs the name <strong>in quotes</strong>; <code>library()</code> does <strong>not</strong>. And if you ever see <code>Error: there is no package called ...</code>, it means the package was never installed.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Watch out: messages during installing">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch out: messages during installing
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While a package installs, the <em>Console</em> shows many lines of text, sometimes in red. Red text is <strong>not</strong> always an error: R also uses red for normal messages. Only when a line starts with <code>Error</code> did something go wrong. If R asks “Do you want to install from sources…?”, type <code>no</code> and press <em>Enter</em>.</p>
+</div>
+</div>
+<section id="your-turn-14" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-14">Your turn</h3>
+<p>Install and load the package <code>psych</code>, and use one of its functions.</p>
+<ol type="1">
+<li><strong>Install</strong> (once): type <code>install.packages("psych")</code> in your script and run it. This takes a moment and needs an internet connection. Wait until the <code>&gt;</code> symbol is back in the <em>Console</em>.</li>
+<li>You only need to install once. So put a <code>#</code> in front of the line: <code># install.packages("psych")</code>. Now it is a comment, and R skips it the next time you run your script.</li>
+<li><strong>Load</strong> (every session): type <code>library(psych)</code> on the next line and run it.</li>
+<li><strong>Use</strong> a function from the package: run <code>describe(scores)</code>. The function <code>describe()</code> gives a short summary of a vector in one line.</li>
+<li>Find the column <code>mean</code> in the output. Is it the same number as <code>mean(scores)</code>?</li>
+</ol>
+<p>Then answer: which of the two lines has quotes around <code>psych</code>, and which does not?</p>
+</section>
 <hr>
 </section>
 <section id="saving-your-work" class="level1" data-number="12">
 <h1 data-number="12"><span class="header-section-number">12</span> Saving your work</h1>
-<p>Save your R script by clicking the save symbol, or by pressing <em>Ctrl</em> and <em>S</em> on Windows (<em>Cmd</em> and <em>S</em> on Mac). You can also click <em>File</em> &gt; <em>Save</em>.</p>
-<p>The first time you save a new script, RStudio asks you where to put it. Choose your <code>research_methods</code> folder and give the file a clear name, for example <code>week1.R</code>.</p>
+<p>You saved your script as <code>week1.R</code> at the start. RStudio does <strong>not</strong> save your changes automatically. When the name on the tab at the top of the <em>Editor</em> turns red and gets a <code>*</code>, there are changes that are not saved yet.</p>
+<p>Save often: press <em>Ctrl</em> + <em>S</em> on Windows (<em>Cmd</em> + <em>S</em> on Mac), or click <em>File</em> &gt; <em>Save</em>.</p>
+<section id="your-turn-15" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-15">Your turn</h3>
+<p>Save your script now. Check that the name on the tab is no longer red. Then open your <code>research_methods</code> folder in your file explorer and check that <code>week1.R</code> is there.</p>
+</section>
 <hr>
 </section>
 <section id="recap-what-you-can-now-do" class="level1" data-number="13">
@@ -754,9 +809,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>pick out values with <code>[ ]</code>, including by a condition;</li>
 <li>use functions such as <code>mean()</code> and <code>length()</code>;</li>
 <li>explain the difference between installing and loading a package.</li>
+<li>check your working directory with <code>getwd()</code>;</li>
+<li>compare values with comparison operators and read <code>TRUE</code> / <code>FALSE</code> answers;</li>
+<li>install a package, load it with <code>library()</code>, and use one of its functions.</li>
 </ul>
 <p>A small cheat sheet to keep:</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 48%">
+<col style="width: 51%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>You want to…</th>
@@ -765,44 +827,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td>Run a line</td>
+<td><em>Ctrl</em> + <em>Enter</em> (Mac: <em>Cmd</em> + <em>Enter</em>)</td>
+</tr>
+<tr class="even">
+<td>Check the working directory</td>
+<td><code>getwd()</code></td>
+</tr>
+<tr class="odd">
+<td>Round a number</td>
+<td><code>round(x, 2)</code></td>
+</tr>
+<tr class="even">
 <td>Store a value</td>
 <td><code>x &lt;- 5</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Make a vector</td>
 <td><code>v &lt;- c(1, 2, 3)</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Average of a vector</td>
 <td><code>mean(v)</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Number of elements</td>
 <td><code>length(v)</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Compare two values</td>
 <td><code>a == b</code>, <code>a &gt; b</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Get the 2nd element</td>
 <td><code>v[2]</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Keep elements above 3</td>
 <td><code>v[v &gt; 3]</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Add a comment</td>
 <td><code># like this</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Install a package (once)</td>
 <td><code>install.packages("name")</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Load a package (session)</td>
 <td><code>library(name)</code></td>
+</tr>
+<tr class="even">
+<td>Summary from <code>psych</code></td>
+<td><code>describe(v)</code></td>
 </tr>
 </tbody>
 </table>
