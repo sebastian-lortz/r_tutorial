@@ -76,7 +76,7 @@ General tips:
 -   Read each part slowly and in order. Each step builds on the one before it.
 -   Type the code yourself instead of copying and pasting it. You learn faster this way.
 -   Errors are normal. Read the message and try again.
--   If you are stuck, ask a teacher or check the FAQ.
+-   If you are stuck, check the FAQ or ask a teacher.
 -   Save your work often.
 
 ------------------------------------------------------------------------
@@ -602,7 +602,7 @@ hist(residuals(model),
 ```
 
 ::: {.callout-warning title="Watch out: normality of the residuals, not of x or y"}
-The normality assumption is about the **residuals**, not about x or y themselves. A skewed x variable is not a problem in itself. Always check the residuals.
+The normality assumption is about the **residuals**, which is equivalent to the normality assumption about the distribution of y given x. The normality assumption is **not** about x or y themselves. A skewed x or y variable is not a problem in itself. Always check the residuals.
 :::
 
 ::: {.callout-note title="Small samples are hard to judge"}
