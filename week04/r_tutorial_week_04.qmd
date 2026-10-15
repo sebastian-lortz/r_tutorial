@@ -76,6 +76,33 @@ General tips:
 
 ------------------------------------------------------------------------
 
+# Start workflow
+
+We begin, as always, with the **start workflow**. This week there is one extra step: we load the cleaned data you saved at the end of Week 2.
+
+1.  Open **RStudio**: click on the RStudio application.
+2.  Set the **working directory**: click *Session* \> *Set Working Directory* \> *Choose Directory*, and choose your `research_methods` folder.
+3.  Open a **new script**: click *File* \> *New File* \> *R Script*.
+4.  On the first line, write a comment with the title, for example: `# R tutorial - Week 4`.
+5.  Save the script as `week4.R` in your `research_methods` folder.
+6.  Load your cleaned data from Week 2 into an object called `survey`:
+
+```{r}
+survey <- read.csv("class_survey_clean.csv")
+```
+
+::: {.callout-warning title="Watch out"}
+If you see `Error: cannot open file ...`, R cannot find the file. Check that your working directory is `research_methods` (run `getwd()` to print it), and that `class_survey_clean.csv` really sits in that folder. If you do not have the file, go back to the end of the Week 2 tutorial and save it first.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+Complete the **start workflow** and load `survey`. Check that `survey` appears in the **Environment** pane (top-right).
+:::
+
+------------------------------------------------------------------------
+
 # From estimating to testing
 
 In Week 3 you built a confidence interval: a **range** of plausible values for the population mean. That answered the question "what is the estimated mean?"
@@ -236,29 +263,80 @@ Look at the 95% confidence interval in the output. A two-sided test at the 0.05 
 Run `t.test()` for your variable with your $\mu_0$. Confirm that the `t` and `p` match your hand values. Then write one sentence stating your conclusion about $H_0$ in plain language.
 :::
 
-## Effect size: Cohen's d
+## Effect size: the raw difference
 
 A p-value tells you *whether* there is a difference, but not *how big* it is. With a large enough sample, even a tiny, unimportant difference can become "significant". So we also report an **effect size**, which measures the size of the difference on its own.
 
-For a one-sample test, **Cohen's d** is the distance between the mean and $\mu_0$, measured in standard deviations:
+The simplest effect size is the **raw difference** (also called the **unstandardized mean difference**). It is the distance between the sample mean and $\mu_0$, in the **original units** of your variable, for example points on a questionnaire or hours per week:
 
-$$d = \frac{\text{mean} - \mu_0}{sd}$$
+$$\text{raw difference} = \text{mean} - \mu_0$$
 
 ```{r}
-cohens_d <- (m - mu0) / s
-cohens_d
+raw_diff <- m - mu0
+raw_diff
 ```
 
-Rough labels: $d \approx 0.2$ is a small effect, 0.5 medium, 0.8 large.
+The sign tells you the **direction**. A positive raw difference means the sample mean lies **above** $\mu_0$. A negative raw difference means it lies **below** $\mu_0$.
 
-::: {.callout-note title="Why d and t are not the same"}
-Notice that `d = t / sqrt(n)`. The t-value **grows** with the sample size, but Cohen's d does **not**. That is the whole point: d describes the size of the effect itself, separately from how many people you measured. We return to this idea in the power section.
+## A confidence interval for the raw difference
+
+The raw difference is an estimate, so it shows sampling fluctuation, just like the sample mean in Week 3. We therefore also give a 95% **confidence interval** for it. We build it in the same way as in Week 3, with one change: instead of 1.96 we use a multiplier from the **t-distribution**. The function `qt()` finds it for you. It is the t-distribution version of `qnorm()` from Week 3.
+
+```{r}
+se_diff <- s / sqrt(n)               # standard error (Week 3)
+t_crit  <- qt(0.975, df = n - 1)     # t-multiplier for a 95% interval
+c(raw_diff - t_crit * se_diff,
+  raw_diff + t_crit * se_diff)       # 95% CI for the raw difference
+```
+
+If the interval contains **0**, then "no difference" is still a plausible value, and the two-sided test is not significant at 0.05. If 0 lies outside the interval, the test is significant.
+
+## Is the difference big?
+
+There are **no fixed labels** such as "small" or "large" for a raw difference. A difference of 2 points can be large on one scale and tiny on another. You have to judge the size yourself, **in context**. These questions help:
+
+1.  **How long is the scale?** A difference of 2 points is large on a scale from 0 to 10, but small on a scale from 0 to 100.
+2.  **What does it mean in practice?** For example: is one extra hour of study per week something a teacher would notice?
+3.  **Is there a known important difference?** Some test manuals say how many points a change must be before it matters for a child or client.
+4.  **Look at both ends of the confidence interval.** Is even the **smallest** plausible difference important? Or is even the **largest** plausible difference still unimportant?
+
+::: {.callout-note title="Example: judging a raw difference"}
+Imagine a self-efficacy scale that runs from 10 to 50, with $\mu_0 = 30$. The sample of 30 students has a mean of 32.4. The raw difference is $32.4 - 30 = 2.4$ points, with a 95% confidence interval from 0.2 to 4.6 points.
+
+A conclusion could be: "On average, the students scored 2.4 points higher than 30 (95% CI from 0.2 to 4.6 points). The difference is statistically significant, but it is small compared to the 40-point length of the scale. The smallest plausible difference (0.2 points) is negligible; the largest (4.6 points) might be noticeable in practice."
+:::
+
+::: {.callout-note title="Why the raw difference and t are not the same"}
+The t-value is the raw difference divided by the standard error:
+
+$$t = \frac{\text{mean} - \mu_0}{sd / \sqrt{n}}$$
+
+A bigger sample makes the standard error smaller (Week 3), so the t-value **grows** with the sample size. The raw difference does **not** grow with the sample size. That is the whole point: the raw difference describes the size of the effect itself, separately from how many people you measured. We return to this idea in the power section.
 :::
 
 ::: your-turn
 ### Your turn {.unnumbered}
 
-Compute Cohen's d for your variable and $\mu_0$. Give it a label (small, medium, or large), and write one sentence combining your Step 5 conclusion with this effect size.
+For your own variable and $\mu_0$:
+
+1.  Compute the raw difference. Is the sample mean above or below $\mu_0$?
+2.  Compute the 95% confidence interval for the raw difference. Does it contain 0? Does this agree with your p-value?
+3.  Answer the four questions in *Is the difference big?* in one sentence each.
+4.  Write one or two sentences that combine your Step 5 conclusion with the raw difference and its confidence interval, in the units of your variable.
+:::
+
+::: your-turn
+### Your turn {.unnumbered}
+
+**Think it through.** Two researchers measure stress in parents, on a scale from 0 to 40. Both compare their sample mean with the same $\mu_0$.
+
+-   Researcher A asked **20** parents. The raw difference is **4 points**, with $p = 0.08$.
+-   Researcher B asked **2000** parents. The raw difference is **0.8 points**, with $p < 0.001$.
+
+1.  Which study found the **larger** effect?
+2.  Explain why the smaller effect is significant and the larger one is not. Use the words **sample size** and **standard error**.
+3.  Which result do you think is more important for practice? Explain your answer.
+4.  What would you advise researcher A to do next?
 :::
 
 ------------------------------------------------------------------------

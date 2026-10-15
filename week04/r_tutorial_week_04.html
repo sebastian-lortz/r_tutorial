@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Sebastian A. J. Lortz">
-<meta name="dcterms.date" content="2026-10-04">
+<meta name="dcterms.date" content="2026-10-15">
 
 <title>r_tutorial_week_04</title>
 <style>
@@ -114,33 +114,36 @@ window.Quarto = {
    
   <ul class="collapse">
   <li><a href="#how-to-use-this-tutorial" id="toc-how-to-use-this-tutorial" class="nav-link active" data-scroll-target="#how-to-use-this-tutorial">How to use this tutorial</a></li>
-  <li><a href="#from-estimating-to-testing" id="toc-from-estimating-to-testing" class="nav-link" data-scroll-target="#from-estimating-to-testing"><span class="header-section-number">1</span> From estimating to testing</a></li>
-  <li><a href="#the-five-steps-of-a-hypothesis-test" id="toc-the-five-steps-of-a-hypothesis-test" class="nav-link" data-scroll-target="#the-five-steps-of-a-hypothesis-test"><span class="header-section-number">2</span> The five steps of a hypothesis test</a></li>
-  <li><a href="#one-sample-t-test-comparing-our-mean-to-a-known-value" id="toc-one-sample-t-test-comparing-our-mean-to-a-known-value" class="nav-link" data-scroll-target="#one-sample-t-test-comparing-our-mean-to-a-known-value"><span class="header-section-number">3</span> One-sample t-test: comparing our mean to a known value</a>
+  <li><a href="#start-workflow" id="toc-start-workflow" class="nav-link" data-scroll-target="#start-workflow"><span class="header-section-number">1</span> Start workflow</a></li>
+  <li><a href="#from-estimating-to-testing" id="toc-from-estimating-to-testing" class="nav-link" data-scroll-target="#from-estimating-to-testing"><span class="header-section-number">2</span> From estimating to testing</a></li>
+  <li><a href="#the-five-steps-of-a-hypothesis-test" id="toc-the-five-steps-of-a-hypothesis-test" class="nav-link" data-scroll-target="#the-five-steps-of-a-hypothesis-test"><span class="header-section-number">3</span> The five steps of a hypothesis test</a></li>
+  <li><a href="#one-sample-t-test-comparing-our-mean-to-a-known-value" id="toc-one-sample-t-test-comparing-our-mean-to-a-known-value" class="nav-link" data-scroll-target="#one-sample-t-test-comparing-our-mean-to-a-known-value"><span class="header-section-number">4</span> One-sample t-test: comparing our mean to a known value</a>
   <ul class="collapse">
-  <li><a href="#step-1-hypotheses" id="toc-step-1-hypotheses" class="nav-link" data-scroll-target="#step-1-hypotheses"><span class="header-section-number">3.1</span> Step 1 – Hypotheses</a></li>
-  <li><a href="#step-2-assumptions" id="toc-step-2-assumptions" class="nav-link" data-scroll-target="#step-2-assumptions"><span class="header-section-number">3.2</span> Step 2 – Assumptions</a></li>
-  <li><a href="#step-3-the-test-statistic-by-hand" id="toc-step-3-the-test-statistic-by-hand" class="nav-link" data-scroll-target="#step-3-the-test-statistic-by-hand"><span class="header-section-number">3.3</span> Step 3 – The test statistic by hand</a></li>
-  <li><a href="#step-4-the-p-value" id="toc-step-4-the-p-value" class="nav-link" data-scroll-target="#step-4-the-p-value"><span class="header-section-number">3.4</span> Step 4 – The p-value</a></li>
-  <li><a href="#step-5-check-in-r-and-interpret" id="toc-step-5-check-in-r-and-interpret" class="nav-link" data-scroll-target="#step-5-check-in-r-and-interpret"><span class="header-section-number">3.5</span> Step 5 – Check in R and interpret</a></li>
-  <li><a href="#effect-size-cohens-d" id="toc-effect-size-cohens-d" class="nav-link" data-scroll-target="#effect-size-cohens-d"><span class="header-section-number">3.6</span> Effect size: Cohen’s d</a></li>
+  <li><a href="#step-1-hypotheses" id="toc-step-1-hypotheses" class="nav-link" data-scroll-target="#step-1-hypotheses"><span class="header-section-number">4.1</span> Step 1 – Hypotheses</a></li>
+  <li><a href="#step-2-assumptions" id="toc-step-2-assumptions" class="nav-link" data-scroll-target="#step-2-assumptions"><span class="header-section-number">4.2</span> Step 2 – Assumptions</a></li>
+  <li><a href="#step-3-the-test-statistic-by-hand" id="toc-step-3-the-test-statistic-by-hand" class="nav-link" data-scroll-target="#step-3-the-test-statistic-by-hand"><span class="header-section-number">4.3</span> Step 3 – The test statistic by hand</a></li>
+  <li><a href="#step-4-the-p-value" id="toc-step-4-the-p-value" class="nav-link" data-scroll-target="#step-4-the-p-value"><span class="header-section-number">4.4</span> Step 4 – The p-value</a></li>
+  <li><a href="#step-5-check-in-r-and-interpret" id="toc-step-5-check-in-r-and-interpret" class="nav-link" data-scroll-target="#step-5-check-in-r-and-interpret"><span class="header-section-number">4.5</span> Step 5 – Check in R and interpret</a></li>
+  <li><a href="#effect-size-the-raw-difference" id="toc-effect-size-the-raw-difference" class="nav-link" data-scroll-target="#effect-size-the-raw-difference"><span class="header-section-number">4.6</span> Effect size: the raw difference</a></li>
+  <li><a href="#a-confidence-interval-for-the-raw-difference" id="toc-a-confidence-interval-for-the-raw-difference" class="nav-link" data-scroll-target="#a-confidence-interval-for-the-raw-difference"><span class="header-section-number">4.7</span> A confidence interval for the raw difference</a></li>
+  <li><a href="#is-the-difference-big" id="toc-is-the-difference-big" class="nav-link" data-scroll-target="#is-the-difference-big"><span class="header-section-number">4.8</span> Is the difference big?</a></li>
   </ul></li>
-  <li><a href="#two-sample-t-test-comparing-two-groups" id="toc-two-sample-t-test-comparing-two-groups" class="nav-link" data-scroll-target="#two-sample-t-test-comparing-two-groups"><span class="header-section-number">4</span> Two-sample t-test: comparing two groups</a>
+  <li><a href="#two-sample-t-test-comparing-two-groups" id="toc-two-sample-t-test-comparing-two-groups" class="nav-link" data-scroll-target="#two-sample-t-test-comparing-two-groups"><span class="header-section-number">5</span> Two-sample t-test: comparing two groups</a>
   <ul class="collapse">
-  <li><a href="#first-describe-the-two-groups" id="toc-first-describe-the-two-groups" class="nav-link" data-scroll-target="#first-describe-the-two-groups"><span class="header-section-number">4.1</span> First, describe the two groups</a></li>
-  <li><a href="#step-1-hypotheses-1" id="toc-step-1-hypotheses-1" class="nav-link" data-scroll-target="#step-1-hypotheses-1"><span class="header-section-number">4.2</span> Step 1 – Hypotheses</a></li>
-  <li><a href="#step-2-assumptions-1" id="toc-step-2-assumptions-1" class="nav-link" data-scroll-target="#step-2-assumptions-1"><span class="header-section-number">4.3</span> Step 2 – Assumptions</a></li>
-  <li><a href="#step-3-the-test-statistic-by-hand-1" id="toc-step-3-the-test-statistic-by-hand-1" class="nav-link" data-scroll-target="#step-3-the-test-statistic-by-hand-1"><span class="header-section-number">4.4</span> Step 3 – The test statistic by hand</a></li>
-  <li><a href="#step-4-5-check-in-r-and-interpret" id="toc-step-4-5-check-in-r-and-interpret" class="nav-link" data-scroll-target="#step-4-5-check-in-r-and-interpret"><span class="header-section-number">4.5</span> Step 4 &amp; 5 – Check in R and interpret</a></li>
-  <li><a href="#effect-size-cohens-d-and-checking-it-in-r" id="toc-effect-size-cohens-d-and-checking-it-in-r" class="nav-link" data-scroll-target="#effect-size-cohens-d-and-checking-it-in-r"><span class="header-section-number">4.6</span> Effect size: Cohen’s d (and checking it in R)</a></li>
+  <li><a href="#first-describe-the-two-groups" id="toc-first-describe-the-two-groups" class="nav-link" data-scroll-target="#first-describe-the-two-groups"><span class="header-section-number">5.1</span> First, describe the two groups</a></li>
+  <li><a href="#step-1-hypotheses-1" id="toc-step-1-hypotheses-1" class="nav-link" data-scroll-target="#step-1-hypotheses-1"><span class="header-section-number">5.2</span> Step 1 – Hypotheses</a></li>
+  <li><a href="#step-2-assumptions-1" id="toc-step-2-assumptions-1" class="nav-link" data-scroll-target="#step-2-assumptions-1"><span class="header-section-number">5.3</span> Step 2 – Assumptions</a></li>
+  <li><a href="#step-3-the-test-statistic-by-hand-1" id="toc-step-3-the-test-statistic-by-hand-1" class="nav-link" data-scroll-target="#step-3-the-test-statistic-by-hand-1"><span class="header-section-number">5.4</span> Step 3 – The test statistic by hand</a></li>
+  <li><a href="#step-4-5-check-in-r-and-interpret" id="toc-step-4-5-check-in-r-and-interpret" class="nav-link" data-scroll-target="#step-4-5-check-in-r-and-interpret"><span class="header-section-number">5.5</span> Step 4 &amp; 5 – Check in R and interpret</a></li>
+  <li><a href="#effect-size-cohens-d-and-checking-it-in-r" id="toc-effect-size-cohens-d-and-checking-it-in-r" class="nav-link" data-scroll-target="#effect-size-cohens-d-and-checking-it-in-r"><span class="header-section-number">5.6</span> Effect size: Cohen’s d (and checking it in R)</a></li>
   </ul></li>
-  <li><a href="#power-effect-size-and-sample-size" id="toc-power-effect-size-and-sample-size" class="nav-link" data-scroll-target="#power-effect-size-and-sample-size"><span class="header-section-number">5</span> Power, effect size, and sample size</a>
+  <li><a href="#power-effect-size-and-sample-size" id="toc-power-effect-size-and-sample-size" class="nav-link" data-scroll-target="#power-effect-size-and-sample-size"><span class="header-section-number">6</span> Power, effect size, and sample size</a>
   <ul class="collapse">
-  <li><a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors"><span class="header-section-number">5.1</span> Type I and Type II errors</a></li>
-  <li><a href="#a-power-simulation" id="toc-a-power-simulation" class="nav-link" data-scroll-target="#a-power-simulation"><span class="header-section-number">5.2</span> A power simulation</a></li>
-  <li><a href="#statistical-significance-vs-practical-significance" id="toc-statistical-significance-vs-practical-significance" class="nav-link" data-scroll-target="#statistical-significance-vs-practical-significance"><span class="header-section-number">5.3</span> Statistical significance vs practical significance</a></li>
+  <li><a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors"><span class="header-section-number">6.1</span> Type I and Type II errors</a></li>
+  <li><a href="#a-power-simulation" id="toc-a-power-simulation" class="nav-link" data-scroll-target="#a-power-simulation"><span class="header-section-number">6.2</span> A power simulation</a></li>
+  <li><a href="#statistical-significance-vs-practical-significance" id="toc-statistical-significance-vs-practical-significance" class="nav-link" data-scroll-target="#statistical-significance-vs-practical-significance"><span class="header-section-number">6.3</span> Statistical significance vs practical significance</a></li>
   </ul></li>
-  <li><a href="#recap-what-you-can-now-do" id="toc-recap-what-you-can-now-do" class="nav-link" data-scroll-target="#recap-what-you-can-now-do"><span class="header-section-number">6</span> Recap: what you can now do</a></li>
+  <li><a href="#recap-what-you-can-now-do" id="toc-recap-what-you-can-now-do" class="nav-link" data-scroll-target="#recap-what-you-can-now-do"><span class="header-section-number">7</span> Recap: what you can now do</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="r_tutorial_week_04.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -166,7 +169,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">4 October 2026</p>
+      <p class="date">15 October 2026</p>
     </div>
   </div>
   
@@ -203,8 +206,41 @@ window.Quarto = {
 </ul>
 <hr>
 </section>
-<section id="from-estimating-to-testing" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> From estimating to testing</h1>
+<section id="start-workflow" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Start workflow</h1>
+<p>We begin, as always, with the <strong>start workflow</strong>. This week there is one extra step: we load the cleaned data you saved at the end of Week 2.</p>
+<ol type="1">
+<li>Open <strong>RStudio</strong>: click on the RStudio application.</li>
+<li>Set the <strong>working directory</strong>: click <em>Session</em> &gt; <em>Set Working Directory</em> &gt; <em>Choose Directory</em>, and choose your <code>research_methods</code> folder.</li>
+<li>Open a <strong>new script</strong>: click <em>File</em> &gt; <em>New File</em> &gt; <em>R Script</em>.</li>
+<li>On the first line, write a comment with the title, for example: <code># R tutorial - Week 4</code>.</li>
+<li>Save the script as <code>week4.R</code> in your <code>research_methods</code> folder.</li>
+<li>Load your cleaned data from Week 2 into an object called <code>survey</code>:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"class_survey_clean.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Watch out">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Watch out
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you see <code>Error: cannot open file ...</code>, R cannot find the file. Check that your working directory is <code>research_methods</code> (run <code>getwd()</code> to print it), and that <code>class_survey_clean.csv</code> really sits in that folder. If you do not have the file, go back to the end of the Week 2 tutorial and save it first.</p>
+</div>
+</div>
+<section id="your-turn" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn">Your turn</h3>
+<p>Complete the <strong>start workflow</strong> and load <code>survey</code>. Check that <code>survey</code> appears in the <strong>Environment</strong> pane (top-right).</p>
+</section>
+<hr>
+</section>
+<section id="from-estimating-to-testing" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> From estimating to testing</h1>
 <p>In Week 3 you built a confidence interval: a <strong>range</strong> of plausible values for the population mean. That answered the question “what is the estimated mean?”</p>
 <p>Sometimes, we have a different question. Suppose an article reports that, in some larger population, the average self-efficacy score is <strong>30</strong>. We can now ask: <em>does our class differ from that value?</em> This is a <strong>yes/no</strong> question about a specific number, and it is exactly what a <strong>hypothesis test</strong> answers.</p>
 <p>The specific number we test against (here, 30) is called <strong>mu</strong> (written <span class="math inline">\(\mu_0\)</span>). It does not come from our own data; it comes from <strong>theory or earlier research</strong> (the article). Our job is to decide whether our observed data is consistent with that hypothesized value, or inconsistent.</p>
@@ -228,8 +264,8 @@ window.Quarto = {
 </div>
 <hr>
 </section>
-<section id="the-five-steps-of-a-hypothesis-test" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> The five steps of a hypothesis test</h1>
+<section id="the-five-steps-of-a-hypothesis-test" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> The five steps of a hypothesis test</h1>
 <p>Every testing (e.g., t-tests) in this tutorial follows the same five steps. Learn them once, and apply them to any test. For the t-test we do the following:</p>
 <div class="callout callout-style-default callout-note callout-titled" title="The five steps">
 <div class="callout-header d-flex align-content-center">
@@ -253,10 +289,10 @@ window.Quarto = {
 <p>We first walk these five steps for a <strong>one-sample t-test</strong> (comparing our mean to a known value). Then we repeat them for a <strong>two-sample t-test</strong> (comparing two group means). Finally, we explore <strong>power</strong> and <strong>effect size</strong>.</p>
 <hr>
 </section>
-<section id="one-sample-t-test-comparing-our-mean-to-a-known-value" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> One-sample t-test: comparing our mean to a known value</h1>
-<section id="step-1-hypotheses" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="step-1-hypotheses"><span class="header-section-number">3.1</span> Step 1 – Hypotheses</h2>
+<section id="one-sample-t-test-comparing-our-mean-to-a-known-value" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> One-sample t-test: comparing our mean to a known value</h1>
+<section id="step-1-hypotheses" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="step-1-hypotheses"><span class="header-section-number">4.1</span> Step 1 – Hypotheses</h2>
 <p>A hypothesis test always has two hypotheses.</p>
 <ul>
 <li>The <strong>null hypothesis</strong> (<span class="math inline">\(H_0\)</span>) is the “no difference” statement: the population mean equals the value from the literature. We write <span class="math inline">\(H_0: \mu = 30\)</span>.</li>
@@ -264,7 +300,7 @@ window.Quarto = {
 </ul>
 <p>Because <span class="math inline">\(H_1\)</span> uses “different” (<span class="math inline">\(\neq\)</span>), and allows a difference in <strong>either</strong> direction (higher <em>or</em> lower), this is a <strong>two-sided test</strong>. Two-sided is our default, because usually we do not know in advance which way the difference will go.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Another form (optional): one-sided tests">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -273,20 +309,20 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Sometimes you have a clear <strong>direction</strong> in mind <em>before</em> you see the data. For example, “our students score <strong>higher</strong> than 30.” Then you can use a <strong>one-sided test</strong>, with <span class="math inline">\(H_1: \mu &gt; 30\)</span> (or <span class="math inline">\(H_1: \mu &lt; 30\)</span> for “lower”).</p>
 <p>A one-sided test puts all of the 5% in one tail, which makes it a little easier to reach significance in that direction, but it means you <strong>cannot</strong> detect a difference in the other direction at all. In R you choose this with <code>alternative = "greater"</code> or <code>alternative = "less"</code> inside <code>t.test()</code>. In this course, use <strong>two-sided</strong> unless you have a strong, pre-registered reason to expect one direction.</p>
 </div>
 </div>
 </div>
-<section id="your-turn" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn">Your turn</h3>
+<section id="your-turn-1" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-1">Your turn</h3>
 <p>Pick a continuous variable and find a value for <span class="math inline">\(\mu_0\)</span>. Write down your <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> in the two-sided form (<span class="math inline">\(=\)</span> and <span class="math inline">\(\neq\)</span>). In one sentence, explain why you chose that value for <span class="math inline">\(\mu_0\)</span>, and why you test two-sided.</p>
 </section>
 </section>
-<section id="step-2-assumptions" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="step-2-assumptions"><span class="header-section-number">3.2</span> Step 2 – Assumptions</h2>
+<section id="step-2-assumptions" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="step-2-assumptions"><span class="header-section-number">4.2</span> Step 2 – Assumptions</h2>
 <p>A one-sample t-test is only valid if a few <strong>assumptions</strong> hold:</p>
 <ul>
 <li>The variable is <strong>continuous</strong> (a real number, like a scale score).</li>
@@ -295,57 +331,57 @@ window.Quarto = {
 </ul>
 <p>We check the shape with a histogram (from Week 2):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(survey<span class="sc">$</span>self_efficacy,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy in the sample"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"self-efficacy score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(survey<span class="sc">$</span>self_efficacy,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="dv">10</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy in the sample"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"self-efficacy score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We look for a roughly symmetric, single-peaked shape. It does not have to be perfect, strong skew would be a warning sign.</p>
-<section id="your-turn-1" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-1">Your turn</h3>
+<section id="your-turn-2" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-2">Your turn</h3>
 <p>Make a histogram of your variable. Describe its shape in one or two sentences (symmetric or skewed? one peak or more? any outliers?). Argue whether the normality assumption is reasonable.</p>
 </section>
 </section>
-<section id="step-3-the-test-statistic-by-hand" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="step-3-the-test-statistic-by-hand"><span class="header-section-number">3.3</span> Step 3 – The test statistic by hand</h2>
+<section id="step-3-the-test-statistic-by-hand" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="step-3-the-test-statistic-by-hand"><span class="header-section-number">4.3</span> Step 3 – The test statistic by hand</h2>
 <p>The <strong>test statistic</strong> for a t-test is the <strong>t-value</strong>. It measures how far our sample mean sits from <span class="math inline">\(\mu_0\)</span>, expressed in <strong>standard errors</strong> (the same standard error you met in Week 3):</p>
 <p><span class="math display">\[t = \frac{\text{mean} - \mu_0}{\text{standard error}}, \qquad \text{standard error} = \frac{sd}{\sqrt{n}}\]</span></p>
 <p>A t-value near 0 means the sample mean is close to <span class="math inline">\(\mu_0\)</span>. A large t-value (far from 0, positive or negative) means the sample mean is far from <span class="math inline">\(\mu_0\)</span>.</p>
 <p>We compute it step by step in R, as a calculator:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">30</span>                          <span class="co"># the value from the literature</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)   <span class="co"># sample mean</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>s  <span class="ot">&lt;-</span> <span class="fu">sd</span>(survey<span class="sc">$</span>self_efficacy)     <span class="co"># standard deviation</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(survey)                 <span class="co"># number of people</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n)                  <span class="co"># standard error</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> (m <span class="sc">-</span> mu0) <span class="sc">/</span> se</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>t_value</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.93013</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">30</span>                          <span class="co"># the value from the literature</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">mean</span>(survey<span class="sc">$</span>self_efficacy)   <span class="co"># sample mean</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>s  <span class="ot">&lt;-</span> <span class="fu">sd</span>(survey<span class="sc">$</span>self_efficacy)     <span class="co"># standard deviation</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">nrow</span>(survey)                 <span class="co"># number of people</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n)                  <span class="co"># standard error</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> (m <span class="sc">-</span> mu0) <span class="sc">/</span> se</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>t_value</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.93013</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="your-turn-2" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-2">Your turn</h3>
+<section id="your-turn-3" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-3">Your turn</h3>
 <p>Compute the t-value <strong>by hand</strong> (in R, as a calculator) for your own variable and your own <span class="math inline">\(\mu_0\)</span>, following the four lines above: the mean, the standard deviation, the standard error, and finally the t-value.</p>
 </section>
 </section>
-<section id="step-4-the-p-value" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="step-4-the-p-value"><span class="header-section-number">3.4</span> Step 4 – The p-value</h2>
+<section id="step-4-the-p-value" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="step-4-the-p-value"><span class="header-section-number">4.4</span> Step 4 – The p-value</h2>
 <p>The <strong>p-value</strong> answers: <em>if the null hypothesis were true, how surprising would our t-value be?</em> A <strong>small</strong> p-value (close to 0) means “this observed result would be very surprising if <span class="math inline">\(H_0\)</span> were true”, which is treated as evidence <strong>against</strong> <span class="math inline">\(H_0\)</span>. The usual yet arbitrary cut-off is <strong>0.05</strong>.</p>
 <p>The t-value follows a <strong>t-distribution</strong> with <code>n - 1</code> <strong>degrees of freedom</strong> (<code>df</code>). For a <strong>two-sided</strong> test, we look at both tails, so we take the area beyond <span class="math inline">\(+|t|\)</span> and beyond <span class="math inline">\(-|t|\)</span>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_value), <span class="at">df =</span> df)   <span class="co"># two-sided p-value</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p_value</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.006541451</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_value), <span class="at">df =</span> df)   <span class="co"># two-sided p-value</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>p_value</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.006541451</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The function <code>pt()</code> gives the area under the t-distribution up to a value. Using <code>-abs(t_value)</code> takes the lower tail, and multiplying by 2 covers both sides.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="By hand with a distribution table">
@@ -361,27 +397,27 @@ window.Quarto = {
 <p>On paper, you do not have <code>pt()</code>. Instead you look up your <code>df</code> and your <span class="math inline">\(|t|\)</span> in a <strong>distribution table</strong> (in the book). The table gives a one-sided area; for a <strong>two-sided</strong> test you <strong>double</strong> it. Always check whether your table is one-sided or two-sided before you read off the p-value.</p>
 </div>
 </div>
-<section id="your-turn-3" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-3">Your turn</h3>
+<section id="your-turn-4" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-4">Your turn</h3>
 <p>Compute the two-sided p-value for your variable with <code>pt()</code>, using your own <code>t_value</code> and <code>df</code>. Is it smaller or larger than 0.05?</p>
 </section>
 </section>
-<section id="step-5-check-in-r-and-interpret" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="step-5-check-in-r-and-interpret"><span class="header-section-number">3.5</span> Step 5 – Check in R and interpret</h2>
+<section id="step-5-check-in-r-and-interpret" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="step-5-check-in-r-and-interpret"><span class="header-section-number">4.5</span> Step 5 – Check in R and interpret</h2>
 <p>You did the work by hand. Now let R do the whole test in one line and check your answer. The command is <code>t.test()</code>. We give it the variable and the value <span class="math inline">\(\mu_0\)</span> under <code>mu</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(survey<span class="sc">$</span>self_efficacy, <span class="at">mu =</span> <span class="dv">30</span>)   <span class="co"># default is alternative = "two.sided"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  One Sample t-test</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  survey$self_efficacy</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 2.9301, df = 29, p-value = 0.006541</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true mean is not equal to 30</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  30.97647 35.49020</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean of x </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  33.23333</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(survey<span class="sc">$</span>self_efficacy, <span class="at">mu =</span> <span class="dv">30</span>)   <span class="co"># default is alternative = "two.sided"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  One Sample t-test</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  survey$self_efficacy</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 2.9301, df = 29, p-value = 0.006541</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true mean is not equal to 30</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  30.97647 35.49020</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean of x </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  33.23333</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Read the output: it prints the <strong>t</strong> value, the <strong>df</strong>, and the <strong>p-value</strong>. These should match your hand calculation from Steps 3 and 4. It also prints a <strong>95% confidence interval</strong> for the mean, exactly like Week 3.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Testing and confidence intervals are two sides of one coin">
@@ -402,217 +438,275 @@ window.Quarto = {
 <li>If <strong>p &lt; 0.05</strong>, we <strong>reject</strong> <span class="math inline">\(H_0\)</span>: there is evidence that the population mean differs from <span class="math inline">\(\mu_0\)</span>.</li>
 <li>If <strong>p</strong> <span class="math inline">\(\geq\)</span> 0.05, we <strong>do not reject</strong> <span class="math inline">\(H_0\)</span>: we do not have enough evidence to say it differs from <span class="math inline">\(\mu_0\)</span>. (This is <em>not</em> the same as proving <span class="math inline">\(H_0\)</span> true.)</li>
 </ul>
-<section id="your-turn-4" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-4">Your turn</h3>
+<section id="your-turn-5" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-5">Your turn</h3>
 <p>Run <code>t.test()</code> for your variable with your <span class="math inline">\(\mu_0\)</span>. Confirm that the <code>t</code> and <code>p</code> match your hand values. Then write one sentence stating your conclusion about <span class="math inline">\(H_0\)</span> in plain language.</p>
 </section>
 </section>
-<section id="effect-size-cohens-d" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="effect-size-cohens-d"><span class="header-section-number">3.6</span> Effect size: Cohen’s d</h2>
+<section id="effect-size-the-raw-difference" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="effect-size-the-raw-difference"><span class="header-section-number">4.6</span> Effect size: the raw difference</h2>
 <p>A p-value tells you <em>whether</em> there is a difference, but not <em>how big</em> it is. With a large enough sample, even a tiny, unimportant difference can become “significant”. So we also report an <strong>effect size</strong>, which measures the size of the difference on its own.</p>
-<p>For a one-sample test, <strong>Cohen’s d</strong> is the distance between the mean and <span class="math inline">\(\mu_0\)</span>, measured in standard deviations:</p>
-<p><span class="math display">\[d = \frac{\text{mean} - \mu_0}{sd}\]</span></p>
+<p>The simplest effect size is the <strong>raw difference</strong> (also called the <strong>unstandardized mean difference</strong>). It is the distance between the sample mean and <span class="math inline">\(\mu_0\)</span>, in the <strong>original units</strong> of your variable, for example points on a questionnaire or hours per week:</p>
+<p><span class="math display">\[\text{raw difference} = \text{mean} - \mu_0\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cohens_d <span class="ot">&lt;-</span> (m <span class="sc">-</span> mu0) <span class="sc">/</span> s</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cohens_d</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.5349662</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>raw_diff <span class="ot">&lt;-</span> m <span class="sc">-</span> mu0</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>raw_diff</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.233333</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Rough labels: <span class="math inline">\(d \approx 0.2\)</span> is a small effect, 0.5 medium, 0.8 large.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Why d and t are not the same">
+<p>The sign tells you the <strong>direction</strong>. A positive raw difference means the sample mean lies <strong>above</strong> <span class="math inline">\(\mu_0\)</span>. A negative raw difference means it lies <strong>below</strong> <span class="math inline">\(\mu_0\)</span>.</p>
+</section>
+<section id="a-confidence-interval-for-the-raw-difference" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="a-confidence-interval-for-the-raw-difference"><span class="header-section-number">4.7</span> A confidence interval for the raw difference</h2>
+<p>The raw difference is an estimate, so it shows sampling fluctuation, just like the sample mean in Week 3. We therefore also give a 95% <strong>confidence interval</strong> for it. We build it in the same way as in Week 3, with one change: instead of 1.96 we use a multiplier from the <strong>t-distribution</strong>. The function <code>qt()</code> finds it for you. It is the t-distribution version of <code>qnorm()</code> from Week 3.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>se_diff <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n)               <span class="co"># standard error (Week 3)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>t_crit  <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)     <span class="co"># t-multiplier for a 95% interval</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(raw_diff <span class="sc">-</span> t_crit <span class="sc">*</span> se_diff,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  raw_diff <span class="sc">+</span> t_crit <span class="sc">*</span> se_diff)       <span class="co"># 95% CI for the raw difference</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.9764682 5.4901985</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If the interval contains <strong>0</strong>, then “no difference” is still a plausible value, and the two-sided test is not significant at 0.05. If 0 lies outside the interval, the test is significant.</p>
+</section>
+<section id="is-the-difference-big" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="is-the-difference-big"><span class="header-section-number">4.8</span> Is the difference big?</h2>
+<p>There are <strong>no fixed labels</strong> such as “small” or “large” for a raw difference. A difference of 2 points can be large on one scale and tiny on another. You have to judge the size yourself, <strong>in context</strong>. These questions help:</p>
+<ol type="1">
+<li><strong>How long is the scale?</strong> A difference of 2 points is large on a scale from 0 to 10, but small on a scale from 0 to 100.</li>
+<li><strong>What does it mean in practice?</strong> For example: is one extra hour of study per week something a teacher would notice?</li>
+<li><strong>Is there a known important difference?</strong> Some test manuals say how many points a change must be before it matters for a child or client.</li>
+<li><strong>Look at both ends of the confidence interval.</strong> Is even the <strong>smallest</strong> plausible difference important? Or is even the <strong>largest</strong> plausible difference still unimportant?</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Example: judging a raw difference">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Why d and t are not the same
+<span class="screen-reader-only">Note</span>Example: judging a raw difference
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Notice that <code>d = t / sqrt(n)</code>. The t-value <strong>grows</strong> with the sample size, but Cohen’s d does <strong>not</strong>. That is the whole point: d describes the size of the effect itself, separately from how many people you measured. We return to this idea in the power section.</p>
+<p>Imagine a self-efficacy scale that runs from 10 to 50, with <span class="math inline">\(\mu_0 = 30\)</span>. The sample of 30 students has a mean of 32.4. The raw difference is <span class="math inline">\(32.4 - 30 = 2.4\)</span> points, with a 95% confidence interval from 0.2 to 4.6 points.</p>
+<p>A conclusion could be: “On average, the students scored 2.4 points higher than 30 (95% CI from 0.2 to 4.6 points). The difference is statistically significant, but it is small compared to the 40-point length of the scale. The smallest plausible difference (0.2 points) is negligible; the largest (4.6 points) might be noticeable in practice.”</p>
 </div>
 </div>
-<section id="your-turn-5" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-5">Your turn</h3>
-<p>Compute Cohen’s d for your variable and <span class="math inline">\(\mu_0\)</span>. Give it a label (small, medium, or large), and write one sentence combining your Step 5 conclusion with this effect size.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Why the raw difference and t are not the same">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why the raw difference and t are not the same
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The t-value is the raw difference divided by the standard error:</p>
+<p><span class="math display">\[t = \frac{\text{mean} - \mu_0}{sd / \sqrt{n}}\]</span></p>
+<p>A bigger sample makes the standard error smaller (Week 3), so the t-value <strong>grows</strong> with the sample size. The raw difference does <strong>not</strong> grow with the sample size. That is the whole point: the raw difference describes the size of the effect itself, separately from how many people you measured. We return to this idea in the power section.</p>
+</div>
+</div>
+<section id="your-turn-6" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-6">Your turn</h3>
+<p>For your own variable and <span class="math inline">\(\mu_0\)</span>:</p>
+<ol type="1">
+<li>Compute the raw difference. Is the sample mean above or below <span class="math inline">\(\mu_0\)</span>?</li>
+<li>Compute the 95% confidence interval for the raw difference. Does it contain 0? Does this agree with your p-value?</li>
+<li>Answer the four questions in <em>Is the difference big?</em> in one sentence each.</li>
+<li>Write one or two sentences that combine your Step 5 conclusion with the raw difference and its confidence interval, in the units of your variable.</li>
+</ol>
+</section>
+<section id="your-turn-7" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
+<p><strong>Think it through.</strong> Two researchers measure stress in parents, on a scale from 0 to 40. Both compare their sample mean with the same <span class="math inline">\(\mu_0\)</span>.</p>
+<ul>
+<li>Researcher A asked <strong>20</strong> parents. The raw difference is <strong>4 points</strong>, with <span class="math inline">\(p = 0.08\)</span>.</li>
+<li>Researcher B asked <strong>2000</strong> parents. The raw difference is <strong>0.8 points</strong>, with <span class="math inline">\(p &lt; 0.001\)</span>.</li>
+</ul>
+<ol type="1">
+<li>Which study found the <strong>larger</strong> effect?</li>
+<li>Explain why the smaller effect is significant and the larger one is not. Use the words <strong>sample size</strong> and <strong>standard error</strong>.</li>
+<li>Which result do you think is more important for practice? Explain your answer.</li>
+<li>What would you advise researcher A to do next?</li>
+</ol>
 </section>
 <hr>
 </section>
 </section>
-<section id="two-sample-t-test-comparing-two-groups" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Two-sample t-test: comparing two groups</h1>
+<section id="two-sample-t-test-comparing-two-groups" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Two-sample t-test: comparing two groups</h1>
 <p>Often we do not compare our mean to a fixed number, but compare <strong>two groups</strong> to each other. For example: <em>do students in different study programmes report different self-efficacy?</em> This is a <strong>two-sample t-test</strong>. It follows the same five steps.</p>
 <p>For this example we compare two of the programmes in our data, <strong>Pedagogy</strong> and <strong>Psychology</strong>. We first keep only those two groups:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>two_programs <span class="ot">&lt;-</span> survey[survey<span class="sc">$</span>program_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Pedagogy"</span>, <span class="st">"Psychology"</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>two_programs <span class="ot">&lt;-</span> survey[survey<span class="sc">$</span>program_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Pedagogy"</span>, <span class="st">"Psychology"</span>), ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="first-describe-the-two-groups" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="first-describe-the-two-groups"><span class="header-section-number">4.1</span> First, describe the two groups</h2>
+<section id="first-describe-the-two-groups" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="first-describe-the-two-groups"><span class="header-section-number">5.1</span> First, describe the two groups</h2>
 <p>Before testing, always look at the groups. We split self-efficacy into the two programmes and compare them with a boxplot (from Week 2) and with numbers:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(self_efficacy <span class="sc">~</span> program_name,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> two_programs,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Self-efficacy by programme"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"self-efficacy score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(self_efficacy <span class="sc">~</span> program_name,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> two_programs,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Self-efficacy by programme"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"self-efficacy score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the two groups as separate vectors</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> two_programs<span class="sc">$</span>self_efficacy[two_programs<span class="sc">$</span>program_name <span class="sc">==</span> <span class="st">"Pedagogy"</span>]</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> two_programs<span class="sc">$</span>self_efficacy[two_programs<span class="sc">$</span>program_name <span class="sc">==</span> <span class="st">"Psychology"</span>]</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean_pedagogy =</span> <span class="fu">mean</span>(g1), <span class="at">sd_pedagogy =</span> <span class="fu">sd</span>(g1), <span class="at">n_pedagogy =</span> <span class="fu">length</span>(g1))</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean_pedagogy   sd_pedagogy    n_pedagogy </span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     33.900000      6.226288     10.000000</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean_psychology =</span> <span class="fu">mean</span>(g2), <span class="at">sd_psychology =</span> <span class="fu">sd</span>(g2), <span class="at">n_psychology =</span> <span class="fu">length</span>(g2))</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean_psychology   sd_psychology    n_psychology </span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       33.555556        4.693376        9.000000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the two groups as separate vectors</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> two_programs<span class="sc">$</span>self_efficacy[two_programs<span class="sc">$</span>program_name <span class="sc">==</span> <span class="st">"Pedagogy"</span>]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> two_programs<span class="sc">$</span>self_efficacy[two_programs<span class="sc">$</span>program_name <span class="sc">==</span> <span class="st">"Psychology"</span>]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean_pedagogy =</span> <span class="fu">mean</span>(g1), <span class="at">sd_pedagogy =</span> <span class="fu">sd</span>(g1), <span class="at">n_pedagogy =</span> <span class="fu">length</span>(g1))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean_pedagogy   sd_pedagogy    n_pedagogy </span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     33.900000      6.226288     10.000000</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean_psychology =</span> <span class="fu">mean</span>(g2), <span class="at">sd_psychology =</span> <span class="fu">sd</span>(g2), <span class="at">n_psychology =</span> <span class="fu">length</span>(g2))</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mean_psychology   sd_psychology    n_psychology </span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       33.555556        4.693376        9.000000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="your-turn-6" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-6">Your turn</h3>
+<section id="your-turn-8" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
 <p>Make the boxplot and the group summaries for your own two groups. Which group has the higher mean in the sample? Is the difference big or small compared to the spread within each group?</p>
 </section>
 </section>
-<section id="step-1-hypotheses-1" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="step-1-hypotheses-1"><span class="header-section-number">4.2</span> Step 1 – Hypotheses</h2>
+<section id="step-1-hypotheses-1" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="step-1-hypotheses-1"><span class="header-section-number">5.2</span> Step 1 – Hypotheses</h2>
 <p>Now the hypotheses are about the <strong>difference</strong> between the two group means.</p>
 <ul>
 <li><span class="math inline">\(H_0\)</span>: the two population means are equal (their difference is 0). Written <span class="math inline">\(H_0: \mu_1 = \mu_2\)</span>.</li>
 <li><span class="math inline">\(H_1\)</span>: the two population means are different. Written <span class="math inline">\(H_1: \mu_1 \neq \mu_2\)</span>.</li>
 </ul>
 <p>Again this is <strong>two-sided</strong>: we allow either group to be higher.</p>
-<section id="your-turn-7" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-7">Your turn</h3>
+<section id="your-turn-9" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-9">Your turn</h3>
 <p>Write down <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span> for your two groups, in the two-sided form. Explain in one sentence why you test two-sided.</p>
 </section>
 </section>
-<section id="step-2-assumptions-1" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="step-2-assumptions-1"><span class="header-section-number">4.3</span> Step 2 – Assumptions</h2>
+<section id="step-2-assumptions-1" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="step-2-assumptions-1"><span class="header-section-number">5.3</span> Step 2 – Assumptions</h2>
 <p>The two-sample t-test needs the same assumptions as before, applied to <strong>both</strong> groups: a continuous variable, independent observations, and roughly normal distributions in each group (or large enough samples). Check each group’s shape with a histogram:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g1, <span class="at">breaks =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy: Pedagogy"</span>, <span class="at">xlab =</span> <span class="st">"score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g1, <span class="at">breaks =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy: Pedagogy"</span>, <span class="at">xlab =</span> <span class="st">"score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g2, <span class="at">breaks =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy: Psychology"</span>, <span class="at">xlab =</span> <span class="st">"score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g2, <span class="at">breaks =</span> <span class="dv">8</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Self-efficacy: Psychology"</span>, <span class="at">xlab =</span> <span class="st">"score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="your-turn-8" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-8">Your turn</h3>
+<section id="your-turn-10" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
 <p>Make a histogram for each of your two groups. Describe both shapes and argue whether the assumption is reasonable.</p>
 </section>
 </section>
-<section id="step-3-the-test-statistic-by-hand-1" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="step-3-the-test-statistic-by-hand-1"><span class="header-section-number">4.4</span> Step 3 – The test statistic by hand</h2>
+<section id="step-3-the-test-statistic-by-hand-1" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="step-3-the-test-statistic-by-hand-1"><span class="header-section-number">5.4</span> Step 3 – The test statistic by hand</h2>
 <p>For two groups, the t-value is the <strong>difference between the two means</strong>, divided by the <strong>standard error of that difference</strong>. Each group keeps its <strong>own</strong> spread: we do <strong>not</strong> assume the two groups are equally spread out. This version of the test is called <strong>Welch’s t-test</strong>, and it is the safer, standard choice.</p>
 <p><span class="math display">\[t = \frac{\text{mean}_1 - \text{mean}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}}\]</span></p>
 <p>In R, as a calculator:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(g1); s1 <span class="ot">&lt;-</span> <span class="fu">sd</span>(g1); n1 <span class="ot">&lt;-</span> <span class="fu">length</span>(g1)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(g2); s2 <span class="ot">&lt;-</span> <span class="fu">sd</span>(g2); n2 <span class="ot">&lt;-</span> <span class="fu">length</span>(g2)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># standard error of the difference (each group keeps its own spread)</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>se_diff  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1 <span class="sc">+</span> s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>t_value2 <span class="ot">&lt;-</span> (m1 <span class="sc">-</span> m2) <span class="sc">/</span> se_diff</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>t_value2</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1369672</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(g1); s1 <span class="ot">&lt;-</span> <span class="fu">sd</span>(g1); n1 <span class="ot">&lt;-</span> <span class="fu">length</span>(g1)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(g2); s2 <span class="ot">&lt;-</span> <span class="fu">sd</span>(g2); n2 <span class="ot">&lt;-</span> <span class="fu">length</span>(g2)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># standard error of the difference (each group keeps its own spread)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>se_diff  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1 <span class="sc">+</span> s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>t_value2 <span class="ot">&lt;-</span> (m1 <span class="sc">-</span> m2) <span class="sc">/</span> se_diff</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>t_value2</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1369672</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <strong>degrees of freedom</strong> for Welch’s test use a longer formula. You do not need to memorise it; R computes it for you, and we reproduce it here only so our hand p-value matches R exactly:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> (s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1 <span class="sc">+</span> s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       ((s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">+</span> (s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n2 <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df2</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 16.53635</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> (s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1 <span class="sc">+</span> s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>       ((s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">+</span> (s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n2 <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df2</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 16.53635</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="your-turn-9" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-9">Your turn</h3>
+<section id="your-turn-11" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-11">Your turn</h3>
 <p>Compute the two-sample t-value <strong>by hand</strong> for your two groups, following the lines above: the two means, the standard error of the difference, and the t-value.</p>
 </section>
 </section>
-<section id="step-4-5-check-in-r-and-interpret" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="step-4-5-check-in-r-and-interpret"><span class="header-section-number">4.5</span> Step 4 &amp; 5 – Check in R and interpret</h2>
+<section id="step-4-5-check-in-r-and-interpret" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="step-4-5-check-in-r-and-interpret"><span class="header-section-number">5.5</span> Step 4 &amp; 5 – Check in R and interpret</h2>
 <p>First, the two-sided <strong>p-value</strong> by hand, using <code>pt()</code> with the Welch degrees of freedom:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p_value2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_value2), <span class="at">df =</span> df2)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p_value2</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8927105</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p_value2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_value2), <span class="at">df =</span> df2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p_value2</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.8927105</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now let R run the whole test and check your hand calculation. For two groups we use the <strong>formula form</strong> <code>variable ~ group</code> (as in the Week 2 boxplot). We do <strong>not</strong> set <code>var.equal</code>, so <code>t.test()</code> runs <strong>Welch’s test</strong> by default, matching the by-hand calculation above:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(self_efficacy <span class="sc">~</span> program_name, <span class="at">data =</span> two_programs)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  self_efficacy by program_name</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 0.13697, df = 16.536, p-value = 0.8927</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group Pedagogy and group Psychology is not equal to 0</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  -4.972666  5.661554</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean in group Pedagogy mean in group Psychology </span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 33.90000                 33.55556</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(self_efficacy <span class="sc">~</span> program_name, <span class="at">data =</span> two_programs)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; data:  self_efficacy by program_name</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; t = 0.13697, df = 16.536, p-value = 0.8927</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means between group Pedagogy and group Psychology is not equal to 0</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  -4.972666  5.661554</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   mean in group Pedagogy mean in group Psychology </span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 33.90000                 33.55556</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <code>t</code>, <code>df</code>, and <code>p-value</code> should match your hand values. Read the p-value and decide:</p>
 <ul>
 <li><strong>p &lt; 0.05</strong> <span class="math inline">\(\rightarrow\)</span> reject <span class="math inline">\(H_0\)</span>: the two programmes differ in self-efficacy.</li>
 <li><strong>p</strong> <span class="math inline">\(\geq\)</span> 0.05 <span class="math inline">\(\rightarrow\)</span> do not reject <span class="math inline">\(H_0\)</span>: not enough evidence of a difference.</li>
 </ul>
-<section id="your-turn-10" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-10">Your turn</h3>
+<section id="your-turn-12" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-12">Your turn</h3>
 <p>Compute the two-sided p-value by hand, then run the two-sample <code>t.test()</code> for your groups. Confirm the <code>t</code> and <code>p</code> match, and write one sentence stating your conclusion about <span class="math inline">\(H_0\)</span>.</p>
 </section>
 </section>
-<section id="effect-size-cohens-d-and-checking-it-in-r" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="effect-size-cohens-d-and-checking-it-in-r"><span class="header-section-number">4.6</span> Effect size: Cohen’s d (and checking it in R)</h2>
+<section id="effect-size-cohens-d-and-checking-it-in-r" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="effect-size-cohens-d-and-checking-it-in-r"><span class="header-section-number">5.6</span> Effect size: Cohen’s d (and checking it in R)</h2>
 <p>For two groups, <strong>Cohen’s d</strong> is the difference between the group means divided by a single standard deviation that combines both groups (the <strong>pooled</strong> standard deviation, <code>sp</code>). This pooling is only a way to put the difference on one common scale for the effect size; it is <strong>not</strong> an assumption of the Welch test above.</p>
 <p>We subtract in the order (Psychology <span class="math inline">\(-\)</span> Pedagogy), that is <span class="math inline">\(\text{mean}_2 - \text{mean}_1\)</span>, so that the sign matches what <code>cohen.d()</code> reports below:</p>
 <p><span class="math display">\[d = \frac{\text{mean}_2 - \text{mean}_1}{s_p}, \qquad s_p = \sqrt{\frac{(n_1-1)\,s_1^2 + (n_2-1)\,s_2^2}{n_1 + n_2 - 2}}\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sp <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (n2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>cohens_d2 <span class="ot">&lt;-</span> (m2 <span class="sc">-</span> m1) <span class="sc">/</span> sp</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>cohens_d2</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.06197456</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sp <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (n2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>cohens_d2 <span class="ot">&lt;-</span> (m2 <span class="sc">-</span> m1) <span class="sc">/</span> sp</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>cohens_d2</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.06197456</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Use the same rough labels as before (0.2 small, 0.5 medium, 0.8 large). The <strong>sign</strong> of d only shows the direction (which group is higher); its <strong>size</strong> is what matters.</p>
 <p>You can also let a package compute it. The <code>psych</code> package has a function <code>cohen.d()</code>. The block below installs <code>psych</code> the first time (only if it is missing) and then loads it:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"psych"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"psych"</span>, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>d_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">self_efficacy =</span> two_programs<span class="sc">$</span>self_efficacy,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">program_name  =</span> <span class="fu">factor</span>(two_programs<span class="sc">$</span>program_name)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cohen.d</span>(d_data, <span class="at">group =</span> <span class="st">"program_name"</span>)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call: cohen.d(x = d_data, group = "program_name")</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Cohen d statistic of difference between two means</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               lower effect upper</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; self_efficacy -0.97  -0.07  0.84</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate (Mahalanobis) distance between groups</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.066</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; r equivalent of difference between two means</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; self_efficacy </span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         -0.03</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"psych"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"psych"</span>, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>d_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">self_efficacy =</span> two_programs<span class="sc">$</span>self_efficacy,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">program_name  =</span> <span class="fu">factor</span>(two_programs<span class="sc">$</span>program_name)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cohen.d</span>(d_data, <span class="at">group =</span> <span class="st">"program_name"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call: cohen.d(x = d_data, group = "program_name")</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Cohen d statistic of difference between two means</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               lower effect upper</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; self_efficacy -0.97  -0.07  0.84</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multivariate (Mahalanobis) distance between groups</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.066</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; r equivalent of difference between two means</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; self_efficacy </span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         -0.03</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The value from <code>cohen.d()</code> should be <strong>very close</strong> to your hand value (small differences can appear because the package estimates the combined spread in a slightly different way).</p>
 <div class="callout callout-style-default callout-note callout-titled" title="A note on signs">
@@ -628,18 +722,18 @@ window.Quarto = {
 <p><code>t.test()</code> and <code>cohen.d()</code> order the two groups in opposite ways, so the <strong>t-value</strong> and <strong>Cohen’s d</strong> may carry opposite signs. That is harmless: only the <em>sizes</em> matter for your conclusion. The sign simply tells you which group scored higher.</p>
 </div>
 </div>
-<section id="your-turn-11" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-11">Your turn</h3>
+<section id="your-turn-13" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-13">Your turn</h3>
 <p>Compute Cohen’s d by hand for your two groups and label it. Then check it with <code>cohen.d()</code> from the <code>psych</code> package and confirm the two are close. Finally, write a short conclusion that combines the p-value <strong>and</strong> the effect size.</p>
 </section>
 <hr>
 </section>
 </section>
-<section id="power-effect-size-and-sample-size" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Power, effect size, and sample size</h1>
+<section id="power-effect-size-and-sample-size" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Power, effect size, and sample size</h1>
 <p>A test can give the wrong answer in two ways. Understanding these leads to the idea of <strong>power</strong>.</p>
-<section id="type-i-and-type-ii-errors" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="type-i-and-type-ii-errors"><span class="header-section-number">5.1</span> Type I and Type II errors</h2>
+<section id="type-i-and-type-ii-errors" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="type-i-and-type-ii-errors"><span class="header-section-number">6.1</span> Type I and Type II errors</h2>
 <p>There are two kinds of mistake a test can make:</p>
 <table class="caption-top table">
 <thead>
@@ -669,94 +763,94 @@ window.Quarto = {
 </ul>
 <p>Power goes <strong>up</strong> when the effect is bigger, when the sample is larger, or when the spread is smaller.</p>
 </section>
-<section id="a-power-simulation" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="a-power-simulation"><span class="header-section-number">5.2</span> A power simulation</h2>
+<section id="a-power-simulation" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="a-power-simulation"><span class="header-section-number">6.2</span> A power simulation</h2>
 <p>We can <em>see</em> power by simulation, using a prescribed function. It draws many samples from a population whose true mean we choose, runs a one-sample t-test on each, and reports the <strong>share of tests that are significant</strong>. You can run and read this; you do <strong>not</strong> need to write it yourself.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>simulate_power <span class="ot">&lt;-</span> <span class="cf">function</span>(mu0, true_mean, true_sd, n, <span class="at">n_sim =</span> <span class="dv">1000</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  p_values <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sim, {</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    sample_data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> true_mean, <span class="at">sd =</span> true_sd)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t.test</span>(sample_data, <span class="at">mu =</span> mu0)<span class="sc">$</span>p.value</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(p_values <span class="sc">&lt;</span> alpha)   <span class="co"># share of tests that reject H0</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>simulate_power <span class="ot">&lt;-</span> <span class="cf">function</span>(mu0, true_mean, true_sd, n, <span class="at">n_sim =</span> <span class="dv">1000</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  p_values <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_sim, {</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    sample_data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> true_mean, <span class="at">sd =</span> true_sd)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t.test</span>(sample_data, <span class="at">mu =</span> mu0)<span class="sc">$</span>p.value</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(p_values <span class="sc">&lt;</span> alpha)   <span class="co"># share of tests that reject H0</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>First, a check. If the true mean <strong>equals</strong> <span class="math inline">\(\mu_0\)</span>, then <span class="math inline">\(H_0\)</span> is true, so every rejection is a false alarm. The share should land near <span class="math inline">\(\alpha = 0.05\)</span> (the Type I error rate):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="dv">30</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> <span class="dv">30</span>)   <span class="co"># H0 true -&gt; about 0.05</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.044</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="dv">30</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> <span class="dv">30</span>)   <span class="co"># H0 true -&gt; about 0.05</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.044</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now make the true mean <strong>differ</strong> from <span class="math inline">\(\mu_0\)</span>. The share of significant tests is now the <strong>power</strong>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="dv">33</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> <span class="dv">30</span>)   <span class="co"># a real 3-point effect</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.762</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="dv">33</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> <span class="dv">30</span>)   <span class="co"># a real 3-point effect</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.762</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Whatever is left over (1 minus this number) is the <strong>Type II error rate</strong>: the share of times we missed the real effect.</p>
 <p><strong>What power looks like.</strong> The picture below shows <em>why</em> this works. The grey curve is the sampling distribution of the mean if <span class="math inline">\(H_0\)</span> were true (centred on 30). The blue curve is the sampling distribution if the true mean is really 33. The red dashed lines are the cut-offs: sample means outside them lead us to reject <span class="math inline">\(H_0\)</span>. <strong>Power</strong> is the share of the blue curve that falls beyond the cut-off (shaded):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mu0       <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>true_mean <span class="ot">&lt;-</span> <span class="dv">33</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>true_sd   <span class="ot">&lt;-</span> <span class="dv">6</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>n         <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>se        <span class="ot">&lt;-</span> true_sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>crit      <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se   <span class="co"># half-width of the "keep H0" zone</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>upper_cut <span class="ot">&lt;-</span> mu0 <span class="sc">+</span> crit</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>lower_cut <span class="ot">&lt;-</span> mu0 <span class="sc">-</span> crit</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">24</span>, <span class="dv">40</span>, <span class="at">length.out =</span> <span class="dv">400</span>)</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs, <span class="fu">dnorm</span>(xs, mu0, se), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"grey50"</span>,</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"sample mean"</span>, <span class="at">ylab =</span> <span class="st">""</span>,</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Power is the shaded area of the 'true' curve beyond the cut-off"</span>)</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xs, <span class="fu">dnorm</span>(xs, true_mean, se), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>)</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(lower_cut, upper_cut), <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co"># shade the power region (blue curve beyond the upper cut-off)</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>xr <span class="ot">&lt;-</span> <span class="fu">seq</span>(upper_cut, <span class="dv">40</span>, <span class="at">length.out =</span> <span class="dv">200</span>)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(xr, <span class="fu">rev</span>(xr)),</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="fu">dnorm</span>(xr, true_mean, se), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(xr))),</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">"steelblue"</span>, <span class="at">alpha.f =</span> <span class="fl">0.3</span>), <span class="at">border =</span> <span class="cn">NA</span>)</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.85</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"grey50"</span>, <span class="st">"steelblue"</span>),</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"if H0 true (mean 30)"</span>, <span class="st">"if true mean is 33"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mu0       <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>true_mean <span class="ot">&lt;-</span> <span class="dv">33</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>true_sd   <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>n         <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>se        <span class="ot">&lt;-</span> true_sd <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>crit      <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se   <span class="co"># half-width of the "keep H0" zone</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>upper_cut <span class="ot">&lt;-</span> mu0 <span class="sc">+</span> crit</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>lower_cut <span class="ot">&lt;-</span> mu0 <span class="sc">-</span> crit</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">24</span>, <span class="dv">40</span>, <span class="at">length.out =</span> <span class="dv">400</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs, <span class="fu">dnorm</span>(xs, mu0, se), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"grey50"</span>,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"sample mean"</span>, <span class="at">ylab =</span> <span class="st">""</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Power is the shaded area of the 'true' curve beyond the cut-off"</span>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xs, <span class="fu">dnorm</span>(xs, true_mean, se), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(lower_cut, upper_cut), <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co"># shade the power region (blue curve beyond the upper cut-off)</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>xr <span class="ot">&lt;-</span> <span class="fu">seq</span>(upper_cut, <span class="dv">40</span>, <span class="at">length.out =</span> <span class="dv">200</span>)</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(xr, <span class="fu">rev</span>(xr)),</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="fu">dnorm</span>(xr, true_mean, se), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(xr))),</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">"steelblue"</span>, <span class="at">alpha.f =</span> <span class="fl">0.3</span>), <span class="at">border =</span> <span class="cn">NA</span>)</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">cex =</span> <span class="fl">0.85</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"grey50"</span>, <span class="st">"steelblue"</span>),</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"if H0 true (mean 30)"</span>, <span class="st">"if true mean is 33"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>If the two curves move further apart (a bigger effect) or get narrower (a bigger sample), more of the blue curve spills past the cut-off, so power goes up.</p>
-<section id="your-turn-12" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-12">Your turn</h3>
+<section id="your-turn-14" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-14">Your turn</h3>
 <p>Keep <code>mu0 = 30</code>, <code>true_mean = 33</code>, <code>true_sd = 6</code>, and raise the sample size <code>n</code> from <code>30</code> to <code>100</code> in <code>simulate_power()</code>. Does the power go up or down? Write one sentence linking sample size to power.</p>
 </section>
 <p>We can watch that happen across many sample sizes at once. For each <code>n</code> we run the simulation and plot the resulting power:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sample_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">100</span>, <span class="dv">150</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>power_by_n <span class="ot">&lt;-</span> <span class="fu">sapply</span>(sample_sizes, <span class="cf">function</span>(nn) {</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="dv">33</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> nn, <span class="at">n_sim =</span> <span class="dv">300</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sample_sizes, power_by_n, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"sample size (n)"</span>, <span class="at">ylab =</span> <span class="st">"power"</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Power rises with sample size (3-point effect)"</span>)</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.80</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span>)   <span class="co"># a common target for power</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sample_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">100</span>, <span class="dv">150</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>power_by_n <span class="ot">&lt;-</span> <span class="fu">sapply</span>(sample_sizes, <span class="cf">function</span>(nn) {</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="dv">33</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> nn, <span class="at">n_sim =</span> <span class="dv">300</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sample_sizes, power_by_n, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"sample size (n)"</span>, <span class="at">ylab =</span> <span class="st">"power"</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Power rises with sample size (3-point effect)"</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.80</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span>)   <span class="co"># a common target for power</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The curve climbs as <code>n</code> grows, and the red line marks 0.80, a common target: many researchers aim for at least 80% power.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Going further (optional): power.t.test()">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -765,42 +859,42 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>R also has a built-in function, <code>power.t.test()</code>, that computes power from the effect size, sample size, and spread directly, without simulation. Our simulation is slower but shows <em>where</em> power comes from, which is easier to understand.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="statistical-significance-vs-practical-significance" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="statistical-significance-vs-practical-significance"><span class="header-section-number">5.3</span> Statistical significance vs practical significance</h2>
+<section id="statistical-significance-vs-practical-significance" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="statistical-significance-vs-practical-significance"><span class="header-section-number">6.3</span> Statistical significance vs practical significance</h2>
 <p>Here is the most important lesson of the week. Because power rises with sample size, a <strong>very large sample</strong> can make <strong>any</strong> difference significant, even one far too small to matter in practice.</p>
 <p>Take a tiny true difference: <span class="math inline">\(\mu_0 = 30\)</span> versus a true mean of 30.3. In standard deviations that is Cohen’s d = 0.3 / 6 = <strong>0.05</strong>, a trivially small effect. With a normal sample it is almost never detected:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="fl">30.3</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> <span class="dv">30</span>)     <span class="co"># tiny effect, small n</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.054</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="fl">30.3</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> <span class="dv">30</span>)     <span class="co"># tiny effect, small n</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.054</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>But with a huge sample, the same trivial difference becomes significant almost every time:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="fl">30.3</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> <span class="dv">5000</span>)   <span class="co"># tiny effect, huge n</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.942</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="fl">30.3</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> <span class="dv">5000</span>)   <span class="co"># tiny effect, huge n</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.942</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can plot this trivial effect across a wide range of sample sizes. Watch the power climb toward 1 even though the effect never changes:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>big_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">1000</span>, <span class="dv">3000</span>, <span class="dv">6000</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>power_tiny <span class="ot">&lt;-</span> <span class="fu">sapply</span>(big_sizes, <span class="cf">function</span>(nn) {</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="fl">30.3</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> nn, <span class="at">n_sim =</span> <span class="dv">200</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(big_sizes, power_tiny, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">log =</span> <span class="st">"x"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"sample size (n, log scale)"</span>, <span class="at">ylab =</span> <span class="st">"power"</span>,</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"A trivial effect (d = 0.05) still reaches significance with enough data"</span>)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.80</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>big_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">1000</span>, <span class="dv">3000</span>, <span class="dv">6000</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>power_tiny <span class="ot">&lt;-</span> <span class="fu">sapply</span>(big_sizes, <span class="cf">function</span>(nn) {</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simulate_power</span>(<span class="at">mu0 =</span> <span class="dv">30</span>, <span class="at">true_mean =</span> <span class="fl">30.3</span>, <span class="at">true_sd =</span> <span class="dv">6</span>, <span class="at">n =</span> nn, <span class="at">n_sim =</span> <span class="dv">200</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(big_sizes, power_tiny, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">log =</span> <span class="st">"x"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"sample size (n, log scale)"</span>, <span class="at">ylab =</span> <span class="st">"power"</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"A trivial effect (d = 0.05) still reaches significance with enough data"</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.80</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="r_tutorial_week_04_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -811,15 +905,15 @@ window.Quarto = {
 <li><strong>Practical significance:</strong> the effect is <strong>large enough to matter</strong> in the real world.</li>
 </ul>
 <p>This is exactly why we always report <strong>Cohen’s d next to the p-value</strong>. The p-value tells you <em>whether</em> there is an effect; the effect size tells you <em>whether it matters</em>.</p>
-<section id="your-turn-13" class="level3 unnumbered your-turn">
-<h3 class="unnumbered anchored" data-anchor-id="your-turn-13">Your turn</h3>
+<section id="your-turn-15" class="level3 unnumbered your-turn">
+<h3 class="unnumbered anchored" data-anchor-id="your-turn-15">Your turn</h3>
 <p>Use <code>simulate_power()</code> twice: once with a <strong>small effect and a large n</strong>, and once with a <strong>large effect and a small n</strong>. Compare the two power values. Then write two sentences: one on why a significant result is not always an important result, and one on why reporting Cohen’s d helps.</p>
 </section>
 <hr>
 </section>
 </section>
-<section id="recap-what-you-can-now-do" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Recap: what you can now do</h1>
+<section id="recap-what-you-can-now-do" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Recap: what you can now do</h1>
 <p>Last week you estimated a population mean. This week you learned to <strong>test</strong> claims about it. You can now:</p>
 <ul>
 <li>write a <strong>null</strong> and <strong>alternative</strong> hypothesis, and choose two-sided (or, rarely, one-sided);</li>
