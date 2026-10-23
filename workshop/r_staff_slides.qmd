@@ -1,0 +1,320 @@
+---
+title: "Getting Started with R and RStudio"
+author: "Sebastian A. J. Lortz"
+institute: "University of Groningen"
+date: today
+format:
+  beamer:
+    theme: metropolis
+    fontsize: 12pt
+    aspectratio: 169
+    navigation: empty
+    classoption: t
+    header-includes: |
+      \setbeamertemplate{frametitle continuation}{}
+      \metroset{block=fill}
+      \usepackage{tikz}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  prompt = FALSE,
+  fig.align = "center",
+  fig.width = 5,
+  fig.height = 3.3
+)
+options(width = 75)   # narrower printed output, fits the slide width
+```
+
+```{r}
+#| include: false
+# Creates pupils.csv; identical to simulate_pupils.R (not shown in the workshop)
+set.seed(2026)   # fixes the random numbers: same data every time
+n <- 120         # number of pupils
+
+group     <- rep(c("control", "intervention"), each = n / 2)
+age       <- sample(8:12, size = n, replace = TRUE)
+behaviour <- rpois(n, lambda = 12)
+wellbeing <- round(30 + 4 * (group == "intervention") -
+                   0.5 * behaviour + rnorm(n, sd = 5))
+
+# some pupils with many behaviour problems skip the questionnaire
+no_response <- behaviour > 14 & runif(n) < 0.6
+wellbeing[no_response] <- NA
+
+pupils <- data.frame(group, age, behaviour, wellbeing)
+write.csv(pupils, "pupils.csv", row.names = FALSE)
+rm(list = ls())
+getwd()
+```
+
+# Introduction to R and RStudio {background-color="#1a2744"}
+
+## R and RStudio
+
+- **R**: programming language and software environment for statistical computing and graphics
+- Free and open source; extended with **packages** (e.g., from CRAN)
+- **RStudio**: integrated development environment (**IDE**) for R, developed by Posit
+- RStudio does not compute; it passes your commands to R
+- Today: base R only, no packages needed
+
+\vspace{0.4em}
+
+\begin{tikzpicture}
+\node[
+  draw=black!45,
+  line width=0.35pt,
+  rounded corners=1pt,
+  fill=black!2,
+  inner xsep=8pt,
+  inner ysep=6pt,
+  text width=0.95\textwidth,
+  align=left
+] {
+\textbf{Division of labour}: R computes, RStudio is the workspace around it.
+};
+\end{tikzpicture}
+
+## The RStudio interface
+
+\begin{figure}
+\centering
+\includegraphics[height=.9\textheight, keepaspectratio]{rstudio_panes.png}
+\end{figure}
+
+## Scripts, not the console
+
+- **R script**: plain-text file (`.R`) with commands, run from top to bottom
+- Run line or selection: *Ctrl* + *Enter* (Mac: *Cmd* + *Enter*)
+- Run whole script: *Ctrl* + *Shift* + *Enter*
+- **Comment**: text after `#` is not executed
+- Objects live in memory and are lost on closing $\rightarrow$ the script is the permanent record
+
+\vspace{0.4em}
+
+\begin{tikzpicture}
+\node[
+  draw=black!45,
+  line width=0.35pt,
+  rounded corners=1pt,
+  fill=black!2,
+  inner xsep=8pt,
+  inner ysep=6pt,
+  text width=0.95\textwidth,
+  align=left
+] {
+\textbf{Reproducibility}: same script + same data = same output.
+};
+\end{tikzpicture}
+
+## Working directory
+
+- **Working directory**: folder where R reads and writes files by default
+- Set: *Session* > *Set Working Directory* > *Choose Directory*
+- Check: `getwd()`
+- File names such as `"pupils.csv"` are read relative to this folder
+
+\vspace{0.4em}
+
+\begin{tikzpicture}
+\node[
+  draw=black!45,
+  line width=0.35pt,
+  rounded corners=1pt,
+  fill=black!2,
+  inner xsep=8pt,
+  inner ysep=6pt,
+  text width=0.95\textwidth,
+  align=left
+] {
+\textbf{Error "cannot open file"}: almost always a wrong path name.
+};
+\end{tikzpicture}
+
+## Core syntax
+
+\scriptsize
+
+| Element | Example | Meaning |
+|---|---|---|
+| Assignment | `x <- c(3, 7, 9)` | Store values in an **object** |
+| Function call | `mean(x, na.rm = TRUE)` | **Function** applied to **arguments** |
+| Vector | `c(3, 7, 9)` | Ordered values of one type |
+| Data frame | `pupils$age` | Rows = cases, columns = variables; `$` selects a column |
+| Missing value | `NA` | "Not available" |
+| Comment | `# note` | Ignored by R |
+
+\normalsize
+
+$\rightarrow$ Help on any function: `?mean`
+
+## The example study
+
+Evaluation of a classroom programme for social-emotional learning in primary school; 120 pupils, 60 per group.
+
+| Variable | Type | Description |
+|---|---|---|
+| `group` | Categorical | Control or intervention |
+| `age` | Whole number | Age in years (8 to 12) |
+| `behaviour` | Whole number | Teacher-rated behaviour problems (higher = more problems) |
+| `wellbeing` | Whole number | Self-reported wellbeing (higher = better); some missing |
+
+
+## Workshop roadmap
+
+\scriptsize
+
+| Step | Task | Main functions |
+|---|---|---|
+| 1 | Load the data | `read.csv()` |
+| 2 | View the data | `View()`, `head()`, `str()` |
+| 3 | Plot the data | `hist()`, `plot()` |
+| 4 | Descriptive statistics | `summary()`, `mean()`, `sd()` |
+| 5 | Group comparison plot | `tapply()`, `boxplot()` |
+| 6 | t-test | `t.test()` |
+| 7 | Inspect missing values | `is.na()`, `colSums()`, `table()` |
+| 8 | Plot missingness on covariates | `boxplot()` |
+
+\normalsize
+
+$\rightarrow$ Save `pupils.csv` and `workshop.R` in one folder, set it as working directory, open `workshop.R` and work through the steps.
+
+# Hands-on: the workshop script {background-color="#1a2744"}
+
+## Step 1: Load the data
+
+\scriptsize
+
+```{r}
+# stringsAsFactors = TRUE: text columns become categorical variables (factors)
+pupils <- read.csv("pupils.csv", stringsAsFactors = TRUE)
+dim(pupils)   # number of rows and columns
+```
+
+\normalsize
+
+$\rightarrow$ `pupils.csv` must be in the working directory; the Environment now holds `pupils`.
+
+## Step 2: View the data
+
+\scriptsize
+
+```{r}
+#| eval: false
+View(pupils)   # spreadsheet view in a new tab
+```
+
+```{r}
+head(pupils)   # first six rows
+str(pupils)    # structure: type of each variable
+```
+
+\normalsize
+
+$\rightarrow$ `Factor` = categorical, `int` = whole number, `NA` = missing value.
+
+## Step 3: Plot the data
+
+\scriptsize
+
+```{r}
+#| layout-ncol: 2
+hist(pupils$wellbeing, col = "steelblue",
+     main = "Wellbeing", xlab = "wellbeing score")
+plot(wellbeing ~ behaviour, data = pupils, pch = 19, col = "steelblue",
+     main = "Wellbeing by behaviour problems")
+```
+
+\normalsize
+
+$\rightarrow$ More behaviour problems, lower wellbeing.
+
+## Step 4: Descriptive statistics
+
+\scriptsize
+
+```{r}
+summary(pupils)
+mean(pupils$wellbeing)                 # NA: one missing value is enough
+mean(pupils$wellbeing, na.rm = TRUE)   # na.rm = TRUE: ignore missing values
+sd(pupils$wellbeing, na.rm = TRUE)
+```
+
+\normalsize
+
+$\rightarrow$ `summary()` reports `NA's`; most functions need `na.rm = TRUE`.
+
+## Step 5: Group comparison plot
+
+\scriptsize
+
+```{r}
+#| out-width: "45%"
+tapply(pupils$wellbeing, pupils$group, mean, na.rm = TRUE)   # group means
+boxplot(wellbeing ~ group, data = pupils, col = c("steelblue", "darkorange"),
+        main = "Wellbeing by group", ylab = "wellbeing score")
+```
+
+\normalsize
+
+$\rightarrow$ Intervention group higher on average; similar spread.
+
+## Step 6: t-test
+
+\tiny
+
+```{r}
+t.test(wellbeing ~ group, data = pupils)   # Welch two-sample t-test (default)
+```
+
+```{r}
+#| include: false
+tt <- t.test(wellbeing ~ group, data = pupils)
+```
+
+\normalsize
+
+- Intervention `r round(diff(tt$estimate), 1)` points higher (95% CI `r round(-tt$conf.int[2], 1)` to `r round(-tt$conf.int[1], 1)`), $p$ < .001; true effect: +4
+- Only complete cases used: $n$ = `r sum(!is.na(pupils$wellbeing))` of `r nrow(pupils)`
+
+## Step 7: Inspect missing values
+
+\scriptsize
+
+```{r}
+colSums(is.na(pupils))                        # number of NAs per variable
+mean(is.na(pupils$wellbeing))                 # share of NAs in wellbeing
+table(pupils$group, is.na(pupils$wellbeing))  # TRUE = missing
+```
+
+\normalsize
+
+$\rightarrow$ `r sum(is.na(pupils$wellbeing))` of `r nrow(pupils)` `wellbeing` scores missing (`r round(100 * mean(is.na(pupils$wellbeing)), 1)`%); similar in both groups.
+
+## Step 8: Plot missingness on covariates
+
+\scriptsize
+
+```{r}
+#| layout-ncol: 2
+#| fig-height: 2.8
+boxplot(behaviour ~ is.na(wellbeing), data = pupils, col = "steelblue",
+        names = c("observed", "missing"), xlab = "wellbeing score",
+        main = "Behaviour problems")
+boxplot(age ~ is.na(wellbeing), data = pupils, col = "steelblue",
+        names = c("observed", "missing"), xlab = "wellbeing score",
+        main = "Age")
+```
+
+\normalsize
+
+$\rightarrow$ Missingness related to `behaviour`, not to `age`: not missing completely at random.
+
+# Questions and Discussion {background-color="#1a2744"}
+
+## Discussion
+
+- insert

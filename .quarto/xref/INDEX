@@ -13,5 +13,8 @@
   "week01/r_tutorial_week_01.qmd": {
     "r_tutorial_week_01.html": "383aa8bb",
     "r_tutorial_week_01.tex": "0994f7ab"
+  },
+  "workshop/r_staff_slides.qmd": {
+    "r_staff_slides.tex": "750d00f4"
   }
 }
